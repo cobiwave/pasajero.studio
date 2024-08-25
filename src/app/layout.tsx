@@ -1,11 +1,12 @@
-import DraftModeToggler from '@/components/DraftModeToggler';
+import localFont from 'next/font/local';
+import { draftMode } from 'next/headers';
+import { toNextMetadata } from 'react-datocms';
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { graphql } from '@/lib/datocms/graphql';
-import { draftMode } from 'next/headers';
-import { toNextMetadata } from 'react-datocms';
-
 import './global.css';
+
+const myFont = localFont({ src: './StretchPro.woff2' });
 
 const query = graphql(
   /* GraphQL */ `
@@ -33,22 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
-        <header>
-          <h1>DatoCMS + Next.js Starter Kit</h1>
-          <nav>
-            <a className="navlink" href="https://www.datocms.com/docs/next-js">
-              📚 Full Integration Guide
-            </a>
-            <a className="navlink" href="/basic">
-              🔧 Basic Route
-            </a>
-            <a className="navlink" href="/real-time-updates">
-              ⚡️ Real-time Updates Route
-            </a>
-          </nav>
-          <DraftModeToggler draftModeEnabled={draftMode().isEnabled} />
-        </header>
+      <body className={myFont.className}>
         <main>{children}</main>
       </body>
     </html>
