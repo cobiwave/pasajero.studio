@@ -14,12 +14,11 @@ import styles from './page.module.css';
 const query = graphql(
   /* GraphQL */ `
     query BasicPageQuery {
-      page {
+      homePage {
         _seoMetaTags {
           ...TagFragment
         }
         title
-        _firstPublishedAt
       }
     }
   `,
@@ -34,19 +33,19 @@ const query = graphql(
 export const generateMetadata = generateMetadataFn({
   query,
   // A callback that picks the SEO meta tags from the result of the query
-  pickSeoMetaTags: (data) => data.page?._seoMetaTags,
+  pickSeoMetaTags: (data) => data.homePage?._seoMetaTags,
 });
 
 export default async function Home() {
-  const { page } = await executeQuery(query);
+  const { homePage } = await executeQuery(query);
 
-  if (!page) {
+  if (!homePage) {
     notFound();
   }
 
   return (
     <div className={styles.main}>
-      <h1 className={styles.title}>{page.title}</h1>
+      <h1 className={styles.title}>{homePage.title}</h1>
     </div>
   );
 }

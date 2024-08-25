@@ -251,6 +251,32 @@ type GlobalSeoField {
   twitterAccount: String
 }
 
+"""Record of type 🏠 Home Page (home_page)"""
+type HomePageRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  seoAnalysis: JsonField
+  seoSettingsSocial: SeoField
+  title: String!
+}
+
 """Block of type 🌅 Image (image_block)"""
 type ImageBlockRecord implements RecordInterface {
   _createdAt: DateTime!
@@ -2228,41 +2254,6 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
-union PageModelStructuredTextBlocksField = ImageBlockRecord | ImageGalleryBlockRecord | VideoBlockRecord
-
-type PageModelStructuredTextField {
-  blocks: [PageModelStructuredTextBlocksField!]!
-  links: [PageRecord!]!
-  value: JsonField!
-}
-
-"""Record of type 📝 Page (page)"""
-type PageRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  id: ItemId!
-  seoAnalysis: JsonField
-  seoSettingsSocial: SeoField
-  structuredText: PageModelStructuredTextField!
-  title: String!
-}
-
 """The query root for this schema"""
 type Query {
   """Returns meta information regarding an assets collection"""
@@ -2303,7 +2294,7 @@ type Query {
   ): [FileField!]!
 
   """Returns the single instance record"""
-  page(
+  homePage(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -2311,7 +2302,7 @@ type Query {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-  ): PageRecord
+  ): HomePageRecord
 
   """Returns a specific asset"""
   upload(
