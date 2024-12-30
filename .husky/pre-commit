@@ -1,0 +1,26 @@
+# .husky/pre-commit
+#!/bin/sh
+
+# Imprimir mensaje de inicio
+echo "🚀 Ejecutando pre-commit hook..."
+
+# Cargar NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Verificar que npm está disponible
+if ! command -v npm >/dev/null 2>&1; then
+    echo "❌ Error: npm no está disponible"
+    exit 1
+fi
+
+# Ejecutar prettier con manejo de errores
+echo "🎨 Ejecutando Prettier..."
+if npx prettier --write . ; then
+    echo "✅ Formato completado exitosamente"
+    git add .
+    exit 0
+else
+    echo "❌ Error al formatear código"
+    exit 1
+fi
