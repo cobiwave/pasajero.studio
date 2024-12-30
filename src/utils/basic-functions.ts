@@ -1,8 +1,4 @@
-import type { FormVariant, ZooxTheme } from '@/types';
-
-import { complaintForm, feedbackForm, lostFoundForm } from '@/data/mock/mock-forms';
-
-import { AspectRatioEnum, ZooxThemeEnum, ZooxThemeHexEnum } from '@/types';
+import { AspectRatioEnum } from '@/types';
 
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || '';
 
@@ -119,47 +115,6 @@ export function download(blob: Blob, filename: string) {
   document.body.append(link);
   link.click();
   link.remove();
-}
-
-export function getBackgroundTheme(theme: ZooxTheme = ZooxThemeEnum.Default): ZooxThemeHexEnum {
-  switch (theme.toLowerCase()) {
-    case ZooxThemeEnum.Black: {
-      return ZooxThemeHexEnum.Black;
-    }
-    case ZooxThemeEnum.Light: {
-      return ZooxThemeHexEnum.Light;
-    }
-    case ZooxThemeEnum.Dark: {
-      return ZooxThemeHexEnum.Dark;
-    }
-    default: {
-      return ZooxThemeHexEnum.Default;
-    }
-  }
-}
-
-export const getFormMockContent = (formVariant: FormVariant) => {
-  switch (formVariant) {
-    case 'feedback': {
-      return feedbackForm;
-    }
-    case 'complaint': {
-      return complaintForm;
-    }
-    case 'lost-found': {
-      return lostFoundForm;
-    }
-    default: {
-      return feedbackForm;
-    }
-  }
-};
-
-export function decorativeElementProps() {
-  return {
-    role: 'presentation',
-    'aria-hidden': true,
-  };
 }
 
 export async function copyToClipboard(text?: string): Promise<void> {
