@@ -3,7 +3,7 @@ import { graphql } from '@/lib/datocms/graphql';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
-import styles from './page.module.css';
+import styles from './page.module.scss';
 
 /**
  * The GraphQL query that will be executed for this route to generate the page
@@ -44,8 +44,8 @@ export default async function Home() {
   }
 
   return (
-    <div className={styles.main}>
-      <h1 className={styles.title}>{homePage.title}</h1>
+    <div className={styles.root}>
+      <h1>{homePage.title.toUpperCase()}</h1>
     </div>
   );
 }
