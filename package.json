@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint && prettier --check .",
     "generate-schema": "dotenv -c -- bash -c 'gql.tada generate schema https://graphql.datocms.com --header \"X-Exclude-Invalid: true\" --header \"Authorization: $DATOCMS_PUBLISHED_CONTENT_CDA_TOKEN\"'",
-    "format": "npx prettier . --write",
-    "prepare": "husky"
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@datocms/cda-client": "^0.2.1",
@@ -35,13 +34,8 @@
     "dotenv-cli": "^7.4.2",
     "eslint": "8.57.1",
     "eslint-config-next": "15.1.3",
-    "husky": "^9.1.7",
     "prettier": "3.3.3",
     "sass": "^1.83.0",
-    "simple-git-hooks": "^2.11.1",
     "typescript": "^5"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "npm run format"
   }
 }
