@@ -26,7 +26,7 @@ export async function executeQuery<Result, Variables>(
        * technique: by using the `next.tags` option, all requests to DatoCMS
        * are tagged with "datocms" in the Next.js Data Cache. Whenever DatoCMS
        * notifies us of any updates via webhook, we invalidate all requests
-       * with the same tag.
+       * with  the same tag.
        *
        * Although this caching strategy may be sufficient for smaller
        * websites, it is not advised for larger projects. Fortunately, with
