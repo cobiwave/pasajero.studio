@@ -99,29 +99,8 @@
 ///     @include box(3.2rem, 2rem);
 ///   }
 @mixin box($width, $height: $width) {
-  width: $width;
-  height: $height;
-}
-
-/// position, top, left, width, height shorthand
-/// @example scss Input
-///   element {
-///     @include rect(absolute, 0, 0, 100%, 100%);
-///   }
-@mixin rect($position: null, $top: null, $left: null, $width: null, $height: null) {
-  @if $position {
-    position: $position;
-  }
-
-  @if $top {
-    top: $top;
-  }
-
-  @if $left {
-    left: $left;
-  }
-
-  @include box($width, $height);
+  inline-size: $width;
+  block-size: $height;
 }
 
 /// opacity and visibility shorthand
@@ -140,24 +119,6 @@
       visibility $time $easing,
       pointer-events $time $easing;
   }
-}
-
-/// text-shadow shorthand with defaults
-/// @example scss Input
-///   .title {
-///     @include text-shadow;
-///   }
-@mixin text-shadow($x: 0, $y: 0, $blur: px(20), $color: rgba($black, 0.1)) {
-  text-shadow: $x $y $blur $color;
-}
-
-/// box-shadow shorthand with defaults
-/// @example scss Input
-///   .content {
-///     @include box-shadow;
-///   }
-@mixin box-shadow($x: 0, $y: 0, $blur: px(20), $spread: 0, $color: rgba($black, 0.1)) {
-  box-shadow: $x $y $blur $spread $color;
 }
 
 /// Set top and left to 0
@@ -265,8 +226,7 @@
 ///     @include z-index(modal);
 ///   }
 @mixin z-index($id) {
-  $elements: background, pages, footer, nav, modal, notification, intro, nonfunctional, noscript,
-    debug-grid, fps-indicator;
+  $elements: background, pages, footer, nav, modal, notification, debug-grid, fps-indicator;
   z-index: list.index($elements, $id);
 }
 
