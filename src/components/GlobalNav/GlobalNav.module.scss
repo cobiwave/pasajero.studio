@@ -1,0 +1,78 @@
+@import '@/styles/shared';
+
+.header {
+  @include z-index(nav);
+  @include position-0(fixed);
+  @include gpu();
+  right: 0;
+  background-color: $white;
+  backdrop-filter: blur(px(5));
+}
+
+.skip {
+  @include visually-hidden();
+  z-index: 999;
+  padding: px(16);
+  background-color: $black;
+  color: $white;
+
+  &:focus {
+    @include transform-center-horiz();
+    position: absolute;
+  }
+}
+
+.container {
+  @include flex-center();
+  // justify-content: space-between;
+  max-width: px(1200);
+  border-bottom: 1px solid $gray-light;
+  margin: 0 auto;
+  padding: px(16);
+}
+
+.logo {
+  a {
+    font-size: px(16);
+    font-weight: $font-weight-bold;
+    color: $black;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+}
+
+.nav {
+  ul {
+    display: flex;
+    gap: px(32);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
+    position: relative;
+
+    &:after {
+      content: '';
+      @include position-0(absolute);
+      bottom: px(-2);
+      width: 0;
+      height: px(2);
+      background: $black;
+      transition: width 0.3s ease;
+    }
+
+    &:hover:after {
+      width: 100%;
+    }
+  }
+}
+
+@include media-tablet {
+  .nav ul {
+    gap: px(20);
+  }
+}

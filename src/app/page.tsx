@@ -45,7 +45,16 @@ export default async function Home() {
 
   return (
     <div className={styles.root}>
-      <h1>{homePage.title.toUpperCase()}</h1>
+      <div className={styles.container}>
+        <iframe
+          src="https://www.youtube.com/embed/ARjwoqnlPvc?si=hQtd3H9ktfqfUGT1"
+          title="Rewind | A Short Film | Shot on iPhone"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+          frameBorder="0"
+        ></iframe>
+      </div>
     </div>
   );
 }
