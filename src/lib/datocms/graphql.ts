@@ -9,6 +9,7 @@
 
 import { initGraphQLTada } from 'gql.tada';
 import type { introspection } from './graphql-env.js';
+import { TadaDocumentNode } from 'gql.tada';
 
 /**
  * The Content Delivery API exposes a number of custom GraphQL scalar types. For
@@ -36,3 +37,9 @@ export const graphql = initGraphQLTada<{
 export { readFragment } from 'gql.tada';
 
 export type { FragmentOf, ResultOf, VariablesOf } from 'gql.tada';
+
+export type TypeFromQuery<T extends TadaDocumentNode> =
+  T extends TadaDocumentNode<infer Q, any> ? Q : never;
+
+export type VariablesFromQuery<T extends TadaDocumentNode> =
+  T extends TadaDocumentNode<any, infer V> ? V : never;
