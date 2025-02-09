@@ -50,13 +50,13 @@ export async function generateStaticParams() {
 
 export const generateMetadata = generateMetadataFn({
   query,
-  buildQueryVariables: (params: { slug: string }) => ({
+  buildQueryVariables: (params: { category: string; slug: string }) => ({
     slug: params.slug,
   }),
   pickSeoMetaTags: (data) => data.article?._seoMetaTags,
 });
 
-export default async function Article({ params }: { params: { slug: string } }) {
+export default async function Article({ params }: { params: { category: string; slug: string } }) {
   const { slug } = params;
 
   console.log('slug ===>', slug);
