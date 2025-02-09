@@ -5,6 +5,7 @@ import { TagFragment } from '@/lib/datocms/commonFragments';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { graphql } from '@/lib/datocms/graphql';
 import DebugGrid from '@/components/DebugGrid/DebugGrid';
+import GlobalNav from '@/components/GlobalNav/GlobalNav';
 import '@/styles/global.scss';
 
 const myFont = localFont({ src: './StretchPro.woff2' });
@@ -36,6 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={myFont.className}>
+        <GlobalNav />
         <main>{children}</main>
         <DebugGrid />
       </body>
