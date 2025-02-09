@@ -15,6 +15,7 @@
     "@datocms/cma-client": "^3.3.5",
     "@types/highlight.js": "^10.1.0",
     "bowser": "^2.11.0",
+    "classnames": "^2.5.1",
     "datocms-structured-text-to-plain-text": "^4.0.1",
     "datocms-structured-text-utils": "^4.0.1",
     "gql.tada": "^1.8.0",
