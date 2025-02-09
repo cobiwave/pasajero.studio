@@ -1,66 +1,41 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { executeQuery } from '@/lib/datocms/executeQuery';
-import { TagFragment } from '@/lib/datocms/commonFragments';
+import { TypeFromQuery, VariablesFromQuery } from '@/lib/datocms/graphql';
+import { ARTICLE_BY_SLUG, ARTICLES_PATHS } from '@/graphql/queries';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
-import { graphql } from '@/lib/datocms/graphql';
 import styles from './page.module.scss';
 
-// Query to get all possible paths
-const pathsQuery = graphql(`
-  query ArticlePaths {
-    allArticles {
-      slug
-    }
-  }
-`);
-
-const query = graphql(
-  `
-    query ArticleBySlug($slug: String) {
-      article(filter: { slug: { eq: $slug } }) {
-        _publishedAt
-        _seoMetaTags {
-          ...TagFragment
-        }
-        id
-        title
-        slug
-        categories {
-          slug
-          name
-          description
-        }
-        featuredImage {
-          url
-        }
-      }
-    }
-  `,
-  [TagFragment],
-);
+type PageProps = {
+  params: { category: string; slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export async function generateStaticParams() {
-  const { allArticles } = await executeQuery(pathsQuery);
+  const { allArticles } = await executeQuery(ARTICLES_PATHS);
 
   return allArticles.map((article) => ({
     slug: article.slug ?? '',
   }));
 }
 
-export const generateMetadata = generateMetadataFn({
-  query,
-  buildQueryVariables: (params: { category: string; slug: string }) => ({
-    slug: params.slug,
+export const generateMetadata = generateMetadataFn<
+  PageProps,
+  TypeFromQuery<typeof ARTICLE_BY_SLUG>,
+  VariablesFromQuery<typeof ARTICLE_BY_SLUG>
+>({
+  query: ARTICLE_BY_SLUG,
+  buildQueryVariables: (props) => ({
+    slug: props.params.slug,
   }),
-  pickSeoMetaTags: (data) => data.article?._seoMetaTags,
+  pickSeoMetaTags: (data) => data?.article?._seoMetaTags,
 });
 
-export default async function Article({ params }: { params: { category: string; slug: string } }) {
+export default async function Article({ params }: PageProps) {
   const { slug } = params;
 
   console.log('slug ===>', slug);
-  const { article } = await executeQuery(query, {
+  const { article } = await executeQuery(ARTICLE_BY_SLUG, {
     variables: {
       slug,
     },
