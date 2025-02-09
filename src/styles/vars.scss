@@ -28,9 +28,8 @@ $spacing-mobile-large: px(100);
 // Base palette
 // Grayscale and brand colors for use across the site.
 // ====================================================================
-$black: #000;
+$black: #0d1212;
 $white: #fff;
-$zoox-black: #0d1212;
 $gray-light: #ececec;
 $form-error: #b20c0c;
 
@@ -52,11 +51,7 @@ $theme-default: $white;
 // ====================================================================
 // Nav bar
 // ====================================================================
-$navbar-height: px(64);
-// $navbar-margin-sides: px(20);
-// $navbar-margin-top: px(16);
-// $nav-shadow-color: #17211e08;
-// $navbar-box-shadow: 0 px(30) px(30) 0 $nav-shadow-color;
+$navbar-height: px(60);
 
 // ====================================================================
 // Input
