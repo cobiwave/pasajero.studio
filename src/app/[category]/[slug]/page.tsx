@@ -74,13 +74,15 @@ export default async function Article({ params }: { params: { slug: string } }) 
 
   return (
     <div className={styles.root}>
-      <h1>{article.title?.toUpperCase()}</h1>
       <Image
         src={article.featuredImage?.url || ''}
         width={500}
         height={500}
         alt="Picture of the author"
       />
+      {article.categories.map((category) => (
+        <h1 key={category.slug}>{category.name}</h1>
+      ))}
     </div>
   );
 }
