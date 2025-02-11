@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { graphql } from '@/lib/datocms/graphql';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { TagFragment } from '@/lib/datocms/commonFragments';
+import ImageGallery from '@/components/ImageGallery/ImageGallery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
 import styles from './page.module.scss';
 
@@ -45,16 +46,7 @@ export default async function Home() {
 
   return (
     <div className={styles.root}>
-      <div className={styles.container}>
-        <iframe
-          src="https://www.youtube.com/embed/ARjwoqnlPvc?si=hQtd3H9ktfqfUGT1"
-          title="Rewind | A Short Film | Shot on iPhone"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          frameBorder="0"
-        ></iframe>
-      </div>
+      <ImageGallery />
     </div>
   );
 }
