@@ -54,7 +54,7 @@ svg {
 }
 
 main {
-  min-height: 100svh;
+  min-height: calc(100svh - $navbar-height);
   padding-top: $navbar-height;
 
   &:focus-visible {
