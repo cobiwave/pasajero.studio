@@ -15,13 +15,12 @@ $mobile-max-content-width: 100%;
 $tablet-columns: 6;
 $tablet-grid-gap: px(12);
 $tablet-side-padding: px(15);
-$tablet-max-content-width: px(1120); // @NOTE: Seems like an error - was 568 in tablet figma
-
+$tablet-max-content-width: px(1120);
 // desktop
 $desktop-columns: 12;
 $desktop-grid-gap: px(16);
 $desktop-side-padding: px(20);
-$desktop-max-content-width: px(1440); // @NOTE: This could be changed to 100% if we scaling up
+$desktop-max-content-width: px(1440);
 
 // ====================================================================
 // Grid mixins
@@ -163,7 +162,7 @@ $desktop-max-content-width: px(1440); // @NOTE: This could be changed to 100% if
 /// Set element size based on columns for phone
 /// @example scss Input
 ///   div {
-///    width: phone-columns(8);
+///    width: phone-columns(6);
 ///   }
 @function phone-columns($numCols: 1, $gutters: 0) {
   @if $numCols > $mobile-columns {
