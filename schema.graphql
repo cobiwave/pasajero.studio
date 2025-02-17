@@ -491,6 +491,7 @@ type HomePageRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
+  imageGallery: ImageGalleryBlockRecord
   seoAnalysis: JsonField
   seoSettingsSocial: SeoField
   title: String!
