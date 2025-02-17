@@ -22,7 +22,7 @@
     @include flex-center-vert();
     flex-direction: column;
     list-style: none;
-    row-gap: px(40);
+    row-gap: $mobile-grid-gap;
 
     @include media-tablet {
       flex-direction: row;

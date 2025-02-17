@@ -42,7 +42,7 @@ export default function ImageGalleryBlock({ data }: Props) {
       <ul>
         {unmaskedData.assets.map((asset) => (
           <li key={asset.id}>
-            <figure key={asset.id}>
+            <figure>
               {/* Display responsive image for each asset */}
               <ResponsiveImage data={asset.responsiveImage} imgStyle={{ width: 'auto' }} />
               {/* Display title for each asset */}
