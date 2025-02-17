@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { graphql } from '@/lib/datocms/graphql';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { TagFragment } from '@/lib/datocms/commonFragments';
-import ImageGallery from '@/components/ImageGallery/ImageGallery';
+import ImageGalleryBlock from '@/components/blocks/ImageGalleryBlock';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
 import styles from './page.module.scss';
 
@@ -14,12 +14,25 @@ import styles from './page.module.scss';
  */
 const query = graphql(
   /* GraphQL */ `
-    query BasicPageQuery {
+    query HomePageQuery {
       homePage {
         _seoMetaTags {
           ...TagFragment
         }
         title
+        imageGallery {
+          assets {
+            id
+            title
+            responsiveImage {
+              src
+              srcSet
+              alt
+              title
+              base64
+            }
+          }
+        }
       }
     }
   `,
@@ -44,9 +57,11 @@ export default async function Home() {
     notFound();
   }
 
+  console.log('homePage', homePage);
+
   return (
     <div className={styles.root}>
-      <ImageGallery />
+      <ImageGalleryBlock data={homePage.imageGallery} />
     </div>
   );
 }
