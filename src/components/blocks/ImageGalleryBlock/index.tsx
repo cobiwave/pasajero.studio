@@ -1,5 +1,6 @@
 import ResponsiveImage, { ResponsiveImageFragment } from '@/components/ResponsiveImage';
 import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
+import styles from './ImageGallery.module.scss';
 
 /**
  * Let's define the GraphQL fragment needed for the component to function.
@@ -37,17 +38,19 @@ export default function ImageGalleryBlock({ data }: Props) {
   const unmaskedData = readFragment(ImageGalleryBlockFragment, data);
 
   return (
-    <div className="gallery">
-      <div>
+    <div className={styles.root}>
+      <ul>
         {unmaskedData.assets.map((asset) => (
-          <figure key={asset.id}>
-            {/* Display responsive image for each asset */}
-            <ResponsiveImage data={asset.responsiveImage} imgStyle={{ width: 'auto' }} />
-            {/* Display title for each asset */}
-            <figcaption>{asset.title}</figcaption>
-          </figure>
+          <li key={asset.id}>
+            <figure key={asset.id}>
+              {/* Display responsive image for each asset */}
+              <ResponsiveImage data={asset.responsiveImage} imgStyle={{ width: 'auto' }} />
+              {/* Display title for each asset */}
+              <figcaption>{asset.title}</figcaption>
+            </figure>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
