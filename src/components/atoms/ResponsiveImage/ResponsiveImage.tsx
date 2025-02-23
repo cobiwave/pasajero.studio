@@ -29,7 +29,7 @@ export const ResponsiveImageFragment = graphql(/* GraphQL */ `
     base64
 
     # you can omit 'sizes' if you explicitly pass the 'sizes' prop to the image component
-    sizes
+    # sizes
   }
 `);
 

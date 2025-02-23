@@ -6,16 +6,6 @@
 @import '@/styles/vars';
 
 /// Media queries
-/// @example scss Input
-///   element {
-///     [...phone styles....]
-///     @include media-tablet {
-///        [...tablet styles...]
-///     }
-///     @include media-desktop {
-///        [...desktop styles...]
-///     }
-///   }
 @mixin media-mobile-only {
   @media (max-width: #{$breakpoint-tablet - 1}px) {
     @content;
@@ -230,24 +220,6 @@
   z-index: list.index($elements, $id);
 }
 
-@mixin default-outline($offset: px(4), $innerRadius: px(4), $outerRadius: px(18)) {
-  border-radius: $innerRadius;
-  outline: 1px solid $zoox-black;
-  outline-offset: $offset;
-
-  &:before {
-    content: '';
-    position: absolute;
-    z-index: 0;
-    top: calc(calc(#{$offset} + 2px) * -1);
-    left: calc(calc(#{$offset} + 2px) * -1);
-    right: calc(calc(#{$offset} + 2px) * -1);
-    bottom: calc(calc(#{$offset} + 2px) * -1);
-    border: 1px solid #fff;
-    border-radius: $outerRadius;
-  }
-}
-
 @mixin discreet-scrollbar() {
   --scrollbar-width: 10px;
   --scrollbar-color: rgba(255, 255, 255, 0.4);
@@ -332,43 +304,6 @@
   }
 }
 
-@mixin extend-click-box($px: 20, $debug: false) {
-  // @NOTE: This will override the pseudo element you might have
-  // use it wisely
-
-  &::before {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    inset: px(-$px);
-
-    @if $debug {
-      outline: 1px solid $zoox-rose;
-    }
-  }
-}
-
-@mixin clamp-lines($lines: 1) {
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  @if $lines > 1 {
-    -webkit-box-orient: vertical;
-    display: -webkit-box; /* stylelint-disable-line value-no-vendor-prefix -- We need to keep -webkit prefix here */
-    -webkit-line-clamp: $lines;
-  } @else {
-    white-space: nowrap;
-  }
-}
-
-@mixin modal-shadow-background($position: absolute) {
-  @include rect($position, 0, 0, 100%, 100%);
-  z-index: -1;
-  background-color: rgba($black, 0.3);
-  opacity: 0;
-  pointer-events: none;
-}
-
 @mixin visually-hidden {
   position: absolute;
   width: 1px;
@@ -389,56 +324,4 @@
   position: absolute;
   white-space: nowrap;
   inline-size: 1px;
-}
-
-@mixin theming {
-  &.default {
-    // white
-    --text-color: #{$zoox-darkest-green};
-    --bg-color: #{$white};
-  }
-
-  &.light {
-    // light green tint
-    --text-color: #{$zoox-darkest-green};
-    --bg-color: #{$zoox-lightest-green};
-  }
-
-  &.dark {
-    // dark green tint
-    --text-color: #{$white};
-    --bg-color: #{$zoox-darkest-green};
-  }
-
-  &.black {
-    // black
-    --text-color: #{$white};
-    --bg-color: #{$zoox-black};
-  }
-}
-
-@mixin card-sizes {
-  &.sm {
-    max-width: desktop-columns(3);
-  }
-
-  &.md {
-    max-width: desktop-columns(4);
-  }
-
-  &.lg {
-    max-width: desktop-columns(6);
-  }
-
-  &.xl {
-    max-width: desktop-columns(8);
-  }
-
-  &.xxl {
-    max-width: desktop-columns(10);
-  }
-
-  &.wide {
-    max-width: desktop-columns(12);
-  }
 }
