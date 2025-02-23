@@ -2,16 +2,12 @@ import { notFound } from 'next/navigation';
 import { graphql } from '@/lib/datocms/graphql';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { TagFragment } from '@/lib/datocms/commonFragments';
-import ImageGalleryBlock from '@/components/blocks/ImageGalleryBlock';
+import ImageGallery, {
+  ImageGalleryBlockFragment,
+} from '@/components/organisms/ImageGallery/ImageGallery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
 import styles from './page.module.scss';
 
-/**
- * The GraphQL query that will be executed for this route to generate the page
- * content and metadata.
- *
- * Thanks to gql.tada, the result will be fully typed!
- */
 const query = graphql(
   /* GraphQL */ `
     query HomePageQuery {
@@ -21,22 +17,12 @@ const query = graphql(
         }
         title
         imageGallery {
-          assets {
-            id
-            title
-            responsiveImage {
-              src
-              srcSet
-              alt
-              title
-              base64
-            }
-          }
+          ...ImageGalleryBlockFragment
         }
       }
     }
   `,
-  [TagFragment],
+  [TagFragment, ImageGalleryBlockFragment],
 );
 
 /**
@@ -61,7 +47,7 @@ export default async function Home() {
 
   return (
     <div className={styles.root}>
-      <ImageGalleryBlock data={homePage.imageGallery} />
+      {homePage.imageGallery && <ImageGallery data={homePage.imageGallery} />}
     </div>
   );
 }
