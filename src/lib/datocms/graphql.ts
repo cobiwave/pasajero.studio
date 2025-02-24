@@ -7,9 +7,8 @@
  * - https://gql-tada.0no.co/
  */
 
-import { initGraphQLTada } from 'gql.tada';
+import { initGraphQLTada, TadaDocumentNode } from 'gql.tada';
 import type { introspection } from './graphql-env.js';
-import { TadaDocumentNode } from 'gql.tada';
 
 /**
  * The Content Delivery API exposes a number of custom GraphQL scalar types. For
