@@ -2,27 +2,27 @@ import { notFound } from 'next/navigation';
 import { graphql } from '@/lib/datocms/graphql';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { TagFragment } from '@/lib/datocms/commonFragments';
+import ImageGallery, {
+  ImageGalleryBlockFragment,
+} from '@/components/organisms/ImageGallery/ImageGallery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
 import styles from './page.module.scss';
 
-/**
- * The GraphQL query that will be executed for this route to generate the page
- * content and metadata.
- *
- * Thanks to gql.tada, the result will be fully typed!
- */
 const query = graphql(
   /* GraphQL */ `
-    query BasicPageQuery {
+    query HomePageQuery {
       homePage {
         _seoMetaTags {
           ...TagFragment
         }
         title
+        imageGallery {
+          ...ImageGalleryBlockFragment
+        }
       }
     }
   `,
-  [TagFragment],
+  [TagFragment, ImageGalleryBlockFragment],
 );
 
 /**
@@ -43,18 +43,11 @@ export default async function Home() {
     notFound();
   }
 
+  console.log('homePage', homePage);
+
   return (
     <div className={styles.root}>
-      <div className={styles.container}>
-        <iframe
-          src="https://www.youtube.com/embed/ARjwoqnlPvc?si=hQtd3H9ktfqfUGT1"
-          title="Rewind | A Short Film | Shot on iPhone"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerPolicy="strict-origin-when-cross-origin"
-          allowFullScreen
-          frameBorder="0"
-        ></iframe>
-      </div>
+      {homePage.imageGallery && <ImageGallery data={homePage.imageGallery} />}
     </div>
   );
 }

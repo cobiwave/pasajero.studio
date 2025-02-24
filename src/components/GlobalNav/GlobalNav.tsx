@@ -3,7 +3,7 @@ import styles from './GlobalNav.module.scss';
 
 export default function GlobalNav() {
   return (
-    <header className={styles.header}>
+    <header className={styles.root}>
       <a href="#main-content" className={styles.skip}>
         Skip to main content
       </a>

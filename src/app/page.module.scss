@@ -1,20 +1,6 @@
 @import '@/styles/shared';
 
 .root {
-  @include box(100%);
   position: relative;
-
-  .container {
-    @include flex-center();
-    max-width: px(1200);
-    margin: 0 auto;
-    padding: px(20);
-
-    iframe {
-      @include box(100%);
-      border-radius: px(14);
-      aspect-ratio: 16 / 9;
-      max-height: 80vh;
-    }
-  }
+  width: 100%;
 }

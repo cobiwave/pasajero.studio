@@ -1,4 +1,4 @@
-import ResponsiveImage, { ResponsiveImageFragment } from '@/components/ResponsiveImage';
+import VideoPlayer, { VideoPlayerFragment } from '@/components/atoms/VideoPlayer/VideoPlayer';
 import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
 
 /**
@@ -13,33 +13,31 @@ import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
  *
  * Learn more: https://gql-tada.0no.co/guides/fragment-colocation
  */
-export const ImageBlockFragment = graphql(
+export const VideoBlockFragment = graphql(
   /* GraphQL */ `
-    fragment ImageBlockFragment on ImageBlockRecord {
+    fragment VideoBlockFragment on VideoBlockRecord {
       asset {
         title
-        responsiveImage(sizes: "(max-width: 700px) 100vw, 700px") {
-          ...ResponsiveImageFragment
-        }
+        ...VideoPlayerFragment
       }
     }
   `,
-  [ResponsiveImageFragment],
+  [VideoPlayerFragment],
 );
 
 type Props = {
-  data: FragmentOf<typeof ImageBlockFragment>;
+  data: FragmentOf<typeof VideoBlockFragment>;
 };
 
-export default function ImageBlock({ data }: Props) {
+export default function VideoBlock({ data }: Props) {
   // Read unmasked data from fragment
-  const unmaskedData = readFragment(ImageBlockFragment, data);
+  const unmaskedData = readFragment(VideoBlockFragment, data);
 
   return (
     <figure>
-      {/* Display responsive image */}
-      <ResponsiveImage data={unmaskedData.asset.responsiveImage} />
-      {/* Display image title */}
+      {/* Render the video player component */}
+      <VideoPlayer data={unmaskedData.asset} />
+      {/* Display the title of the video asset below the video player */}
       <figcaption>{unmaskedData.asset.title}</figcaption>
     </figure>
   );

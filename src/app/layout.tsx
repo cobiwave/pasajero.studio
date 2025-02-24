@@ -4,7 +4,7 @@ import { toNextMetadata } from 'react-datocms';
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { graphql } from '@/lib/datocms/graphql';
-import DebugGrid from '@/components/DebugGrid/DebugGrid';
+import DebugGrid from '@/components/helpers/DebugGrid/DebugGrid';
 import GlobalNav from '@/components/GlobalNav/GlobalNav';
 import '@/styles/global.scss';
 

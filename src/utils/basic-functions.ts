@@ -1,5 +1,3 @@
-import { AspectRatioEnum } from '@/types';
-
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || '';
 
 export function getScrollTop() {
@@ -144,23 +142,6 @@ export function isYouTubeUrl(url: string): boolean {
   return /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|.+\?.+)?|youtu\.be\/)([\w-]{11})$/iu.test(
     url,
   );
-}
-
-export function ratioToClass(aspectRatio: AspectRatioEnum): string {
-  switch (aspectRatio) {
-    case AspectRatioEnum.OneByOne: {
-      return 'ratio1by1';
-    }
-    case AspectRatioEnum.ThreeByTwo: {
-      return 'ratio3by2';
-    }
-    case AspectRatioEnum.SixteenByNine: {
-      return 'ratio16by9';
-    }
-    default: {
-      return 'ratio1by1';
-    }
-  }
 }
 
 export function clamp(value: number, min: number, max: number): number {

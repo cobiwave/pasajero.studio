@@ -1,0 +1,55 @@
+@import '@/styles/shared';
+
+.root {
+  display: block;
+  width: 100%;
+
+  @include top-spacing('sm');
+  @include bottom-spacing('sm');
+
+  @include media-tablet {
+    @include top-spacing('md');
+    @include bottom-spacing('md');
+  }
+
+  @include media-desktop {
+    @include top-spacing('sm');
+    @include bottom-spacing('sm');
+  }
+
+  ul {
+    @include horizontal-container();
+    @include flex-center-vert();
+    flex-direction: column;
+    list-style: none;
+    row-gap: $mobile-grid-gap;
+
+    @include media-tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      row-gap: $tablet-grid-gap;
+    }
+
+    @include media-desktop {
+      row-gap: $desktop-grid-gap;
+    }
+
+    li {
+      inline-size: phone-columns(6);
+
+      @include media-tablet {
+        inline-size: tablet-columns(3);
+      }
+
+      @include media-desktop {
+        inline-size: desktop-columns(3);
+      }
+
+      figure {
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
