@@ -2,7 +2,7 @@ import ResponsiveImage, {
   ResponsiveImageFragment,
 } from '@/components/atoms/ResponsiveImage/ResponsiveImage';
 import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
-import ImageGalleryClient from './ImageGallery.view';
+import styles from './ImageGallery.module.scss';
 
 export const ImageGalleryBlockFragment = graphql(
   /* GraphQL */ `
@@ -27,7 +27,7 @@ export default function ImageGallery({ data }: Props) {
   const unmaskedData = readFragment(ImageGalleryBlockFragment, data);
 
   return (
-    <ImageGalleryClient>
+    <div className={styles.root}>
       <ul>
         {unmaskedData.assets.map((asset) => (
           <li key={asset.id}>
@@ -47,6 +47,6 @@ export default function ImageGallery({ data }: Props) {
           </li>
         ))}
       </ul>
-    </ImageGalleryClient>
+    </div>
   );
 }
