@@ -1,0 +1,67 @@
+@use 'sass:math';
+
+@import 'vars';
+
+$generic-fonts: system-ui, 'helvetica', 'arial', sans-serif;
+$font-ember-modern: Amazon Ember Modern;
+$font-ember: Amazon Ember;
+
+// Mixins
+
+@mixin font-family($font-family: null, $font-weight: null, $font-style: null) {
+  @if $font-family {
+    font-family: $font-family, $generic-fonts;
+  }
+  font-weight: $font-weight;
+  font-style: $font-style;
+}
+
+@mixin font-size($font-size, $line-height: null, $letter-spacing: null) {
+  @if math.is-unitless($font-size) {
+    font-size: px($font-size);
+  } @else {
+    font-size: $font-size;
+  }
+
+  line-height: line-height($font-size, $line-height);
+  letter-spacing: $letter-spacing;
+}
+
+@function line-height($font-size, $line-height) {
+  @if is-compatible($font-size, $line-height) {
+    @return math.div($line-height, $font-size);
+  } @else {
+    @return $line-height;
+  }
+}
+
+@mixin typography($font-family, $font-weight, $font-size, $line-height: 1.2, $letter-spacing: 0) {
+  @include font-family($font-family, $font-weight);
+  @include font-size($font-size, $line-height, $letter-spacing);
+}
+
+// Typography System
+
+@mixin typography-h1 {
+  @include typography($font-ember-modern, 700, 32, 32, 0.01em);
+}
+
+@mixin typography-subtitle {
+  @include typography($font-ember-modern, 400, 18, 32, 0.01em);
+}
+
+@mixin typography-body {
+  @include typography($font-ember-modern, 400, 16, 20, 0.01em);
+}
+
+@mixin typography-body-small {
+  @include typography($font-ember, 400, 14, 20, 0);
+}
+
+@mixin typography-cta {
+  @include typography($font-ember-modern, 700, 16, 19, 0.03em);
+}
+
+@mixin typography-label {
+  @include typography($font-ember, 400, 12, 20, 0);
+}
