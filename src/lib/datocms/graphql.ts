@@ -37,8 +37,6 @@ export { readFragment } from 'gql.tada';
 
 export type { FragmentOf, ResultOf, VariablesOf } from 'gql.tada';
 
-export type TypeFromQuery<T extends TadaDocumentNode> =
-  T extends TadaDocumentNode<infer Q, any> ? Q : never;
+export type TypeFromQuery<T extends TadaDocumentNode> = T extends TadaDocumentNode<infer Q, any> ? Q : never;
 
-export type VariablesFromQuery<T extends TadaDocumentNode> =
-  T extends TadaDocumentNode<any, infer V> ? V : never;
+export type VariablesFromQuery<T extends TadaDocumentNode> = T extends TadaDocumentNode<any, infer V> ? V : never;

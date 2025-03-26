@@ -31,5 +31,5 @@ export const ARTICLE_BY_SLUG = graphql(
       }
     }
   `,
-  [TagFragment],
+  [TagFragment]
 );

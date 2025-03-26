@@ -15,22 +15,20 @@ interface State {
 export function useScrollDirection(
   target?: Element | RefObject<Element>,
   throttle = 100,
-  fallbackToWindowScroll = true,
+  fallbackToWindowScroll = true
 ) {
   const [state, setState] = useState<State>({
     down: false,
     top: true,
-    up: false,
+    up: false
   });
 
   const element = useMemo(
     () => target && ((target as MutableRefObject<Element>).current || (target as Element)),
-    [target],
+    [target]
   );
 
-  const lastScrollY = useRef(
-    element ? element.scrollTop : typeof window !== 'undefined' ? getScrollTop() : 0,
-  );
+  const lastScrollY = useRef(element ? element.scrollTop : typeof window !== 'undefined' ? getScrollTop() : 0);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -44,7 +42,7 @@ export function useScrollDirection(
         setState({
           down: scrollY > lastScrollY.current,
           top: scrollY === 0,
-          up: scrollY < lastScrollY.current,
+          up: scrollY < lastScrollY.current
         });
 
         lastScrollY.current = scrollY;

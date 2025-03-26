@@ -10,7 +10,7 @@ import type { ContentComponentType } from './generatePageComponent';
  */
 export function generateRealtimeComponent<PageProps, Result, Variables>({
   query,
-  contentComponent: ContentComponent,
+  contentComponent: ContentComponent
 }: GenerateRealtimeComponentOptions<PageProps, Result, Variables>) {
   const RealtimeComponent: RealtimeComponentType<PageProps, Result, Variables> = ({
     pageProps,

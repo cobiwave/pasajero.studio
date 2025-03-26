@@ -9,7 +9,7 @@ export function useClickOutside(element: RefObject<Element>, callback: () => voi
         callback();
       }
     },
-    [element, callback],
+    [element, callback]
   );
 
   useEffect(() => {

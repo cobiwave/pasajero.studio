@@ -1,4 +1,4 @@
-import { browser, device, os } from '@/utils/detect'
+import { browser, device, os } from '@/utils/detect';
 
 export function setBodyClasses() {
   const classes = [
@@ -7,6 +7,6 @@ export function setBodyClasses() {
     device.type,
     browser.name,
     os.name
-  ].filter(Boolean)
-  classes.forEach((c) => document.body.classList.add(c.toLowerCase().split(' ').join('-')))
+  ].filter(Boolean);
+  classes.forEach((c) => document.body.classList.add(c.toLowerCase().split(' ').join('-')));
 }

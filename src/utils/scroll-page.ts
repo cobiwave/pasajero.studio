@@ -1,12 +1,12 @@
-import { gsap } from 'gsap'
+import { gsap } from 'gsap';
 
-import { noop } from './basic-functions'
+import { noop } from './basic-functions';
 
 interface ScrollProps {
-  x: number
-  y: number
-  duration: number
-  ease: string
+  x: number;
+  y: number;
+  duration: number;
+  ease: string;
 }
 
 const defaultProps: ScrollProps = {
@@ -14,9 +14,9 @@ const defaultProps: ScrollProps = {
   y: 0,
   duration: 0, // in seconds
   ease: 'none'
-}
+};
 
-let timeoutId: NodeJS.Timeout
+let timeoutId: NodeJS.Timeout;
 
 /**
  * Scroll page to a specific position
@@ -25,11 +25,11 @@ let timeoutId: NodeJS.Timeout
  * @param {function} [onComplete=noop] - On complete trigger function
  */
 export function scrollPage(props: Partial<ScrollProps> = {}, onComplete = noop) {
-  const combinedProps = { ...defaultProps, ...props }
-  const { x, y, duration, ease } = combinedProps
+  const combinedProps = { ...defaultProps, ...props };
+  const { x, y, duration, ease } = combinedProps;
 
-  if (timeoutId) clearTimeout(timeoutId)
-  timeoutId = setTimeout(onComplete, duration * 1000)
+  if (timeoutId) clearTimeout(timeoutId);
+  timeoutId = setTimeout(onComplete, duration * 1000);
 
-  gsap.to(window, { duration, scrollTo: { x, y, autoKill: false }, ease })
+  gsap.to(window, { duration, scrollTo: { x, y, autoKill: false }, ease });
 }

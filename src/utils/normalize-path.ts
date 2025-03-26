@@ -1,5 +1,5 @@
 export function normalizePathname(path: string): string {
-  if (!path) return ''
+  if (!path) return '';
 
-  return path.replace(/\/$/u, '') // removes trailing slash if exists
+  return path.replace(/\/$/u, ''); // removes trailing slash if exists
 }

@@ -8,14 +8,14 @@ import { type GeneratePageComponentOptions, generatePageComponent } from './gene
  */
 export function generatePageComponentAndMetadataFn<PageProps, Result, Variables>(
   options: GeneratePageComponentOptions<PageProps, Result, Variables> &
-    Partial<GenerateMetadataFnOptions<PageProps, Result, Variables>>,
+    Partial<GenerateMetadataFnOptions<PageProps, Result, Variables>>
 ) {
   const Page = generatePageComponent(options);
 
   const metadataFn = options.pickSeoMetaTags
     ? generateMetadataFn({
         ...options,
-        pickSeoMetaTags: options.pickSeoMetaTags,
+        pickSeoMetaTags: options.pickSeoMetaTags
       })
     : undefined;
 

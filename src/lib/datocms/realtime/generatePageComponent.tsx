@@ -19,7 +19,7 @@ import type { RealtimeComponentType } from './generateRealtimeComponent';
  * - the page displays `contentComponent`.
  */
 export function generatePageComponent<PageProps, Result, Variables>(
-  options: GeneratePageComponentOptions<PageProps, Result, Variables>,
+  options: GeneratePageComponentOptions<PageProps, Result, Variables>
 ) {
   return async function Page(unsanitizedPageProps: PageProps) {
     const { isEnabled: isDraftModeEnabled } = draftMode();
@@ -39,7 +39,7 @@ export function generatePageComponent<PageProps, Result, Variables>(
 
     const data = await executeQuery(options.query, {
       variables,
-      includeDrafts: isDraftModeEnabled,
+      includeDrafts: isDraftModeEnabled
     });
 
     const { realtimeComponent: RealTimeComponent, contentComponent: ContentComponent } = options;

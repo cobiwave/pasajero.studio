@@ -8,9 +8,7 @@ type InitialRefs<T extends UnknownMap> = {
 };
 type ResultRefs<T extends UnknownMap> = { [key in keyof T]: MutableRefObject<T[key] | null> };
 
-export function useRefs<T extends UnknownMap>(
-  initialTarget?: Partial<InitialRefs<T>>,
-): ResultRefs<T> {
+export function useRefs<T extends UnknownMap>(initialTarget?: Partial<InitialRefs<T>>): ResultRefs<T> {
   const proxyTarget = useRef<Partial<ResultRefs<T>>>((initialTarget ?? {}) as ResultRefs<T>);
 
   return useMemo(
@@ -21,8 +19,8 @@ export function useRefs<T extends UnknownMap>(
           if (target[p]) return target[p];
           target[p] = { current: undefined } as MutableRefObject<T[keyof T]>;
           return target[p];
-        },
+        }
       }) as ResultRefs<T>,
-    [],
+    []
   );
 }
