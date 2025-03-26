@@ -1,6 +1,4 @@
-import ResponsiveImage, {
-  ResponsiveImageFragment,
-} from '@/components/atoms/ResponsiveImage/ResponsiveImage';
+import ResponsiveImage, { ResponsiveImageFragment } from '@/components/atoms/ResponsiveImage/ResponsiveImage';
 import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
 import styles from './ImageGallery.module.scss';
 
@@ -16,7 +14,7 @@ export const ImageGalleryBlockFragment = graphql(
       }
     }
   `,
-  [ResponsiveImageFragment],
+  [ResponsiveImageFragment]
 );
 
 type Props = {
@@ -38,7 +36,7 @@ export default function ImageGallery({ data }: Props) {
                   height: '100%',
                   maxWidth: '100%',
                   objectFit: 'cover',
-                  aspectRatio: '1 / 1',
+                  aspectRatio: '1 / 1'
                 }}
                 data={asset.responsiveImage}
               />
