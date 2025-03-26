@@ -1,0 +1,24 @@
+import type { ViewProps } from './{{titleCase name}}.view'
+
+import { render, waitFor } from '@testing-library/react'
+
+import { CmsService } from '@/services/cms.service'
+
+import { Page{{titleCase name}} } from '.'
+import { Default } from './Page{{titleCase name}}.stories'
+import { View } from './{{titleCase name}}.view'
+
+const content = CmsService.getPageContent('{{camelCase name}}')
+
+describe('Page{{titleCase name}}', () => {
+  it('renders view', async () => {
+    await waitFor(() => {
+      render(<View {...(Default.args as ViewProps)} content={content} />)
+    })
+  })
+  it('renders controller', async () => {
+    await waitFor(() => {
+      render(<Page{{titleCase name}} content={content} />)
+    })
+  })
+})

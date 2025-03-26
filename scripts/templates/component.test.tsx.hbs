@@ -1,0 +1,20 @@
+import type { ViewProps } from './{{titleCase name}}.view'
+
+import { render, waitFor } from '@testing-library/react'
+
+import { {{titleCase name}} } from '.'
+import { Default } from './{{titleCase name}}.stories'
+import { View } from './{{titleCase name}}.view'
+
+describe('{{titleCase name}}', () => {
+  it('renders view', async () => {
+    await waitFor(() => {
+      render(<View {...(Default.args as ViewProps)} />)
+    })
+  })
+  it('renders controller', async () => {
+    await waitFor(() => {
+      render(<{{titleCase name}} />)
+    })
+  })
+})
