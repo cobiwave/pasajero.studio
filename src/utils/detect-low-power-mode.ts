@@ -1,23 +1,23 @@
-import { os } from '@/utils/detect';
+import { os } from '@/utils/detect'
 
 // battery API is not supported for iOS Safari - here is the hack
 export const getLowPowerMode = async () => {
-  if (window.location.host.includes('localhost')) return false;
-  if (!os.ios) return false;
+  if (window.location.host.includes('localhost')) return false
+  if (!os.ios) return false
 
-  let video: HTMLVideoElement | null = document.createElement('video');
-  video.setAttribute('playsinline', 'playsinline');
-  video.setAttribute('src', '');
+  let video: HTMLVideoElement | null = document.createElement('video')
+  video.setAttribute('playsinline', 'playsinline')
+  video.setAttribute('src', '')
 
   try {
-    await video.play();
+    await video.play()
   } catch (error) {
     if ((error as Error).name === 'NotAllowedError') {
-      return true;
+      return true
     }
   } finally {
-    video = null;
+    video = null
   }
 
-  return false;
-};
+  return false
+}

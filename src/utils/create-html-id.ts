@@ -4,5 +4,5 @@ export function createSafeHtmlId(input: string): string {
     .toLowerCase() // Convert to lowercase
     .replace(/[^\d_a-z-]+/gu, '-') // Replace invalid characters with hyphens
     .replace(/--+/gu, '-') // Replace multiple hyphens with a single hyphen
-    .replace(/^-|-$/gu, ''); // Remove leading/trailing hyphens
+    .replace(/^-|-$/gu, '') // Remove leading/trailing hyphens
 }
