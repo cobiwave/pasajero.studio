@@ -177,9 +177,7 @@ $desktop-max-content-width: px(1440);
   $columns-space: calc($container-size - $columns-gutter-space);
 
   // Calculating the column size
-  $inline-gutter-space: calc(
-    $columns-gutter-space / ($mobile-columns - 1) * ($numCols + $gutters - 1)
-  );
+  $inline-gutter-space: calc($columns-gutter-space / ($mobile-columns - 1) * ($numCols + $gutters - 1));
   $width: calc($columns-space * $numCols / $mobile-columns + $inline-gutter-space);
 
   @return $width;
@@ -207,9 +205,7 @@ $desktop-max-content-width: px(1440);
   $columns-space: calc($container-size - $columns-gutter-space);
 
   // Calculating the column size
-  $inline-gutter-space: calc(
-    $columns-gutter-space / ($tablet-columns - 1) * ($numCols + $gutters - 1)
-  );
+  $inline-gutter-space: calc($columns-gutter-space / ($tablet-columns - 1) * ($numCols + $gutters - 1));
   $width: calc($columns-space * $numCols / $tablet-columns + $inline-gutter-space);
 
   @return $width;
@@ -239,9 +235,7 @@ $desktop-max-content-width: px(1440);
   $columns-space: calc($container-size - $columns-gutter-space);
 
   // Calculating the column size
-  $inline-gutter-space: calc(
-    $columns-gutter-space / ($desktop-columns - 1) * ($numCols + $gutters - 1)
-  );
+  $inline-gutter-space: calc($columns-gutter-space / ($desktop-columns - 1) * ($numCols + $gutters - 1));
   $width: calc($columns-space * $numCols / $desktop-columns + $inline-gutter-space);
 
   @return $width;
