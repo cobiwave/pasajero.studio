@@ -15,7 +15,7 @@ export async function generateStaticParams() {
   const { allArticles } = await executeQuery(ARTICLES_PATHS);
 
   return allArticles.map((article) => ({
-    slug: article.slug ?? '',
+    slug: article.slug ?? ''
   }));
 }
 
@@ -26,9 +26,9 @@ export const generateMetadata = generateMetadataFn<
 >({
   query: ARTICLE_BY_SLUG,
   buildQueryVariables: (props) => ({
-    slug: props.params.slug,
+    slug: props.params.slug
   }),
-  pickSeoMetaTags: (data) => data?.article?._seoMetaTags,
+  pickSeoMetaTags: (data) => data?.article?._seoMetaTags
 });
 
 export default async function Article({ params }: PageProps) {
@@ -37,8 +37,8 @@ export default async function Article({ params }: PageProps) {
   console.log('slug ===>', slug);
   const { article } = await executeQuery(ARTICLE_BY_SLUG, {
     variables: {
-      slug,
-    },
+      slug
+    }
   });
 
   console.log('article ===>', article);
@@ -49,12 +49,7 @@ export default async function Article({ params }: PageProps) {
 
   return (
     <div className={styles.root}>
-      <Image
-        src={article.featuredImage?.url || ''}
-        width={500}
-        height={500}
-        alt="Picture of the author"
-      />
+      <Image src={article.featuredImage?.url || ''} width={500} height={500} alt="Picture of the author" />
       {article.categories.map((category) => (
         <h1 key={category.slug}>{category.name}</h1>
       ))}

@@ -2,9 +2,7 @@ import { notFound } from 'next/navigation';
 import { graphql } from '@/lib/datocms/graphql';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { TagFragment } from '@/lib/datocms/commonFragments';
-import ImageGallery, {
-  ImageGalleryBlockFragment,
-} from '@/components/organisms/ImageGallery/ImageGallery';
+import ImageGallery, { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
 import styles from './page.module.scss';
 
@@ -22,7 +20,7 @@ const query = graphql(
       }
     }
   `,
-  [TagFragment, ImageGalleryBlockFragment],
+  [TagFragment, ImageGalleryBlockFragment]
 );
 
 /**
@@ -33,7 +31,7 @@ const query = graphql(
 export const generateMetadata = generateMetadataFn({
   query,
   // A callback that picks the SEO meta tags from the result of the query
-  pickSeoMetaTags: (data) => data.homePage?._seoMetaTags,
+  pickSeoMetaTags: (data) => data.homePage?._seoMetaTags
 });
 
 export default async function Home() {
@@ -45,9 +43,5 @@ export default async function Home() {
 
   console.log('homePage', homePage);
 
-  return (
-    <div className={styles.root}>
-      {homePage.imageGallery && <ImageGallery data={homePage.imageGallery} />}
-    </div>
-  );
+  return <div className={styles.root}>{homePage.imageGallery && <ImageGallery data={homePage.imageGallery} />}</div>;
 }

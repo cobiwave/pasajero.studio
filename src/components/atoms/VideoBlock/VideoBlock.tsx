@@ -22,7 +22,7 @@ export const VideoBlockFragment = graphql(
       }
     }
   `,
-  [VideoPlayerFragment],
+  [VideoPlayerFragment]
 );
 
 type Props = {

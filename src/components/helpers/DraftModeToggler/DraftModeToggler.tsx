@@ -13,7 +13,7 @@ export default function DraftModeToggler({ draftModeEnabled }: Props) {
     } else {
       const token = prompt(
         'To enter Draft Mode, you need to insert the SECRET_API_TOKEN:',
-        'secretTokenProtectingWebhookEndpointsFromBeingCalledByAnyone',
+        'secretTokenProtectingWebhookEndpointsFromBeingCalledByAnyone'
       );
       if (!token) {
         return;

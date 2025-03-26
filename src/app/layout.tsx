@@ -20,7 +20,7 @@ const query = graphql(
       }
     }
   `,
-  [TagFragment],
+  [TagFragment]
 );
 
 export async function generateMetadata() {
@@ -30,7 +30,7 @@ export async function generateMetadata() {
 }
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
