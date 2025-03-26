@@ -1,0 +1,46 @@
+{
+  "common": {
+    "head": {
+      "title": "{title} Brand Governance Tool",
+      "description": "{description}"
+    },
+    "navbar": {
+      "title": "Amazon Brand Assistant",
+      "menu": "Menu",
+      "close": "Close",
+      "attach": "Attach",
+      "dettach": "Detach"
+    },
+    "menu": {
+      "reset": {
+        "label": "Reset conversation"
+      },
+      "tutorial": {
+        "label": "Revisit onboarding"
+      },
+      "support": {
+        "label": "Technical Support",
+        "link": "https://design.amazon.com/styleguide/36C0DDD85D0d/help-center/"
+      },
+      "help": {
+        "label": "Need more help?",
+        "link": "https://design.amazon.com/styleguide/36C0DDD85D0d/help-center/contact-us/"
+      }
+    },
+    "errors": {
+      "wsNotConnected": "Websocket not connected"
+    }
+  },
+  "pages": {
+    "notFound": {
+      "head": {
+        "title": "Error",
+        "description": ""
+      },
+      "body": {
+        "title": "Something wrong happenend.",
+        "back": "Go back"
+      }
+    }
+  }
+}
