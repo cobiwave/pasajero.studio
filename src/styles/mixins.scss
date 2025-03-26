@@ -260,6 +260,11 @@
   color: transparent;
 }
 
+@mixin outline($width: px(2), $offset: px(2), $color: $squid-ink) {
+  outline: $width solid $color;
+  outline-offset: $offset;
+}
+
 /// Set color and background-color in one mixin
 /// @example scss Input
 ///  element {
