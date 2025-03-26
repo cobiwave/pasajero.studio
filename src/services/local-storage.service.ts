@@ -1,6 +1,6 @@
 type LocalStorageListener = (name: string, value: string | undefined) => void;
 
-const KEY = 'NEXTJS-BOILERPLATE';
+const KEY = 'PASAJERO-STUDIO';
 
 class Service {
   listeners: LocalStorageListener[] = [];
