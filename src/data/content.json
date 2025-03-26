@@ -41,6 +41,15 @@
         "title": "Something wrong happenend.",
         "back": "Go back"
       }
+    },
+    "home": {
+      "head": {
+        "title": "Home",
+        "description": ""
+      },
+      "body": {
+        "title": "Home"
+      }
     }
   }
 }
