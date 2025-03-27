@@ -3,7 +3,6 @@
   "extends": [
     "eslint:recommended",
     "plugin:import/typescript",
-    "plugin:prettier/recommended",
     "plugin:eslint-comments/recommended",
     "plugin:import/recommended",
     "plugin:unicorn/recommended",
@@ -11,7 +10,8 @@
     "plugin:react/jsx-runtime",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "plugin:prettier/recommended"
   ],
   "settings": {
     "import/internal-regex": "^{@,#}/",
