@@ -1,0 +1,25 @@
+@import '@/styles/shared';
+
+.root {
+  @include z-index(page);
+
+  position: relative;
+  width: 100%;
+  // height: 100svh;
+  // min-height: px(320);
+  display: flex;
+  flex-direction: column;
+  padding: 0 0;
+  background: $gray-light;
+  opacity: 0;
+
+  .main {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+  }
+
+  .title {
+    @include typography-h1;
+  }
+}

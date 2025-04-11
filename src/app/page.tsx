@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation';
-import { graphql } from '@/lib/datocms/graphql';
-import { executeQuery } from '@/lib/datocms/executeQuery';
+
+import { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery';
+import { PageHome } from '@/components/PageHome';
+
 import { TagFragment } from '@/lib/datocms/commonFragments';
-import ImageGallery, { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery';
+import { executeQuery } from '@/lib/datocms/executeQuery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
-import styles from './page.module.scss';
+import { graphql } from '@/lib/datocms/graphql';
 
 const query = graphql(
   /* GraphQL */ `
@@ -41,7 +43,5 @@ export default async function Home() {
     notFound();
   }
 
-  console.log('homePage', homePage);
-
-  return <div className={styles.root}>{homePage.imageGallery && <ImageGallery data={homePage.imageGallery} />}</div>;
+  return <PageHome content={homePage} />;
 }
