@@ -1,5 +1,6 @@
 type ArticleModelContentField {
   blocks: [String!]!
+  inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
