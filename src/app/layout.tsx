@@ -1,11 +1,14 @@
+import { toNextMetadata } from 'react-datocms';
 import localFont from 'next/font/local';
 import { draftMode } from 'next/headers';
-import { toNextMetadata } from 'react-datocms';
+
+import GlobalNav from '@/components/GlobalNav/GlobalNav';
+import DebugGrid from '@/components/helpers/DebugGrid/DebugGrid';
+
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { graphql } from '@/lib/datocms/graphql';
-import DebugGrid from '@/components/helpers/DebugGrid/DebugGrid';
-import GlobalNav from '@/components/GlobalNav/GlobalNav';
+
 import '@/styles/global.scss';
 
 const myFont = localFont({ src: './StretchPro.woff2' });
