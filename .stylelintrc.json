@@ -22,7 +22,10 @@
       { "except": ["after-custom-property", "first-nested"], "ignore": ["after-comment", "inside-single-line-block"] }
     ],
     "declaration-block-no-duplicate-properties": [true, { "ignore": ["consecutive-duplicates-with-different-values"] }],
-    "declaration-block-no-redundant-longhand-properties": [true, { "ignoreShorthands": ["grid-template", "inset"] }],
+    "declaration-block-no-redundant-longhand-properties": [
+      true,
+      { "ignoreShorthands": ["grid-template", "inset", "flex-flow"] }
+    ],
     "declaration-block-no-shorthand-property-overrides": true,
     "declaration-block-single-line-max-declarations": 1,
     "declaration-empty-line-before": null,
@@ -41,11 +44,12 @@
     "prettier/prettier": true,
     "property-no-unknown": [true, { "ignoreProperties": ["composes", "user-drag"] }],
     "property-no-vendor-prefix": [true, { "ignoreProperties": ["mask-position", "mask-size", "mask-image"] }],
-    "rule-empty-line-before": ["always", { "ignore": ["first-nested"] }],
+    "rule-empty-line-before": null,
+    "scss/at-mixin-argumentless-call-parentheses": null,
     "scss/declaration-property-value-no-unknown": true,
     "selector-class-pattern": null,
     "selector-pseudo-class-no-unknown": [true, { "ignorePseudoClasses": ["global", "user-drag"] }],
-    "selector-pseudo-element-colon-notation": "double",
+    "selector-pseudo-element-colon-notation": null,
     "selector-pseudo-element-no-unknown": true,
     "selector-type-case": "lower",
     "selector-type-no-unknown": true,

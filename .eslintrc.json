@@ -40,6 +40,7 @@
     "semi": "off",
     "no-console": "warn",
     "eslint-comments/disable-enable-pair": "off",
+    "eslint-comments/no-unlimited-disable": "off",
 
     /**
      * Possible Problems
@@ -146,7 +147,7 @@
     "quote-props": ["error", "as-needed"],
     "radix": "error",
     "require-unicode-regexp": "error",
-    "spaced-comment": "error",
+    "spaced-comment": "off",
     "strict": ["error", "never"],
     "symbol-description": "error",
     "yoda": "error",
@@ -177,6 +178,7 @@
     "unicorn/prevent-abbreviations": "off",
     "unicorn/require-post-message-target-origin": "error",
     "unicorn/no-object-as-default-parameter": "off",
+    "unicorn/no-abusive-eslint-disable": "off",
     "unicorn/numeric-separators-style": [
       "error",
       { "onlyIfContainsSeparator": true, "number": { "onlyIfContainsSeparator": false } }
