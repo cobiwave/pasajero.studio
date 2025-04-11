@@ -1,5 +1,6 @@
-import { buildRequestInit, executeQuery as libExecuteQuery } from '@datocms/cda-client';
 import type { TadaDocumentNode } from 'gql.tada';
+
+import { buildRequestInit, executeQuery as libExecuteQuery } from '@datocms/cda-client';
 
 export const cacheTag = 'datocms';
 
@@ -11,6 +12,7 @@ export async function executeQuery<Result, Variables>(
   query: TadaDocumentNode<Result, Variables>,
   options?: ExecuteQueryOptions<Variables>
 ) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   buildRequestInit;
   const result = await libExecuteQuery(query, {
     variables: options?.variables,
