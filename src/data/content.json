@@ -50,6 +50,15 @@
       "body": {
         "title": "Home"
       }
+    },
+    "articles": {
+      "head": {
+        "title": "Articles",
+        "description": ""
+      },
+      "body": {
+        "title": "Articles"
+      }
     }
   }
 }
