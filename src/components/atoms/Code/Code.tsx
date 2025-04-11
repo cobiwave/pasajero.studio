@@ -1,8 +1,9 @@
 'use client';
 
 import type { Code as CodeNode } from 'datocms-structured-text-utils';
-import hljs from 'highlight.js';
+
 import { useEffect, useRef } from 'react';
+import hljs from 'highlight.js';
 
 type Props = {
   node: CodeNode;

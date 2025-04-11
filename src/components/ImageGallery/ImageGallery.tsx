@@ -1,5 +1,7 @@
 import ResponsiveImage, { ResponsiveImageFragment } from '@/components/atoms/ResponsiveImage/ResponsiveImage';
+
 import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
+
 import styles from './ImageGallery.module.scss';
 
 export const ImageGalleryBlockFragment = graphql(
