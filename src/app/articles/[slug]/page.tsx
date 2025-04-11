@@ -1,9 +1,12 @@
-import { notFound } from 'next/navigation';
+import type { TypeFromQuery, VariablesFromQuery } from '@/lib/datocms/graphql';
+
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
+
+import { QueryAllArticles, QueryArticle } from '@/graphql/queries';
 import { executeQuery } from '@/lib/datocms/executeQuery';
-import { TypeFromQuery, VariablesFromQuery } from '@/lib/datocms/graphql';
-import { ARTICLE_BY_SLUG, ARTICLES_PATHS } from '@/graphql/queries';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
+
 import styles from './page.module.scss';
 
 type PageProps = {
@@ -12,7 +15,7 @@ type PageProps = {
 };
 
 export async function generateStaticParams() {
-  const { allArticles } = await executeQuery(ARTICLES_PATHS);
+  const { allArticles } = await executeQuery(QueryAllArticles);
 
   return allArticles.map((article) => ({
     slug: article.slug ?? ''
@@ -21,10 +24,10 @@ export async function generateStaticParams() {
 
 export const generateMetadata = generateMetadataFn<
   PageProps,
-  TypeFromQuery<typeof ARTICLE_BY_SLUG>,
-  VariablesFromQuery<typeof ARTICLE_BY_SLUG>
+  TypeFromQuery<typeof QueryArticle>,
+  VariablesFromQuery<typeof QueryArticle>
 >({
-  query: ARTICLE_BY_SLUG,
+  query: QueryArticle,
   buildQueryVariables: (props) => ({
     slug: props.params.slug
   }),
@@ -35,7 +38,7 @@ export default async function Article({ params }: PageProps) {
   const { slug } = params;
 
   console.log('slug ===>', slug);
-  const { article } = await executeQuery(ARTICLE_BY_SLUG, {
+  const { article } = await executeQuery(QueryArticle, {
     variables: {
       slug
     }

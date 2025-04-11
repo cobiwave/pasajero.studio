@@ -15,7 +15,6 @@ const query = graphql(
         _seoMetaTags {
           ...TagFragment
         }
-        title
         imageGallery {
           ...ImageGalleryBlockFragment
         }
