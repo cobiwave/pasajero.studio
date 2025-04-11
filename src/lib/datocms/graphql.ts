@@ -7,8 +7,10 @@
  * - https://gql-tada.0no.co/
  */
 
-import { initGraphQLTada, TadaDocumentNode } from 'gql.tada';
 import type { introspection } from './graphql-env.js';
+import type { TadaDocumentNode } from 'gql.tada';
+
+import { initGraphQLTada } from 'gql.tada';
 
 /**
  * The Content Delivery API exposes a number of custom GraphQL scalar types. For
@@ -21,14 +23,14 @@ export const graphql = initGraphQLTada<{
   introspection: introspection;
   scalars: {
     BooleanType: boolean;
-    CustomData: Record<string, string>;
+    CustomData: { [key: string]: string };
     Date: string;
     DateTime: string;
     FloatType: number;
     IntType: number;
     ItemId: string;
     JsonField: unknown;
-    MetaTagAttributes: Record<string, string>;
+    MetaTagAttributes: { [key: string]: string };
     UploadId: string;
   };
 }>();
