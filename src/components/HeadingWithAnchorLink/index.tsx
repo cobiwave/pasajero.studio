@@ -1,6 +1,7 @@
-import { render as structuredTextToPlainText } from 'datocms-structured-text-to-plain-text';
-import type { Heading } from 'datocms-structured-text-utils';
 import type { ReactNode } from 'react';
+import type { Heading } from 'datocms-structured-text-utils';
+
+import { render as structuredTextToPlainText } from 'datocms-structured-text-to-plain-text';
 
 type Props = {
   node: Heading;
@@ -16,8 +17,8 @@ const slugify = (str: string | null) =>
   str
     ? str
         .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)+/g, '')
+        .replace(/[^\da-z]+/gu, '-')
+        .replace(/(^-|-$)+/gu, '')
     : undefined;
 
 /**

@@ -10,7 +10,7 @@ import { animate } from 'motion';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
-import ImageGallery from '@/components/ImageGallery/ImageGallery';
+import { ImageGallery } from '@/components/ImageGallery';
 
 import css from './PageHome.module.scss';
 

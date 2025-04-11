@@ -1,5 +1,5 @@
-import { type GenerateMetadataFnOptions, generateMetadataFn } from '../generateMetadataFn';
-import { type GeneratePageComponentOptions, generatePageComponent } from './generatePageComponent';
+import { generateMetadataFn, type GenerateMetadataFnOptions } from '../generateMetadataFn';
+import { generatePageComponent, type GeneratePageComponentOptions } from './generatePageComponent';
 
 /**
  * A simple wrapper that reduces the code to be written for each route. It takes

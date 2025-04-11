@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery';
+import type { ImageGalleryBlockFragment } from '@/graphql/fragments/FragmentImageGallery';
 import type { TagFragment } from '@/lib/datocms/commonFragments';
 
 import { memo } from 'react';

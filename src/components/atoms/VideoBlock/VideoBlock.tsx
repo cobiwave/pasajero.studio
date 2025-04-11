@@ -1,4 +1,5 @@
 import VideoPlayer, { VideoPlayerFragment } from '@/components/atoms/VideoPlayer/VideoPlayer';
+
 import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
 
 /**

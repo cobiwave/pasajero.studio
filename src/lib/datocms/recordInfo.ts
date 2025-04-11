@@ -23,21 +23,24 @@ export async function recordToWebsiteRoute(
     case 'article': {
       return `/blog/${await recordToSlug(item, itemTypeApiKey, locale)}`;
     }
-    default:
+    default: {
       return null;
+    }
   }
 }
 
 export async function recordToSlug(
   item: SchemaTypes.Item,
   itemTypeApiKey: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   locale: string
 ): Promise<string | null> {
   switch (itemTypeApiKey) {
     case 'article': {
       return item.attributes.slug as string;
     }
-    default:
+    default: {
       return null;
+    }
   }
 }

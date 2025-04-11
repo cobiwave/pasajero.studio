@@ -15,7 +15,7 @@ type GetIntersectionObserverInstance = {
 /**
  * Helper method that will return a new IntersectionObserver instance for a provided threshold.
  */
-function getIntersectionObserverInstance(threshold: number | Array<number>): GetIntersectionObserverInstance {
+function getIntersectionObserverInstance(threshold: number | number[]): GetIntersectionObserverInstance {
   const callbackMap = new Map<Element, Callbacks>();
 
   return {
@@ -53,7 +53,7 @@ const intersectionObserverInstances = new Map<string, ReturnType<typeof getInter
 export function useIntersectionObserver(
   ref: RefObject<HTMLElement>,
   options: {
-    threshold?: number | Array<number>;
+    threshold?: number | number[];
     onEnterViewport?(): void;
     onLeaveViewport?(): void;
   } = {}

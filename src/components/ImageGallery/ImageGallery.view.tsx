@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef, useMemo } from 'react';
 import classNames from 'classnames';
 import { animate } from 'motion';
@@ -9,11 +11,12 @@ import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import ResponsiveImage from '@/components/atoms/ResponsiveImage/ResponsiveImage';
 
+import { ImageGalleryBlockFragment } from '@/graphql/fragments/FragmentImageGallery';
 import { readFragment } from '@/lib/datocms/graphql';
 
 import css from './ImageGallery.module.scss';
 
-import { type ControllerProps, ImageGalleryBlockFragment } from './ImageGallery.controller';
+import { type ControllerProps } from './ImageGallery.controller';
 
 export interface ViewProps extends ControllerProps {}
 

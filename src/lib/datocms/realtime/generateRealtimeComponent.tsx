@@ -1,7 +1,8 @@
-import type { TadaDocumentNode } from 'gql.tada';
 import type { ComponentType } from 'react';
-import { type EnabledQueryListenerOptions, useQuerySubscription } from 'react-datocms';
 import type { ContentComponentType } from './generatePageComponent';
+import type { TadaDocumentNode } from 'gql.tada';
+
+import { type EnabledQueryListenerOptions, useQuerySubscription } from 'react-datocms';
 
 /**
  * Generates a Client Component that subscribes to DatoCMS's Real-time Updates
@@ -9,6 +10,7 @@ import type { ContentComponentType } from './generatePageComponent';
  * updates on content changes, and re-renders the `contentComponent`.
  */
 export function generateRealtimeComponent<PageProps, Result, Variables>({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   query,
   contentComponent: ContentComponent
 }: GenerateRealtimeComponentOptions<PageProps, Result, Variables>) {

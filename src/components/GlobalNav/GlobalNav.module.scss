@@ -53,6 +53,7 @@
 
     &:after {
       content: '';
+
       @include position-0(absolute);
       bottom: px(-2);
       width: 0;

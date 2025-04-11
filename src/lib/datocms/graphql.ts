@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /*
  * We use gql.tada to automatically generate TypeScript types from the GraphQL
  * schema. This module customizes the default behavior of gql.tada to match the

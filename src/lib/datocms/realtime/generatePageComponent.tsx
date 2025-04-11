@@ -1,9 +1,11 @@
-import type { TadaDocumentNode } from 'gql.tada';
-import { draftMode } from 'next/headers';
 import type { ComponentType } from 'react';
-import { executeQuery } from '../executeQuery';
 import type { BuildQueryVariablesFn } from '../generateMetadataFn';
 import type { RealtimeComponentType } from './generateRealtimeComponent';
+import type { TadaDocumentNode } from 'gql.tada';
+
+import { draftMode } from 'next/headers';
+
+import { executeQuery } from '../executeQuery';
 
 /**
  * Generates a Next.js page component that executes a DatoCMS query, and then
@@ -29,6 +31,7 @@ export function generatePageComponent<PageProps, Result, Variables>(
      * serializable, we extract the non-serializable `searchParams` property
      * from the original object.
      */
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { searchParams, ...pagePropsWithoutSearchParams } = unsanitizedPageProps as PageProps & {
       searchParams: unknown;
     };
@@ -42,17 +45,17 @@ export function generatePageComponent<PageProps, Result, Variables>(
       includeDrafts: isDraftModeEnabled
     });
 
-    const { realtimeComponent: RealTimeComponent, contentComponent: ContentComponent } = options;
+    const { realtimeComponent: RealTimeComponent, contentComponent: ContentComponent, query } = options;
 
     return isDraftModeEnabled ? (
       <RealTimeComponent
         token={process.env.DATOCMS_DRAFT_CONTENT_CDA_TOKEN!}
-        query={options.query}
+        query={query}
         variables={variables}
         initialData={data}
         pageProps={pageProps}
         includeDrafts={isDraftModeEnabled}
-        excludeInvalid={true}
+        excludeInvalid
       />
     ) : (
       <ContentComponent {...pageProps} data={data} />

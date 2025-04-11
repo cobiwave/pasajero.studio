@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import styles from './GlobalNav.module.scss';
 
 export default function GlobalNav() {

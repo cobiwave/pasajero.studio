@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 
-import { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery';
 import { PageHome } from '@/components/PageHome';
 
+import { ImageGalleryBlockFragment } from '@/graphql/fragments/FragmentImageGallery';
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
