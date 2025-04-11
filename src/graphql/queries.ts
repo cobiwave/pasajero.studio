@@ -1,16 +1,17 @@
-import { graphql } from '@/lib/datocms/graphql';
 import { TagFragment } from '@/lib/datocms/commonFragments';
+import { graphql } from '@/lib/datocms/graphql';
 
-export const ARTICLES_PATHS = graphql(`
+export const QueryAllArticles = graphql(/* GraphQL */ `
   query ArticlePaths {
     allArticles {
+      id
       slug
     }
   }
 `);
 
-export const ARTICLE_BY_SLUG = graphql(
-  `
+export const QueryArticle = graphql(
+  /* GraphQL */ `
     query ArticleBySlug($slug: String) {
       article(filter: { slug: { eq: $slug } }) {
         _publishedAt
