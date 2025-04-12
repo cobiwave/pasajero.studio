@@ -37,22 +37,22 @@
     }
 
     a {
-      @include typography-body();
+      @include font-size(18);
+      text-transform: uppercase;
+      font-weight: $font-weight-bold;
       position: relative;
       color: $white;
-      font-weight: $font-weight-bold;
       text-decoration: none;
     }
   }
 
   .logo {
-    border: 1px solid red;
     inline-size: desktop-columns(4);
     margin-left: $desktop-grid-gap;
 
     a {
-      font-size: px(26);
-      font-weight: $font-weight-bold;
+      @include font-size(26);
+      font-weight: $font-weight-regular;
       color: $white;
       text-decoration: none;
       text-transform: uppercase;

@@ -1,5 +1,5 @@
 import { toNextMetadata } from 'react-datocms';
-import localFont from 'next/font/local';
+import { Roboto } from 'next/font/google';
 import { draftMode } from 'next/headers';
 
 import GlobalNav from '@/components/GlobalNav/GlobalNav';
@@ -11,7 +11,10 @@ import { graphql } from '@/lib/datocms/graphql';
 
 import '@/styles/global.scss';
 
-const myFont = localFont({ src: './StretchPro.woff2' });
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700']
+});
 
 const query = graphql(
   /* GraphQL */ `
@@ -38,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={myFont.className}>
+    <html lang="en" className={roboto.className}>
+      <body>
         <GlobalNav />
         <main>{children}</main>
         <DebugGrid />

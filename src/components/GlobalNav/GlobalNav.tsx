@@ -1,15 +1,21 @@
+import localFont from 'next/font/local';
 import Link from 'next/link';
+import classNames from 'classnames';
 
-import styles from './GlobalNav.module.scss';
+import css from './GlobalNav.module.scss';
+
+const stretchPro = localFont({
+  src: '../../fonts/StretchPro.woff2'
+});
 
 export default function GlobalNav() {
   return (
-    <header className={styles.root}>
-      <a href="#main-content" className={styles.skip}>
+    <header className={css.root}>
+      <a href="#main-content" className={css.skip}>
         Skip to main content
       </a>
 
-      <nav className={styles.nav} role="navigation" aria-label="Main Navigation">
+      <nav className={css.nav} role="navigation" aria-label="Main Navigation">
         <ul>
           <li>
             <Link href="/skate">Skate</Link>
@@ -22,7 +28,7 @@ export default function GlobalNav() {
           </li>
         </ul>
 
-        <div className={styles.logo}>
+        <div className={classNames(css.logo, stretchPro.className)}>
           <Link href="/" aria-label="Home">
             Pasajero
           </Link>

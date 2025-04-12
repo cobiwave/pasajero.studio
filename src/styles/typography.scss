@@ -3,10 +3,7 @@
 @import 'vars';
 
 $generic-fonts: system-ui, 'helvetica', 'arial', sans-serif;
-$font-ember-modern: Amazon Ember Modern;
-$font-ember: Amazon Ember;
-
-// Mixins
+$font-stretch-pro: 'StretchPro';
 
 @mixin font-family($font-family: null, $font-weight: null, $font-style: null) {
   @if $font-family {
@@ -43,25 +40,25 @@ $font-ember: Amazon Ember;
 // Typography System
 
 @mixin typography-h1 {
-  @include typography($font-ember-modern, 700, 32, 32, 0.01em);
+  @include typography($font-stretch-pro, 700, 32, 32, 0.01em);
 }
 
 @mixin typography-subtitle {
-  @include typography($font-ember-modern, 400, 18, 32, 0.01em);
+  @include typography($font-stretch-pro, 400, 18, 32, 0.01em);
 }
 
 @mixin typography-body {
-  @include typography($font-ember-modern, 400, 16, 20, 0.01em);
+  @include typography($font-stretch-pro, 400, 16, 20, 0.01em);
 }
 
 @mixin typography-body-small {
-  @include typography($font-ember, 400, 14, 20, 0);
+  @include typography($font-stretch-pro, 400, 14, 20, 0);
 }
 
 @mixin typography-cta {
-  @include typography($font-ember-modern, 700, 16, 19, 0.03em);
+  @include typography($font-stretch-pro, 700, 16, 19, 0.03em);
 }
 
 @mixin typography-label {
-  @include typography($font-ember, 400, 12, 20, 0);
+  @include typography($font-stretch-pro, 400, 12, 20, 0);
 }
