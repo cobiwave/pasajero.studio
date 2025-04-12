@@ -9,27 +9,25 @@ export default function GlobalNav() {
         Skip to main content
       </a>
 
-      <div className={styles.container}>
+      <nav className={styles.nav} role="navigation" aria-label="Main Navigation">
+        <ul>
+          <li>
+            <Link href="/skate">Skate</Link>
+          </li>
+          <li>
+            <Link href="/surf">Surf</Link>
+          </li>
+          <li>
+            <Link href="/art">Art</Link>
+          </li>
+        </ul>
+
         <div className={styles.logo}>
           <Link href="/" aria-label="Home">
             Pasajero
           </Link>
         </div>
-
-        {/* <nav className={styles.nav} role="navigation" aria-label="Main Navigation">
-          <ul>
-            <li>
-              <Link href="/about">About</Link>
-            </li>
-            <li>
-              <Link href="/services">Services</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact</Link>
-            </li>
-          </ul>
-        </nav> */}
-      </div>
+      </nav>
     </header>
   );
 }
