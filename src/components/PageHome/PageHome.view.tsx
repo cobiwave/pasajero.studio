@@ -14,6 +14,8 @@ import { ImageGallery } from '@/components/ImageGallery';
 
 import css from './PageHome.module.scss';
 
+import { ArticleList } from '../ArticleList';
+
 export interface ViewProps extends ControllerProps {}
 
 export type ViewRefs = {
@@ -33,9 +35,12 @@ export const View: FC<ViewProps> = ({ content }) => {
     )
   );
 
+  // console.log('allArticles', content.allArticles);
+
   return (
     <section className={classNames('PageHome', css.root)} ref={refs.root}>
-      {content.imageGallery && <ImageGallery data={content.imageGallery} />}
+      {content.allArticles.length > 0 ? <ArticleList data={content.allArticles} /> : null}
+      {content.homePage.imageGallery ? <ImageGallery data={content.homePage.imageGallery} /> : null}
     </section>
   );
 };

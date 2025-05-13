@@ -1,8 +1,11 @@
+import type { Article } from '@/types';
+
 import { notFound } from 'next/navigation';
 
 import { PageHome } from '@/components/PageHome';
 
 import { ImageGalleryBlockFragment } from '@/graphql/fragments/FragmentImageGallery';
+import { QueryAllArticles } from '@/graphql/queries';
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
@@ -37,10 +40,20 @@ export const generateMetadata = generateMetadataFn({
 
 export default async function Home() {
   const { homePage } = await executeQuery(query);
+  const { allArticles } = await executeQuery(QueryAllArticles);
 
   if (!homePage) {
     notFound();
   }
 
-  return <PageHome content={homePage} />;
+  // console.log('allArticles ===>', allArticles);
+
+  return (
+    <PageHome
+      content={{
+        homePage,
+        allArticles: allArticles as unknown as Article[]
+      }}
+    />
+  );
 }

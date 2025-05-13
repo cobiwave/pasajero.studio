@@ -6,6 +6,16 @@ export const QueryAllArticles = graphql(/* GraphQL */ `
     allArticles {
       id
       slug
+      featuredImage {
+        id
+        alt
+        responsiveImage {
+          alt
+          title
+          base64
+          title
+        }
+      }
     }
   }
 `);

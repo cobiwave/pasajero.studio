@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 import type { ImageGalleryBlockFragment } from '@/graphql/fragments/FragmentImageGallery';
 import type { TagFragment } from '@/lib/datocms/commonFragments';
+import type { Article } from '@/types';
 
 import { memo } from 'react';
 
@@ -10,8 +11,11 @@ import { View } from './PageHome.view';
 
 export interface ControllerProps {
   content: {
-    _seoMetaTags: FragmentOf<typeof TagFragment>[];
-    imageGallery: FragmentOf<typeof ImageGalleryBlockFragment> | null;
+    homePage: {
+      _seoMetaTags: FragmentOf<typeof TagFragment>[];
+      imageGallery: FragmentOf<typeof ImageGalleryBlockFragment> | null;
+    };
+    allArticles: Article[];
   };
 }
 
