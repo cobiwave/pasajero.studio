@@ -7,8 +7,14 @@ export const QueryAllArticles = graphql(
   /* GraphQL */ `
     query ArticlePaths {
       allArticles {
+        _firstPublishedAt
         id
         slug
+        title
+        summary
+        content {
+          value
+        }
         featuredImage {
           id
           alt
