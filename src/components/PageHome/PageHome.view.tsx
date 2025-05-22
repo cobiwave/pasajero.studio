@@ -35,8 +35,6 @@ export const View: FC<ViewProps> = ({ content }) => {
     )
   );
 
-  // console.log('allArticles', content.allArticles);
-
   return (
     <section className={classNames('PageHome', css.root)} ref={refs.root}>
       {content.allArticles.length > 0 ? <ArticleList data={content.allArticles} /> : null}
