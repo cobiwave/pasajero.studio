@@ -10,8 +10,7 @@ import { animate } from 'motion';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
-import { ImageGallery } from '@/components/ImageGallery';
-
+// import { ImageGallery } from '@/components/ImageGallery';
 import css from './PageHome.module.scss';
 
 import { ArticleList } from '../ArticleList';
@@ -37,8 +36,8 @@ export const View: FC<ViewProps> = ({ content }) => {
 
   return (
     <section className={classNames('PageHome', css.root)} ref={refs.root}>
-      {content.allArticles.length > 0 ? <ArticleList data={content.allArticles} /> : null}
-      {content.homePage.imageGallery ? <ImageGallery data={content.homePage.imageGallery} /> : null}
+      {content.allArticles.length > 0 ? <ArticleList articles={content.allArticles} /> : null}
+      {/* {content.homePage.imageGallery ? <ImageGallery data={content.homePage.imageGallery} /> : null} */}
     </section>
   );
 };
