@@ -38,19 +38,21 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, 
     <div className={classNames('ArticleList', css.root, className)} ref={multiRef(refs.root, ref)}>
       <ul>
         {data.map((prop) => (
-          <li key={id}>
+          <li key={prop.id}>
             <figure>
-              <ResponsiveImage
-                imgStyle={{
-                  width: '100%',
-                  height: '100%',
-                  maxWidth: '100%',
-                  objectFit: 'cover',
-                  aspectRatio: '1 / 1'
-                }}
-                data={prop}
-              />
-              <figcaption>{title}</figcaption>
+              {prop.featuredImage?.responsiveImage && (
+                <ResponsiveImage
+                  imgStyle={{
+                    width: '100%',
+                    height: '100%',
+                    maxWidth: '100%',
+                    objectFit: 'cover',
+                    aspectRatio: '1 / 1'
+                  }}
+                  data={prop.featuredImage.responsiveImage}
+                />
+              )}
+              <figcaption>{prop.slug}</figcaption>
             </figure>
           </li>
         ))}

@@ -1,11 +1,12 @@
-import type { Article } from '@/types';
+import type { QueryAllArticles } from '@/graphql/queries';
+import type { TypeFromQuery } from '@/lib/datocms/graphql';
 
 import { forwardRef, memo } from 'react';
 
 import { View } from './ArticleList.view';
 
 export interface ControllerProps {
-  data: Article[];
+  data: TypeFromQuery<typeof QueryAllArticles>['allArticles'];
   className?: string;
 }
 
