@@ -6,7 +6,7 @@ import { forwardRef, memo } from 'react';
 import { View } from './ArticleList.view';
 
 export interface ControllerProps {
-  data: TypeFromQuery<typeof QueryAllArticles>['allArticles'];
+  articles: TypeFromQuery<typeof QueryAllArticles>['allArticles'];
   className?: string;
 }
 

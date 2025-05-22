@@ -1,9 +1,11 @@
 import type { ControllerProps } from './ArticleList.controller';
 
 import { forwardRef, useMemo } from 'react';
+import Link from 'next/link';
 import classNames from 'classnames';
 import { animate } from 'motion';
 
+import { prettifyDate } from '@/utils/basic-functions';
 import { multiRef } from '@/utils/multi-ref';
 
 import { useRefs } from '@/hooks/use-refs';
@@ -19,7 +21,7 @@ export type ViewRefs = {
   root: HTMLDivElement;
 };
 
-export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, ref) => {
+export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className }, ref) => {
   const refs = useRefs<ViewRefs>();
 
   useTransitionPresence(
@@ -32,28 +34,34 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, 
     )
   );
 
-  console.log('data', data);
+  console.log('articles ===', articles);
 
   return (
     <div className={classNames('ArticleList', css.root, className)} ref={multiRef(refs.root, ref)}>
       <ul>
-        {data.map((prop) => (
-          <li key={prop.id}>
-            <figure>
-              {prop.featuredImage?.responsiveImage && (
-                <ResponsiveImage
-                  imgStyle={{
-                    width: '100%',
-                    height: '100%',
-                    maxWidth: '100%',
-                    objectFit: 'cover',
-                    aspectRatio: '1 / 1'
-                  }}
-                  data={prop.featuredImage.responsiveImage}
-                />
-              )}
-              <figcaption>{prop.slug}</figcaption>
-            </figure>
+        {articles.map(({ id, slug, title, summary, featuredImage, _firstPublishedAt }) => (
+          <li key={id}>
+            {featuredImage?.responsiveImage ? (
+              <ResponsiveImage
+                imgStyle={{
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '100%',
+                  objectFit: 'cover',
+                  aspectRatio: '16 / 9'
+                }}
+                data={featuredImage.responsiveImage}
+              />
+            ) : null}
+            <div className={css.content}>
+              <div className={css.date}>{prettifyDate(_firstPublishedAt)}</div>
+              <div className={css.summary}>
+                <Link className={css.title} href={`/articles/${slug}`}>
+                  {title}
+                </Link>
+                <p className={css.description}>{summary as string}</p>
+              </div>
+            </div>
           </li>
         ))}
       </ul>

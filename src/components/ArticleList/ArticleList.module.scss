@@ -3,4 +3,84 @@
 .root {
   display: block;
   opacity: 0;
+  width: 100%;
+
+  @include top-spacing('sm');
+  @include bottom-spacing('sm');
+
+  @include media-tablet {
+    @include top-spacing('md');
+    @include bottom-spacing('md');
+  }
+
+  @include media-desktop {
+    @include top-spacing('sm');
+    @include bottom-spacing('sm');
+  }
+
+  ul {
+    @include horizontal-container();
+    @include flex-center-vert();
+    flex-direction: column;
+    list-style: none;
+    row-gap: $mobile-grid-gap;
+
+    @include media-tablet {
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      row-gap: $tablet-grid-gap;
+    }
+
+    @include media-desktop {
+      row-gap: $desktop-grid-gap;
+    }
+  }
+
+  li {
+    inline-size: phone-columns(6);
+
+    @include media-tablet {
+      inline-size: tablet-columns(6);
+    }
+
+    @include media-desktop {
+      inline-size: desktop-columns(6);
+    }
+
+    figure {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  .content {
+    padding: px(16) 0;
+  }
+
+  .date {
+    @include typography-label;
+    color: grey;
+    text-align: left;
+    margin-bottom: px(8);
+  }
+
+  .summary {
+    display: flex;
+    gap: px(16);
+  }
+
+  .title {
+    @include typography-body;
+    font-weight: $font-weight-semibold;
+    text-align: left;
+    flex: 1;
+  }
+
+  .description {
+    @include typography-body;
+    inline-size: 100%;
+    text-align: left;
+    flex: 2;
+  }
 }
