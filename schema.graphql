@@ -18,6 +18,7 @@ type ArticleListRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  articles: [String!]!
   id: ItemId!
   title: String
 }

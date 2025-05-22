@@ -1,5 +1,3 @@
-import type { Article } from '@/types';
-
 import { notFound } from 'next/navigation';
 
 import { PageHome } from '@/components/PageHome';
@@ -9,7 +7,7 @@ import { QueryAllArticles } from '@/graphql/queries';
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
-import { graphql } from '@/lib/datocms/graphql';
+import { graphql, type TypeFromQuery } from '@/lib/datocms/graphql';
 
 const query = graphql(
   /* GraphQL */ `
@@ -40,19 +38,17 @@ export const generateMetadata = generateMetadataFn({
 
 export default async function Home() {
   const { homePage } = await executeQuery(query);
-  const { allArticles } = await executeQuery(QueryAllArticles);
+  const { allArticles }: TypeFromQuery<typeof QueryAllArticles> = await executeQuery(QueryAllArticles);
 
   if (!homePage) {
     notFound();
   }
 
-  // console.log('allArticles ===>', allArticles);
-
   return (
     <PageHome
       content={{
         homePage,
-        allArticles: allArticles as unknown as Article[]
+        allArticles
       }}
     />
   );

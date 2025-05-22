@@ -1,24 +1,26 @@
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { graphql } from '@/lib/datocms/graphql';
 
-export const QueryAllArticles = graphql(/* GraphQL */ `
-  query ArticlePaths {
-    allArticles {
-      id
-      slug
-      featuredImage {
+import { ResponsiveImageFragment } from './fragments/FragmentResponsiveImage';
+
+export const QueryAllArticles = graphql(
+  /* GraphQL */ `
+    query ArticlePaths {
+      allArticles {
         id
-        alt
-        responsiveImage {
+        slug
+        featuredImage {
+          id
           alt
-          title
-          base64
-          title
+          responsiveImage {
+            ...ResponsiveImageFragment
+          }
         }
       }
     }
-  }
-`);
+  `,
+  [ResponsiveImageFragment]
+);
 
 export const QueryArticle = graphql(
   /* GraphQL */ `
