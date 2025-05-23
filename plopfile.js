@@ -7,8 +7,6 @@ function addComponentFiles(name, templatePrefix) {
     { type: 'add', path: `${path}/index.ts`, templateFile: `${templ}.index.ts.hbs` },
     { type: 'add', path: `${path}/${name}.controller.tsx`, templateFile: `${templ}.controller.tsx.hbs` },
     { type: 'add', path: `${path}/${name}.module.scss`, templateFile: `${templ}.module.scss.hbs` },
-    { type: 'add', path: `${path}/${name}.stories.tsx`, templateFile: `${templ}.stories.tsx.hbs` },
-    { type: 'add', path: `${path}/${name}.test.tsx`, templateFile: `${templ}.test.tsx.hbs` },
     { type: 'add', path: `${path}/${name}.view.tsx`, templateFile: `${templ}.view.tsx.hbs` }
   ];
 }
