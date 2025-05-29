@@ -46,6 +46,7 @@ input ArticleModelFilter {
   featuredImage: FileFilter
   slug: SlugFilter
   socials: SeoFilter
+  summary: TextFilter
   title: StringFilter
   OR: [ArticleModelFilter]
   AND: [ArticleModelFilter]
@@ -101,7 +102,11 @@ type ArticleRecord implements RecordInterface {
   id: ItemId!
   slug: String
   socials: SeoField
-  title: String
+  summary(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  title: String!
 }
 
 """Specifies how to filter Boolean fields"""
