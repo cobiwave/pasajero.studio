@@ -42,24 +42,33 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
         {articles.map(({ id, slug, title, summary, featuredImage, _firstPublishedAt }) => (
           <li key={id}>
             {featuredImage?.responsiveImage ? (
-              <ResponsiveImage
-                imgStyle={{
-                  width: '100%',
-                  height: '100%',
-                  maxWidth: '100%',
-                  objectFit: 'cover',
-                  aspectRatio: '16 / 9'
-                }}
-                data={featuredImage.responsiveImage}
-              />
+              <div className={css.imageWrapper}>
+                <Link className={css.title} href={`/articles/${slug}`}>
+                  <ResponsiveImage
+                    imgStyle={{
+                      width: '100%',
+                      height: '100%',
+                      maxWidth: '100%',
+                      objectFit: 'cover',
+                      aspectRatio: '16 / 9'
+                    }}
+                    pictureClassName={css.image}
+                    data={featuredImage.responsiveImage}
+                  />
+                </Link>
+              </div>
             ) : null}
             <div className={css.content}>
               <div className={css.date}>{prettifyDate(_firstPublishedAt)}</div>
               <div className={css.summary}>
-                <Link className={css.title} href={`/articles/${slug}`}>
-                  {title}
-                </Link>
-                <p className={css.description}>{summary as string}</p>
+                <div className={css.titleWrapper}>
+                  <Link className={css.title} href={`/articles/${slug}`}>
+                    {title}
+                  </Link>
+                </div>
+                <div className={css.descriptionWrapper}>
+                  <p className={css.description}>{summary as string}</p>
+                </div>
               </div>
             </div>
           </li>

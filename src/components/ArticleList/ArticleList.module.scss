@@ -20,7 +20,7 @@
 
   ul {
     @include horizontal-container();
-    @include flex-center-vert();
+    display: flex;
     flex-direction: column;
     list-style: none;
     row-gap: $mobile-grid-gap;
@@ -54,6 +54,25 @@
     }
   }
 
+  .imageWrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: fit-content;
+
+    &:hover {
+      .image {
+        transform: scale(1.05);
+        filter: grayscale(0%);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .image {
+    filter: grayscale(100%);
+    transition: 0.6s ease all;
+  }
+
   .content {
     padding: px(16) 0;
   }
@@ -70,17 +89,26 @@
     gap: px(16);
   }
 
+  .titleWrapper {
+    display: flex;
+    flex: 1;
+  }
+
+  .descriptionWrapper {
+    display: flex;
+    flex: 2;
+  }
+
   .title {
     @include typography-body;
     font-weight: $font-weight-semibold;
+    height: fit-content;
     text-align: left;
-    flex: 1;
   }
 
   .description {
     @include typography-body;
     inline-size: 100%;
     text-align: left;
-    flex: 2;
   }
 }
