@@ -59,6 +59,15 @@
       "body": {
         "title": "Articles"
       }
+    },
+    "article": {
+      "head": {
+        "title": "Article",
+        "description": ""
+      },
+      "body": {
+        "title": "Article"
+      }
     }
   }
 }
