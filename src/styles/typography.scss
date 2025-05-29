@@ -40,7 +40,7 @@ $font-stretch-pro: 'StretchPro';
 // Typography System
 
 @mixin typography-h1 {
-  @include typography($font-stretch-pro, 700, 32, 32, 0.01em);
+  @include typography($font-stretch-pro, 700, 36, 32, 0.01em);
 }
 
 @mixin typography-subtitle {
