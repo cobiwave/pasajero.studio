@@ -1,13 +1,12 @@
 import type { TypeFromQuery, VariablesFromQuery } from '@/lib/datocms/graphql';
 
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
+
+import { PageArticle } from '@/components/PageArticle';
 
 import { QueryAllArticles, QueryArticle } from '@/graphql/queries';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
-
-import styles from './page.module.scss';
 
 type PageProps = {
   params: { category: string; slug: string };
@@ -36,26 +35,15 @@ export const generateMetadata = generateMetadataFn<
 
 export default async function Article({ params }: PageProps) {
   const { slug } = params;
-
-  console.log('slug ===>', slug);
-  const { article } = await executeQuery(QueryArticle, {
+  const { article }: TypeFromQuery<typeof QueryArticle> = await executeQuery(QueryArticle, {
     variables: {
       slug
     }
   });
 
-  console.log('article ===>', article);
-
   if (!article) {
     notFound();
   }
 
-  return (
-    <div className={styles.root}>
-      <Image src={article.featuredImage?.url || ''} width={500} height={500} alt="Picture of the author" />
-      {article.categories.map((category) => (
-        <h1 key={category.slug}>{category.name}</h1>
-      ))}
-    </div>
-  );
+  return <PageArticle content={{ article }} />;
 }

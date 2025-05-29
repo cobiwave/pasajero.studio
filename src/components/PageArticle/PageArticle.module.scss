@@ -1,0 +1,29 @@
+@import '@/styles/shared';
+
+.root {
+  @include z-index(page);
+
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background: $gray-light;
+  opacity: 0;
+
+  .articleHeading {
+    @include flex-center(column);
+    margin-top: px(30);
+    margin-bottom: px(30);
+  }
+
+  .title {
+    @include typography-h1;
+    text-transform: uppercase;
+    margin-bottom: px(20);
+  }
+
+  .date {
+    @include typography-body-small;
+  }
+}
