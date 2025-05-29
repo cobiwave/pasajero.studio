@@ -45,10 +45,14 @@ export const QueryArticle = graphql(
           description
         }
         featuredImage {
-          url
+          id
+          alt
+          responsiveImage {
+            ...ResponsiveImageFragment
+          }
         }
       }
     }
   `,
-  [TagFragment]
+  [TagFragment, ResponsiveImageFragment]
 );
