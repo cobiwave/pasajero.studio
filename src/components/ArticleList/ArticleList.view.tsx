@@ -1,3 +1,5 @@
+'use client';
+
 import type { ControllerProps } from './ArticleList.controller';
 
 import { forwardRef, useMemo } from 'react';
