@@ -12,8 +12,6 @@ export interface ControllerProps {
 
 export const Controller = memo(
   forwardRef<HTMLDivElement, ControllerProps>((props, ref) => {
-    console.log('C01ImageGallery Controller props:', props);
-
     return <View {...props} ref={ref} />;
   })
 );
