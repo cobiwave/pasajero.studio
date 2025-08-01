@@ -8,6 +8,8 @@ import { QueryAllArticles, QueryArticle } from '@/graphql/queries';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
 
+export const revalidate = 0;
+
 type PageProps = {
   params: { category: string; slug: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -17,7 +19,7 @@ export async function generateStaticParams() {
   const { allArticles } = await executeQuery(QueryAllArticles);
 
   return allArticles.map((article) => ({
-    slug: article.slug ?? ''
+    slug: article.slug
   }));
 }
 

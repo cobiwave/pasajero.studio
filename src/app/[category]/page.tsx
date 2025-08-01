@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation';
 import { getPageData } from '@/graphql/queries';
 import RenderComponents from '@/renderComponent';
 
+export const revalidate = 0;
+
 export default async function Page({ params }: PageProps) {
   const { category } = params;
 
@@ -25,5 +27,5 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  return <RenderComponents components={components as ComponentList[]} />;
+  return <RenderComponents components={components as unknown as ComponentList[]} />;
 }
