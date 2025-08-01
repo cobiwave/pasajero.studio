@@ -64,7 +64,7 @@ export const QueryArticle = graphql(
   [TagFragment, ResponsiveImageFragment]
 );
 
-export const getPageData = async (pageName: string = 'home-page'): Promise<DatoGetPageData> => {
+export const getPageData = async (pageName: string): Promise<DatoGetPageData> => {
   const query = graphql(
     `
       query MyQuery($slug: String!) {
