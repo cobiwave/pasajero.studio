@@ -26,7 +26,7 @@ export default async function Home() {
   return (
     <>
       {/* {allArticles.length > 0 ? <ArticleList articles={allArticles} /> : null} */}
-      <RenderComponents components={components as ComponentList[]} />
+      <RenderComponents components={components as unknown as ComponentList[]} />
     </>
   );
 }
