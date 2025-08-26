@@ -2,16 +2,16 @@
 
 .root {
   @include z-index(page);
+  @include horizontal-container();
 
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0;
-  background: $gray-light;
   opacity: 0;
 
-  .articleHeading {
+  .heading {
     @include flex-center(column);
     margin-top: px(30);
     margin-bottom: px(30);
@@ -25,5 +25,18 @@
 
   .date {
     @include typography-body-small;
+  }
+
+  .content {
+    inline-size: phone-columns(6);
+    margin: px(20) auto;
+
+    @include media-desktop {
+      inline-size: desktop-columns(10);
+    }
+
+    p {
+      @include typography-body;
+    }
   }
 }

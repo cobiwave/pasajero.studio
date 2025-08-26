@@ -36,7 +36,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
     )
   );
 
-  console.log('articles ===', articles);
+  // console.log('articles ===', articles);
 
   return (
     <div className={classNames('ArticleList', css.root, className)} ref={multiRef(refs.root, ref)}>
