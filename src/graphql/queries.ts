@@ -46,6 +46,9 @@ export const QueryArticle = graphql(
         id
         title
         slug
+        content {
+          value
+        }
         categories {
           slug
           name

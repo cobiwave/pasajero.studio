@@ -4,6 +4,7 @@ import type { FC } from 'react';
 import type { ControllerProps } from './PageArticle.controller';
 
 import { useMemo } from 'react';
+import { StructuredText } from 'react-datocms';
 import classNames from 'classnames';
 import { animate } from 'motion';
 
@@ -39,12 +40,12 @@ export const View: FC<ViewProps> = ({ content: { article } }) => {
 
   return (
     <main className={classNames('PageArticle', css.root)} ref={refs.root}>
-      <div className={css.articleHeading}>
+      <div className={css.heading}>
         {article?.title ? <h1 className={css.title}>{article.title}</h1> : null}
         {article?._publishedAt ? <div className={css.date}>{prettifyDate(article._publishedAt)}</div> : null}
       </div>
 
-      <div className={css.articleBanner}>
+      <div className={css.banner}>
         {article?.featuredImage?.responsiveImage ? (
           <ResponsiveImage
             imgStyle={{
@@ -58,6 +59,10 @@ export const View: FC<ViewProps> = ({ content: { article } }) => {
             data={article.featuredImage.responsiveImage}
           />
         ) : null}
+      </div>
+
+      <div className={css.content}>
+        <StructuredText data={article?.content} />
       </div>
     </main>
   );
