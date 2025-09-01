@@ -13,18 +13,20 @@
 
   .heading {
     @include flex-center(column);
-    margin-top: px(30);
-    margin-bottom: px(30);
+    margin-block: px(30);
+
+    .title {
+      text-transform: uppercase;
+      margin-block-end: px(20);
+    }
+
+    .date {
+      @include typography-body-small;
+    }
   }
 
-  .title {
-    @include typography-h1;
-    text-transform: uppercase;
-    margin-bottom: px(20);
-  }
-
-  .date {
-    @include typography-body-small;
+  .banner {
+    @include full-width-breakout;
   }
 
   .content {
@@ -33,10 +35,6 @@
 
     @include media-desktop {
       inline-size: desktop-columns(10);
-    }
-
-    p {
-      @include typography-body;
     }
   }
 }
