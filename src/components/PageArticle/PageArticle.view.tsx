@@ -4,7 +4,6 @@ import type { FC } from 'react';
 import type { ControllerProps } from './PageArticle.controller';
 
 import { useMemo } from 'react';
-import { StructuredText } from 'react-datocms';
 import classNames from 'classnames';
 import { animate } from 'motion';
 
@@ -15,6 +14,7 @@ import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import css from './PageArticle.module.scss';
 
+import { A01RichText } from '../atoms/A01RichText';
 import ResponsiveImage from '../atoms/ResponsiveImage/ResponsiveImage';
 
 export interface ViewProps extends ControllerProps {}
@@ -35,8 +35,6 @@ export const View: FC<ViewProps> = ({ content: { article } }) => {
       [refs]
     )
   );
-
-  console.log('article ===', article);
 
   return (
     <main className={classNames('PageArticle', css.root)} ref={refs.root}>
@@ -61,9 +59,7 @@ export const View: FC<ViewProps> = ({ content: { article } }) => {
         ) : null}
       </div>
 
-      <div className={css.content}>
-        <StructuredText data={article?.content} />
-      </div>
+      <A01RichText className={css.content} content={article?.content} />
     </main>
   );
 };
