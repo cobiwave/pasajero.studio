@@ -1,4 +1,4 @@
-import { ResponsiveImageFragment } from '@/graphql/fragments/FragmentResponsiveImage';
+import { ResponsiveImageFragment } from '@/graphql/fragments/ResponsiveImage.fragment';
 import { graphql } from '@/lib/datocms/graphql';
 
 /**

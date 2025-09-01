@@ -1,4 +1,4 @@
-import type { QueryAllArticles } from '@/graphql/queries';
+import type { QueryAllArticles } from '@/graphql/queries/articles';
 import type { TypeFromQuery } from '@/lib/datocms/graphql';
 
 import { forwardRef, memo } from 'react';

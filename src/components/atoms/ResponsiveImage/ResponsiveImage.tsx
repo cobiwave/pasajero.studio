@@ -1,6 +1,6 @@
 import { type ImagePropTypes, SRCImage } from 'react-datocms';
 
-import { ResponsiveImageFragment } from '@/graphql/fragments/FragmentResponsiveImage';
+import { ResponsiveImageFragment } from '@/graphql/fragments/ResponsiveImage.fragment';
 import { type FragmentOf, readFragment } from '@/lib/datocms/graphql';
 
 type Props = Omit<ImagePropTypes, 'data'> & {
