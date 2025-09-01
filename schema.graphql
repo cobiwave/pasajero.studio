@@ -24,7 +24,7 @@ type ArticleListRecord implements RecordInterface {
 }
 
 type ArticleModelContentField {
-  blocks: [String!]!
+  blocks: [ImageBlockRecord!]!
   inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
@@ -2784,7 +2784,7 @@ enum PageModelOrderBy {
   title_DESC
 }
 
-"""Record of type Page (page)"""
+"""Record of type 📄 Page (page)"""
 type PageRecord implements RecordInterface {
   _createdAt: DateTime!
 
