@@ -1,64 +1,49 @@
-@use 'sass:math';
+@import './mixins/typography.scss';
 
-@import 'vars';
-
-$generic-fonts: system-ui, 'helvetica', 'arial', sans-serif;
-$font-stretch-pro: 'StretchPro';
-
-@mixin font-family($font-family: null, $font-weight: null, $font-style: null) {
-  @if $font-family {
-    font-family: $font-family, $generic-fonts;
-  }
-  font-weight: $font-weight;
-  font-style: $font-style;
+h1 {
+  @include typography-h1;
+  margin: 0;
 }
 
-@mixin font-size($font-size, $line-height: null, $letter-spacing: null) {
-  @if math.is-unitless($font-size) {
-    font-size: px($font-size);
-  } @else {
-    font-size: $font-size;
-  }
-
-  line-height: line-height($font-size, $line-height);
-  letter-spacing: $letter-spacing;
+h2 {
+  @include typography-h2;
+  margin: 0;
 }
 
-@function line-height($font-size, $line-height) {
-  @if is-compatible($font-size, $line-height) {
-    @return math.div($line-height, $font-size);
-  } @else {
-    @return $line-height;
-  }
+h3 {
+  @include typography-h3;
+  margin: 0;
 }
 
-@mixin typography($font-family, $font-weight, $font-size, $line-height: 1.2, $letter-spacing: 0) {
-  @include font-family($font-family, $font-weight);
-  @include font-size($font-size, $line-height, $letter-spacing);
+h4 {
+  @include typography-h4;
+  margin: 0;
 }
 
-// Typography System
-
-@mixin typography-h1 {
-  @include typography($font-stretch-pro, 700, 36, 32, 0.01em);
+h5 {
+  @include typography-h5;
+  margin: 0;
 }
 
-@mixin typography-subtitle {
-  @include typography($font-stretch-pro, 400, 18, 32, 0.01em);
+h6 {
+  @include typography-h6;
+  margin: 0;
 }
 
-@mixin typography-body {
-  @include typography($font-stretch-pro, 400, 16, 20, 0.01em);
+p {
+  @include typography-body;
+  margin: 0;
 }
 
-@mixin typography-body-small {
-  @include typography($font-stretch-pro, 400, 14, 20, 0);
+small {
+  @include typography-body-small;
 }
 
-@mixin typography-cta {
-  @include typography($font-stretch-pro, 700, 16, 19, 0.03em);
+label,
+caption {
+  @include typography-label;
 }
 
-@mixin typography-label {
-  @include typography($font-stretch-pro, 400, 12, 20, 0);
+button {
+  @include typography-cta;
 }
