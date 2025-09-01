@@ -3,7 +3,7 @@ import type { ComponentList } from '@/renderComponent';
 
 import { notFound } from 'next/navigation';
 
-import { getPageData } from '@/graphql/queries';
+import { getPageData } from '@/graphql/queries/pages';
 import RenderComponents from '@/renderComponent';
 
 export const revalidate = 0;

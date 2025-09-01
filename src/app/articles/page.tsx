@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 
 import { PageArticles } from '@/components/PageArticles';
 
-import { QueryAllArticles } from '@/graphql/queries';
+import { QueryAllArticles } from '@/graphql/queries/articles';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export default async function Page() {

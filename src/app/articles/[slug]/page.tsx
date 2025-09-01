@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { PageArticle } from '@/components/PageArticle';
 
-import { QueryAllArticles, QueryArticle } from '@/graphql/queries';
+import { QueryAllArticles, QueryArticle } from '@/graphql/queries/articles';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
 
