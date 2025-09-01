@@ -1,0 +1,25 @@
+@import '@/styles/shared';
+
+.root {
+  display: flex;
+  flex-direction: column;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-block-end: px(30);
+    text-align: left;
+  }
+
+  p {
+    margin-block-end: px(14);
+    text-align: left;
+  }
+
+  picture {
+    margin: px(20) 0;
+  }
+}
