@@ -33,12 +33,13 @@
     }
 
     @include media-desktop {
-      row-gap: $desktop-grid-gap;
+      gap: calc($desktop-grid-gap * 4) $desktop-grid-gap;
     }
   }
 
   li {
     inline-size: phone-columns(6);
+    border-bottom: 1px solid $black;
 
     @include media-tablet {
       inline-size: tablet-columns(6);
@@ -74,7 +75,7 @@
   }
 
   .content {
-    padding: px(16) 0;
+    padding: px(16) 0 px(32);
   }
 
   .date {
