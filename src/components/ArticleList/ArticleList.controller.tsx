@@ -1,7 +1,7 @@
 import type { QueryAllArticles } from '@/graphql/queries/articles';
 import type { TypeFromQuery } from '@/lib/datocms/graphql';
 
-import { forwardRef, memo } from 'react';
+import { forwardRef, memo, useMemo } from 'react';
 
 import { View } from './ArticleList.view';
 
@@ -11,8 +11,17 @@ export interface ControllerProps {
 }
 
 export const Controller = memo(
-  forwardRef<HTMLDivElement, ControllerProps>((props, ref) => {
-    return <View {...props} ref={ref} />;
+  forwardRef<HTMLDivElement, ControllerProps>(({ articles, ...props }, ref) => {
+    const sortedArticles = useMemo(() => {
+      if (!articles || articles.length === 0) return articles;
+      return [...articles].sort((a, b) => {
+        const dateA = new Date(a._firstPublishedAt);
+        const dateB = new Date(b._firstPublishedAt);
+        return dateB.getTime() - dateA.getTime();
+      });
+    }, [articles]);
+
+    return <View {...props} articles={sortedArticles} ref={ref} />;
   })
 );
 
