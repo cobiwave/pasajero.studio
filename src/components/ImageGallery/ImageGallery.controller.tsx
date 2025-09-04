@@ -1,12 +1,12 @@
-import type { C01ImageGalleryBlockFragment } from '@/components/C01ImageGallery/C01ImageGallery.fragment';
+import type { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery.fragment';
 import type { FragmentOf } from '@/lib/datocms/graphql';
 
 import { forwardRef, memo } from 'react';
 
-import { View } from './C01ImageGallery.view';
+import { View } from './ImageGallery.view';
 
 export interface ControllerProps {
-  data: FragmentOf<typeof C01ImageGalleryBlockFragment>;
+  data: FragmentOf<typeof ImageGalleryBlockFragment>;
   className?: string;
 }
 
@@ -16,4 +16,4 @@ export const Controller = memo(
   })
 );
 
-Controller.displayName = 'C01ImageGallery_Controller';
+Controller.displayName = 'ImageGallery_Controller';

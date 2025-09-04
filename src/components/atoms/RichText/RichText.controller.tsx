@@ -3,7 +3,7 @@ import type { TypeFromQuery } from '@/lib/datocms/graphql';
 
 import { forwardRef, memo } from 'react';
 
-import { View } from './A01RichText.view';
+import { View } from './RichText.view';
 
 type DatoCMSArticleContent = NonNullable<TypeFromQuery<typeof QueryArticle>['article']>['content'];
 export type ContentType = DatoCMSArticleContent | null | undefined;
@@ -19,4 +19,4 @@ export const Controller = memo(
   })
 );
 
-Controller.displayName = 'A01RichText_Controller';
+Controller.displayName = 'RichText_Controller';

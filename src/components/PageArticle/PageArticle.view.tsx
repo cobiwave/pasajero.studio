@@ -14,8 +14,8 @@ import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import css from './PageArticle.module.scss';
 
-import { A01RichText } from '../atoms/A01RichText';
 import ResponsiveImage from '../atoms/ResponsiveImage/ResponsiveImage';
+import { RichText } from '../atoms/RichText';
 
 export interface ViewProps extends ControllerProps {}
 
@@ -59,7 +59,7 @@ export const View: FC<ViewProps> = ({ content: { article } }) => {
         ) : null}
       </div>
 
-      <A01RichText className={css.content} content={article?.content} />
+      <RichText className={css.content} content={article?.content} />
     </main>
   );
 };

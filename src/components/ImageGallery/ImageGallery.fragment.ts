@@ -13,9 +13,9 @@ import { graphql } from '@/lib/datocms/graphql';
  *
  * Learn more: https://gql-tada.0no.co/guides/fragment-colocation
  */
-export const C01ImageGalleryBlockFragment = graphql(
+export const ImageGalleryBlockFragment = graphql(
   /* GraphQL */ `
-    fragment C01ImageGalleryBlockFragment on C01ImageGalleryBlockRecord {
+    fragment ImageGalleryBlockFragment on ImageGalleryBlockRecord {
       __typename
       id
       assets {

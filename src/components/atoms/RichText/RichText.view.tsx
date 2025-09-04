@@ -1,5 +1,5 @@
 import type { ImageBlockRecord } from '@/graphql/fragments/ImageBlock.fragment';
-import type { ControllerProps } from './A01RichText.controller';
+import type { ControllerProps } from './RichText.controller';
 
 import { forwardRef } from 'react';
 import { StructuredText } from 'react-datocms';
@@ -9,7 +9,7 @@ import { multiRef } from '@/utils/multi-ref';
 
 import { useRefs } from '@/hooks/use-refs';
 
-import css from './A01RichText.module.scss';
+import css from './RichText.module.scss';
 
 import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 
@@ -27,7 +27,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ content, className 
   }
 
   return (
-    <div className={classNames('A01RichText', css.root, className)} ref={multiRef(refs.root, ref)}>
+    <div className={classNames('RichText', css.root, className)} ref={multiRef(refs.root, ref)}>
       <StructuredText
         data={content as unknown as Parameters<typeof StructuredText>[0]['data']}
         renderBlock={({ record }) => {
@@ -58,4 +58,4 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ content, className 
   );
 });
 
-View.displayName = 'A01RichText_View';
+View.displayName = 'RichText_View';

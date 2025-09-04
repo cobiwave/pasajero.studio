@@ -10,13 +10,13 @@ import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import ResponsiveImage from '@/components/atoms/ResponsiveImage/ResponsiveImage';
-import { C01ImageGalleryBlockFragment } from '@/components/C01ImageGallery/C01ImageGallery.fragment';
+import { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery.fragment';
 
 import { readFragment } from '@/lib/datocms/graphql';
 
-import css from './C01ImageGallery.module.scss';
+import css from './ImageGallery.module.scss';
 
-import { type ControllerProps } from './C01ImageGallery.controller';
+import { type ControllerProps } from './ImageGallery.controller';
 
 export interface ViewProps extends ControllerProps {}
 
@@ -26,7 +26,7 @@ export type ViewRefs = {
 
 export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, ref) => {
   const refs = useRefs<ViewRefs>();
-  const unmaskedData = readFragment(C01ImageGalleryBlockFragment, data);
+  const unmaskedData = readFragment(ImageGalleryBlockFragment, data);
 
   useTransitionPresence(
     useMemo(
@@ -39,7 +39,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, 
   );
 
   return (
-    <div className={classNames('C01ImageGallery', css.root, className)} ref={multiRef(refs.root, ref)}>
+    <div className={classNames('ImageGallery', css.root, className)} ref={multiRef(refs.root, ref)}>
       <ul>
         {unmaskedData?.assets?.map((asset) => (
           <li key={asset.id}>
@@ -63,4 +63,4 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, 
   );
 });
 
-View.displayName = 'C01ImageGallery_View';
+View.displayName = 'ImageGallery_View';

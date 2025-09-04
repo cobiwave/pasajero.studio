@@ -1,12 +1,12 @@
-import type { ControllerProps as C01ImageGalleryProps } from './components/C01ImageGallery/C01ImageGallery.controller';
+import type { ControllerProps as ImageGalleryProps } from './components/ImageGallery/ImageGallery.controller';
 
 import { Fragment, type ReactElement } from 'react';
 
-import { C01ImageGallery } from './components/C01ImageGallery';
+import { ImageGallery } from './components/ImageGallery';
 
-type C01ImageGalleryData = { __typename: 'C01ImageGalleryBlockRecord'; props: C01ImageGalleryProps };
+type ImageGalleryData = { __typename: 'ImageGalleryBlockRecord'; props: ImageGalleryProps };
 
-export type ComponentList = C01ImageGalleryData;
+export type ComponentList = ImageGalleryData;
 
 interface RenderComponentsProps {
   components: ComponentList[];
@@ -15,8 +15,8 @@ interface RenderComponentsProps {
 function RenderComponents({ components }: RenderComponentsProps): ReactElement | null {
   const render = (component: ComponentList): ReactElement | null => {
     switch (component.__typename) {
-      case 'C01ImageGalleryBlockRecord': {
-        return <C01ImageGallery data={{ ...component.props.data }} />;
+      case 'ImageGalleryBlockRecord': {
+        return <ImageGallery data={{ ...component.props.data }} />;
       }
       default: {
         return null;

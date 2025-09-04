@@ -1,28 +1,3 @@
-"""Block of type Article List (article_list)"""
-type ArticleListRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  articles: [String!]!
-  id: ItemId!
-  title: String
-}
-
 type ArticleModelContentField {
   blocks: [ImageBlockRecord!]!
   inlineBlocks: [String!]!
@@ -117,30 +92,6 @@ input BooleanFilter {
 
 """Represents `true` or `false` values."""
 scalar BooleanType
-
-"""Block of type 🎠 C01 Image Gallery (c01_image_gallery_block)"""
-type C01ImageGalleryBlockRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime!
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime!
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  assets: [ImageFileField!]!
-  id: ItemId!
-}
 
 input CategoryModelFilter {
   _createdAt: CreatedAtFilter
@@ -545,7 +496,7 @@ type HomePageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  components: [C01ImageGalleryBlockRecord!]!
+  components: [ImageGalleryBlockRecord!]!
   id: ItemId!
   seoAnalysis: JsonField
   seoSettingsSocial: SeoField
@@ -672,6 +623,30 @@ type ImageFileField implements FileFieldInterface {
   ): String!
   video: UploadVideoField
   width: IntType!
+}
+
+"""Block of type 🎠 Image Gallery (image_gallery_block)"""
+type ImageGalleryBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  assets: [ImageFileField!]!
+  id: ItemId!
 }
 
 input ImgixParams {
@@ -2804,7 +2779,7 @@ type PageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  components: [C01ImageGalleryBlockRecord!]!
+  components: [ImageGalleryBlockRecord!]!
   id: ItemId!
   slug: String!
   title: String

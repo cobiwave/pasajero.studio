@@ -21,6 +21,10 @@ export const Controller = memo(
       });
     }, [articles]);
 
+    if (!sortedArticles || sortedArticles.length === 0) {
+      return null;
+    }
+
     return <View {...props} articles={sortedArticles} ref={ref} />;
   })
 );

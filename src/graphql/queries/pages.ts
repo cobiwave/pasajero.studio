@@ -2,7 +2,7 @@ import type { DatoGetPageData } from '@/data/types';
 
 import { DEBUG } from '@/data/constants';
 
-import { C01ImageGalleryBlockFragment } from '@/components/C01ImageGallery/C01ImageGallery.fragment';
+import { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery.fragment';
 
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { graphql } from '@/lib/datocms/graphql';
@@ -16,12 +16,12 @@ export const getPageData = async (pageName: string): Promise<DatoGetPageData> =>
           slug
           title
           components {
-            ...C01ImageGalleryBlockFragment
+            ...ImageGalleryBlockFragment
           }
         }
       }
     `,
-    [C01ImageGalleryBlockFragment]
+    [ImageGalleryBlockFragment]
   );
 
   const page = await executeQuery(query, {
