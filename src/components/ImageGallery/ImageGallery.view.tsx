@@ -9,8 +9,8 @@ import { multiRef } from '@/utils/multi-ref';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
-import ResponsiveImage from '@/components/atoms/ResponsiveImage/ResponsiveImage';
 import { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery.fragment';
+import ResponsiveImage from '@/components/ResponsiveImage/ResponsiveImage';
 
 import { readFragment } from '@/lib/datocms/graphql';
 

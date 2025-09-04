@@ -14,8 +14,8 @@ import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import css from './PageArticle.module.scss';
 
-import ResponsiveImage from '../atoms/ResponsiveImage/ResponsiveImage';
-import { RichText } from '../atoms/RichText';
+import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
+import { RichText } from '../RichText';
 
 export interface ViewProps extends ControllerProps {}
 
