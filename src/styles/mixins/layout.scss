@@ -153,9 +153,13 @@
 ///   element {
 ///     @include flex-center-vert;
 ///   }
-@mixin flex-center-vert {
+@mixin flex-center-vert($direction: null) {
   display: flex;
   align-items: center;
+
+  @if $direction {
+    flex-direction: $direction;
+  }
 }
 
 /// Set display flex and center children horizontally
@@ -163,9 +167,13 @@
 ///   element {
 ///     @include flex-center-horiz;
 ///   }
-@mixin flex-center-horiz {
+@mixin flex-center-horiz($direction: null) {
   display: flex;
   justify-content: center;
+
+  @if $direction {
+    flex-direction: $direction;
+  }
 }
 
 /// Center its element (horizontally and vertically) by using transform

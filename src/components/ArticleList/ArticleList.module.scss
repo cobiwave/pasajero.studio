@@ -87,7 +87,7 @@
 
   .summary {
     display: flex;
-    gap: px(16);
+    // gap: px(16);
   }
 
   .titleWrapper {
@@ -104,12 +104,14 @@
     @include typography-body;
     font-weight: $font-weight-semibold;
     height: fit-content;
+    text-wrap: pretty;
     text-align: left;
   }
 
   .description {
     @include typography-body;
     inline-size: 100%;
+    text-wrap: pretty;
     text-align: left;
   }
 }
