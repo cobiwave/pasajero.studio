@@ -1,0 +1,74 @@
+@import '@/styles/shared';
+
+.root {
+  display: block;
+  opacity: 0;
+  width: 100%;
+  background: $black;
+
+  @include top-spacing('sm');
+  @include bottom-spacing('sm');
+
+  @include media-tablet {
+    @include top-spacing('md');
+    @include bottom-spacing('md');
+  }
+
+  @include media-desktop {
+    @include top-spacing('sm');
+    @include bottom-spacing('md');
+  }
+
+  .container {
+    @include horizontal-container();
+    @include flex-center();
+    justify-content: space-between;
+    color: white;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: px(6);
+    inline-size: phone-columns(6);
+
+    @include media-tablet {
+      inline-size: tablet-columns(6);
+    }
+
+    @include media-desktop {
+      inline-size: desktop-columns(4);
+    }
+
+    li {
+      @include typography-body;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  .newsletter {
+    inline-size: phone-columns(6);
+
+    @include media-tablet {
+      inline-size: tablet-columns(6);
+    }
+
+    @include media-desktop {
+      inline-size: desktop-columns(4);
+    }
+  }
+
+  .copyright {
+    inline-size: phone-columns(6);
+
+    @include media-tablet {
+      inline-size: tablet-columns(6);
+    }
+
+    @include media-desktop {
+      inline-size: desktop-columns(4);
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { toNextMetadata } from 'react-datocms';
 import { Roboto } from 'next/font/google';
 import { draftMode } from 'next/headers';
 
+import { Footer } from '@/components/Footer';
 import GlobalNav from '@/components/GlobalNav/GlobalNav';
 import DebugGrid from '@/components/helpers/DebugGrid/DebugGrid';
 
@@ -44,7 +45,8 @@ export default function RootLayout({
     <html lang="en" className={roboto.className}>
       <body>
         <GlobalNav />
-        <main>{children}</main>
+        {children}
+        <Footer />
         <DebugGrid />
       </body>
     </html>
