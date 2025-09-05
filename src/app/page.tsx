@@ -31,9 +31,9 @@ export default async function Home() {
   }
 
   return (
-    <>
+    <main>
       <ArticleList articles={allArticles} />
       <RenderComponents components={components as unknown as ComponentList[]} />
-    </>
+    </main>
   );
 }
