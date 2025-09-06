@@ -1,12 +1,15 @@
 import type { ControllerProps as ImageGalleryProps } from './components/ImageGallery/ImageGallery.controller';
+import type { PropsWithData as RichTextProps } from './components/RichText/RichText.controller';
 
 import { Fragment, type ReactElement } from 'react';
 
 import { ImageGallery } from './components/ImageGallery';
+import { RichText } from './components/RichText';
 
 type ImageGalleryData = { __typename: 'ImageGalleryBlockRecord'; props: ImageGalleryProps };
+type RichTextData = { __typename: 'RichTextBlockRecord'; props: RichTextProps };
 
-export type ComponentList = ImageGalleryData;
+export type ComponentList = ImageGalleryData | RichTextData;
 
 interface RenderComponentsProps {
   components: ComponentList[];
@@ -17,6 +20,9 @@ function RenderComponents({ components }: RenderComponentsProps): ReactElement |
     switch (component.__typename) {
       case 'ImageGalleryBlockRecord': {
         return <ImageGallery data={{ ...component.props.data }} />;
+      }
+      case 'RichTextBlockRecord': {
+        return <RichText data={{ ...component.props.data }} />;
       }
       default: {
         return null;
