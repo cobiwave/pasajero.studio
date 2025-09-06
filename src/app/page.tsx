@@ -3,12 +3,11 @@ import type { ComponentList } from '@/renderComponent';
 
 import { notFound } from 'next/navigation';
 
-import { ArticleList } from '@/components/ArticleList';
+import { PageHome } from '@/components/PageHome';
 
 import { QueryAllArticles } from '@/graphql/queries/articles';
 import { getPageData } from '@/graphql/queries/pages';
 import { executeQuery } from '@/lib/datocms/executeQuery';
-import RenderComponents from '@/renderComponent';
 
 export const revalidate = 0;
 
@@ -30,10 +29,5 @@ export default async function Home() {
     notFound();
   }
 
-  return (
-    <main>
-      <ArticleList articles={allArticles} />
-      <RenderComponents components={components as unknown as ComponentList[]} />
-    </main>
-  );
+  return <PageHome articles={allArticles} components={components as unknown as ComponentList[]} />;
 }
