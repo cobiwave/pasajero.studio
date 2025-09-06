@@ -23,7 +23,7 @@ export type ViewRefs = {
   root: HTMLElement;
 };
 
-export const View: FC<ViewProps> = ({ content: { article } }) => {
+export const View: FC<ViewProps> = ({ article }) => {
   const refs = useRefs<ViewRefs>();
 
   useTransitionPresence(
@@ -37,7 +37,7 @@ export const View: FC<ViewProps> = ({ content: { article } }) => {
   );
 
   return (
-    <main className={classNames('PageArticle', css.root)} ref={refs.root}>
+    <section className={classNames('PageArticle', css.root)} ref={refs.root}>
       <div className={css.heading}>
         {article?.title ? <h1 className={css.title}>{article.title}</h1> : null}
         {article?._publishedAt ? <div className={css.date}>{prettifyDate(article._publishedAt)}</div> : null}
@@ -59,8 +59,8 @@ export const View: FC<ViewProps> = ({ content: { article } }) => {
         ) : null}
       </div>
 
-      <RichText className={css.content} content={article?.content} />
-    </main>
+      <RichText content={article?.content} />
+    </section>
   );
 };
 

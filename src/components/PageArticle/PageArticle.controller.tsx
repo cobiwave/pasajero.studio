@@ -7,9 +7,7 @@ import { memo } from 'react';
 import { View } from './PageArticle.view';
 
 export interface ControllerProps {
-  content: {
-    article: TypeFromQuery<typeof QueryArticle>['article'];
-  };
+  article: TypeFromQuery<typeof QueryArticle>['article'];
 }
 
 export const Controller: FC<ControllerProps> = memo((props) => {

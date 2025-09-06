@@ -28,13 +28,4 @@
   .banner {
     @include full-width-breakout;
   }
-
-  .content {
-    inline-size: phone-columns(6);
-    margin: px(20) auto;
-
-    @include media-desktop {
-      inline-size: desktop-columns(10);
-    }
-  }
 }
