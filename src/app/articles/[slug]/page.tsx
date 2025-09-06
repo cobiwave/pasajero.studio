@@ -47,5 +47,5 @@ export default async function Article({ params }: PageProps) {
     notFound();
   }
 
-  return <PageArticle content={{ article }} />;
+  return <PageArticle article={article} />;
 }
