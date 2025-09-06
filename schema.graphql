@@ -72,8 +72,8 @@ type ArticleRecord implements RecordInterface {
   _updatedAt: DateTime!
   author: PersonRecord
   categories: [CategoryRecord!]!
-  content: ArticleModelContentField
-  featuredImage: FileField
+  content: ArticleModelContentField!
+  featuredImage: FileField!
   id: ItemId!
   slug: String
   socials: SeoField
@@ -2720,6 +2720,8 @@ input OrientationFilter {
   neq: UploadOrientation
 }
 
+union PageModelComponentsField = ImageGalleryBlockRecord | RichTextBlockRecord
+
 input PageModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
@@ -2779,7 +2781,7 @@ type PageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  components: [ImageGalleryBlockRecord!]!
+  components: [PageModelComponentsField!]!
   id: ItemId!
   slug: String!
   title: String
@@ -3163,6 +3165,37 @@ type ResponsiveImage {
   title: String
   webpSrcSet: String!
   width: IntType!
+}
+
+type RichTextBlockModelContentField {
+  blocks: [ImageBlockRecord!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+"""Block of type Rich Text (rich_text_block)"""
+type RichTextBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content: RichTextBlockModelContentField
+  id: ItemId!
 }
 
 type SeoField {
