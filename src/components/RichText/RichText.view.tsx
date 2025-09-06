@@ -1,5 +1,7 @@
+'use client';
+
 import type { ImageBlockRecord } from '@/graphql/fragments/ImageBlock.fragment';
-import type { ControllerProps } from './RichText.controller';
+import type { ContentType } from './RichText.controller';
 
 import { forwardRef } from 'react';
 import { StructuredText } from 'react-datocms';
@@ -13,7 +15,10 @@ import css from './RichText.module.scss';
 
 import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 
-export interface ViewProps extends ControllerProps {}
+export interface ViewProps {
+  content: ContentType;
+  className?: string;
+}
 
 export type ViewRefs = {
   root: HTMLDivElement;
@@ -21,10 +26,6 @@ export type ViewRefs = {
 
 export const View = forwardRef<HTMLDivElement, ViewProps>(({ content, className }, ref) => {
   const refs = useRefs<ViewRefs>();
-
-  if (!content) {
-    return null;
-  }
 
   return (
     <div className={classNames('RichText', css.root, className)} ref={multiRef(refs.root, ref)}>

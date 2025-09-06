@@ -3,6 +3,12 @@
 .root {
   display: flex;
   flex-direction: column;
+  inline-size: phone-columns(6);
+  margin: px(20) auto;
+
+  @include media-desktop {
+    inline-size: desktop-columns(10);
+  }
 
   h1,
   h2,
@@ -20,6 +26,6 @@
   }
 
   picture {
-    margin: px(20) 0;
+    margin-block-end: px(20);
   }
 }
