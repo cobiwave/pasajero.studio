@@ -23,7 +23,6 @@
     @include horizontal-container();
     @include flex-center();
     justify-content: space-between;
-    color: white;
   }
 
   .links {
@@ -39,28 +38,35 @@
     }
 
     @include media-desktop {
-      inline-size: desktop-columns(4);
+      inline-size: desktop-columns(2);
     }
 
     li {
       @include typography-body;
       font-weight: $font-weight-semibold;
-    }
-  }
-
-  .newsletter {
-    inline-size: phone-columns(6);
-
-    @include media-tablet {
-      inline-size: tablet-columns(6);
-    }
-
-    @include media-desktop {
-      inline-size: desktop-columns(4);
+      color: $white;
     }
   }
 
   .copyright {
+    @include flex-center(column);
+    inline-size: phone-columns(6);
+    gap: px(4);
+    color: $white;
+
+    @include media-tablet {
+      inline-size: tablet-columns(6);
+    }
+
+    @include media-desktop {
+      inline-size: desktop-columns(8);
+    }
+  }
+
+  .social {
+    display: flex;
+    justify-content: flex-end;
+    gap: px(8);
     inline-size: phone-columns(6);
 
     @include media-tablet {
@@ -68,7 +74,11 @@
     }
 
     @include media-desktop {
-      inline-size: desktop-columns(4);
+      inline-size: desktop-columns(2);
+    }
+
+    li {
+      cursor: pointer;
     }
   }
 }
