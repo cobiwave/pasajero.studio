@@ -3,6 +3,7 @@
 import type { ControllerProps } from './Footer.controller';
 
 import { forwardRef, useMemo } from 'react';
+import Link from 'next/link';
 import classNames from 'classnames';
 import { animate } from 'motion';
 
@@ -36,15 +37,28 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ className }, ref) =
     <footer className={classNames('Footer', css.root, className)} ref={multiRef(refs.root, ref)}>
       <div className={css.container}>
         <ul className={css.links}>
-          <li>Link 1</li>
-          <li>Link 2</li>
-          <li>Link 3</li>
-          <li>Link 4</li>
+          <li>
+            <Link href="/about">About</Link>
+          </li>
+          <li>
+            <Link href="/contact">Contact</Link>
+          </li>
         </ul>
-        <div className={css.newsletter}>NewsLetter</div>
         <div className={css.copyright}>
-          <p>© 2025 My Website. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} PASAJERO STUDIO.</p>
         </div>
+        <ul className={css.social}>
+          <li>
+            <a href="https://www.instagram.com/pasajero.studio/" target="_blank" rel="noopener noreferrer">
+              <img src="/assets/instagram.svg" alt="Instagram" />
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@pasajero.studio" target="_blank" rel="noopener noreferrer">
+              <img src="/assets/youtube.svg" alt="Youtube" />
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );
