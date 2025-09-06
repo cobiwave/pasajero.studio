@@ -13,9 +13,6 @@ export const QueryAllArticles = graphql(
         slug
         title
         summary
-        content {
-          value
-        }
         featuredImage {
           id
           alt

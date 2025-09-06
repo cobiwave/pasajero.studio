@@ -3,6 +3,7 @@ import type { DatoGetPageData } from '@/data/types';
 import { DEBUG } from '@/data/constants';
 
 import { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery.fragment';
+import { RichTextBlockFragment } from '@/components/RichText/RichText.fragment';
 
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { graphql } from '@/lib/datocms/graphql';
@@ -17,11 +18,12 @@ export const getPageData = async (pageName: string): Promise<DatoGetPageData> =>
           title
           components {
             ...ImageGalleryBlockFragment
+            ...RichTextBlockFragment
           }
         }
       }
     `,
-    [ImageGalleryBlockFragment]
+    [ImageGalleryBlockFragment, RichTextBlockFragment]
   );
 
   const page = await executeQuery(query, {

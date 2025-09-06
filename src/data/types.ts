@@ -17,16 +17,6 @@ export interface Component {
   description?: string;
 }
 
-export interface ComponentFE {
-  data: {
-    __typename: string;
-    id?: string;
-    title?: string;
-    eyebrow?: string;
-    description?: string;
-  };
-}
-
 export type PageProps = {
   params: { category: string };
   searchParams: { [key: string]: string | string[] | undefined };
