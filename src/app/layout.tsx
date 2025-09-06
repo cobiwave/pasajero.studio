@@ -45,7 +45,7 @@ export default function RootLayout({
     <html lang="en" className={roboto.className}>
       <body>
         <GlobalNav />
-        {children}
+        <main>{children}</main>
         <Footer />
         <DebugGrid />
       </body>
