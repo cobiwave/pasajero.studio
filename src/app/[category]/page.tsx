@@ -3,8 +3,9 @@ import type { ComponentList } from '@/renderComponent';
 
 import { notFound } from 'next/navigation';
 
+import { PageTemplate } from '@/components/PageTemplate';
+
 import { getPageData } from '@/graphql/queries/pages';
-import RenderComponents from '@/renderComponent';
 
 export const revalidate = 0;
 
@@ -27,5 +28,5 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  return <RenderComponents components={components as unknown as ComponentList[]} />;
+  return <PageTemplate components={components as unknown as ComponentList[]} />;
 }
