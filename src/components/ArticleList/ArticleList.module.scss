@@ -23,17 +23,17 @@
     display: flex;
     flex-direction: column;
     list-style: none;
-    row-gap: $mobile-grid-gap;
+    row-gap: calc($mobile-grid-gap * 4);
 
     @include media-tablet {
       flex-direction: row;
       justify-content: space-between;
       flex-wrap: wrap;
-      row-gap: $tablet-grid-gap;
+      row-gap: calc($tablet-grid-gap * 4);
     }
 
     @include media-desktop {
-      gap: calc($desktop-grid-gap * 4) $desktop-grid-gap;
+      row-gap: calc($desktop-grid-gap * 4);
     }
   }
 
@@ -42,7 +42,7 @@
     border-bottom: 1px solid $black;
 
     @include media-tablet {
-      inline-size: tablet-columns(6);
+      inline-size: tablet-columns(3);
     }
 
     @include media-desktop {
