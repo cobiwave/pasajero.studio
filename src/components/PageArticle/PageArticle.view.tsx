@@ -59,7 +59,7 @@ export const View: FC<ViewProps> = ({ article }) => {
         ) : null}
       </div>
 
-      <RichText content={article?.content} />
+      <RichText className={css.content} content={article?.content} />
     </section>
   );
 };

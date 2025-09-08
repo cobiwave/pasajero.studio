@@ -28,4 +28,17 @@
   .banner {
     @include full-width-breakout;
   }
+
+  .content {
+    inline-size: phone-columns(6);
+    margin: px(20) auto;
+
+    @include media-tablet {
+      inline-size: tablet-columns(4);
+    }
+
+    @include media-desktop {
+      inline-size: desktop-columns(10);
+    }
+  }
 }
