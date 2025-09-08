@@ -33,7 +33,7 @@ export const View: FC<ViewProps> = ({ content }) => {
 
   return (
     <section className={classNames('PageArticles', css.root)} ref={refs.root}>
-      <ul>
+      <ul role="list">
         {content.allArticles.map(({ slug, id }) => (
           <li key={id}>{slug}</li>
         ))}
