@@ -13,6 +13,30 @@ export const QueryAllArticles = graphql(
         slug
         title
         summary
+        category
+        featuredImage {
+          id
+          alt
+          responsiveImage {
+            ...ResponsiveImageFragment
+          }
+        }
+      }
+    }
+  `,
+  [ResponsiveImageFragment]
+);
+
+export const QueryArticlesByCategory = graphql(
+  /* GraphQL */ `
+    query ArticlesByCategory($categorySlug: String!) {
+      allArticles(filter: { category: { matches: { pattern: $categorySlug } } }) {
+        _firstPublishedAt
+        id
+        slug
+        title
+        summary
+        category
         featuredImage {
           id
           alt
@@ -44,11 +68,7 @@ export const QueryArticle = graphql(
             ...ImageBlockFragment
           }
         }
-        categories {
-          slug
-          name
-          description
-        }
+        category
         featuredImage {
           id
           alt
