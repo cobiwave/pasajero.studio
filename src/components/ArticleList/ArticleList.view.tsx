@@ -38,7 +38,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
 
   return (
     <div className={classNames('ArticleList', css.root, className)} ref={multiRef(refs.root, ref)}>
-      <ul>
+      <ul role="list">
         {articles.map(({ id, slug, title, summary, featuredImage, _firstPublishedAt }) => (
           <li key={id}>
             {featuredImage?.responsiveImage ? (
