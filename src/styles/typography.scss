@@ -2,37 +2,30 @@
 
 h1 {
   @include typography-h1;
-  margin: 0;
 }
 
 h2 {
   @include typography-h2;
-  margin: 0;
 }
 
 h3 {
   @include typography-h3;
-  margin: 0;
 }
 
 h4 {
   @include typography-h4;
-  margin: 0;
 }
 
 h5 {
   @include typography-h5;
-  margin: 0;
 }
 
 h6 {
   @include typography-h6;
-  margin: 0;
 }
 
 p {
   @include typography-body;
-  margin: 0;
 }
 
 small {

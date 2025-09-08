@@ -27,7 +27,8 @@ body {
   word-break: keep-all;
   overscroll-behavior: none;
   overflow-x: hidden;
-  line-height: 1.5;
+  line-height: 1.6;
+  min-block-size: 100vh;
   -webkit-font-smoothing: antialiased;
 
   // @include debug-cross;
@@ -53,7 +54,7 @@ video,
 canvas,
 svg {
   display: block;
-  max-width: 100%;
+  max-inline-size: 100%;
 }
 
 main {
@@ -70,12 +71,11 @@ a {
   text-decoration: none;
 }
 
-ul,
-dl,
-ol {
+/* Accessibility fix for lists in Safari */
+[role='list'] {
+  list-style: none;
   margin: 0;
   padding: 0;
-  list-style: none;
 }
 
 li,
@@ -93,6 +93,19 @@ blockquote {
   padding: 0;
 }
 
+/* Text wrapping improvements */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
 button {
   border: none;
   cursor: pointer;
@@ -102,7 +115,7 @@ button {
   letter-spacing: inherit;
   font-size: inherit;
   font-weight: inherit;
-  line-height: inherit;
+  line-height: 1.1;
   text-transform: inherit;
   display: inline-block;
   margin: 0;
@@ -122,6 +135,16 @@ a {
   &:focus:not(.focus-visible) {
     outline: none;
   }
+}
+
+/* Improve line-height for interactive elements */
+h1,
+h2,
+h3,
+button,
+input,
+label {
+  line-height: 1.1;
 }
 
 /* Typography */
