@@ -16,7 +16,7 @@ export default function GlobalNav() {
       </a>
 
       <nav className={css.nav} role="navigation" aria-label="Main Navigation">
-        <ul>
+        <ul role="list">
           <li>
             <Link href="/skate">Skate</Link>
           </li>
