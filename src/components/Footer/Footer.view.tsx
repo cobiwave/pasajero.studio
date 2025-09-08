@@ -36,7 +36,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ className }, ref) =
   return (
     <footer className={classNames('Footer', css.root, className)} ref={multiRef(refs.root, ref)}>
       <div className={css.container}>
-        <ul className={css.links}>
+        <ul role="list" className={css.links}>
           <li>
             <Link href="/about">About</Link>
           </li>

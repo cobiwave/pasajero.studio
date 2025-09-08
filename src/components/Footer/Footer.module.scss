@@ -66,6 +66,7 @@
   .social {
     display: flex;
     justify-content: flex-end;
+    list-style: none;
     gap: px(8);
     inline-size: phone-columns(6);
 
