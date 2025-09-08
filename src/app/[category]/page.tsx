@@ -5,14 +5,21 @@ import { notFound } from 'next/navigation';
 
 import { PageTemplate } from '@/components/PageTemplate';
 
+import { QueryArticlesByCategory } from '@/graphql/queries/articles';
 import { getPageData } from '@/graphql/queries/pages';
+import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export const revalidate = 0;
 
 export default async function Page({ params }: PageProps) {
   const { category } = params;
-
   const { page } = await getPageData(category);
+  const result = await executeQuery(QueryArticlesByCategory, {
+    variables: {
+      categorySlug: category
+    }
+  });
+  const { allArticles } = result;
 
   const components =
     page?.components.map((component) => {
@@ -28,5 +35,5 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  return <PageTemplate components={components as unknown as ComponentList[]} />;
+  return <PageTemplate articles={allArticles} components={components as unknown as ComponentList[]} />;
 }

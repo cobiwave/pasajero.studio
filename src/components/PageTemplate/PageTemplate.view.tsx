@@ -14,13 +14,15 @@ import RenderComponents from '@/renderComponent';
 
 import css from './PageTemplate.module.scss';
 
+import { ArticleList } from '../ArticleList';
+
 export interface ViewProps extends ControllerProps {}
 
 export type ViewRefs = {
   root: HTMLElement;
 };
 
-export const View: FC<ViewProps> = ({ components }) => {
+export const View: FC<ViewProps> = ({ articles, components }) => {
   const refs = useRefs<ViewRefs>();
 
   useTransitionPresence(
@@ -35,6 +37,7 @@ export const View: FC<ViewProps> = ({ components }) => {
 
   return (
     <section className={classNames('PageTemplate', css.root)} ref={refs.root}>
+      <ArticleList articles={articles} />
       <RenderComponents components={components} />
     </section>
   );
