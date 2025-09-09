@@ -25,33 +25,56 @@
     @include horizontal-container();
     @include flex-center-vert();
     block-size: $navbar-height;
-    row-gap: $desktop-grid-gap;
+    gap: $mobile-grid-gap;
 
-    ul {
-      display: flex;
-      gap: px(20);
-      inline-size: desktop-columns(4);
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    @include media-tablet {
+      gap: $tablet-grid-gap;
     }
 
-    a {
-      @include font-size(18);
-      text-transform: uppercase;
-      font-weight: $font-weight-bold;
-      position: relative;
-      color: $white;
-      text-decoration: none;
+    @include media-desktop {
+      gap: $desktop-grid-gap;
+    }
+
+    // Desktop navigation
+    .desktopNav {
+      display: none;
+      border: 1px solid red;
+
+      @include media-desktop {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: $desktop-grid-gap;
+        inline-size: desktop-columns(4);
+      }
+
+      a {
+        @include typography-body-large();
+        text-transform: uppercase;
+        font-weight: $font-weight-bold;
+        position: relative;
+        color: $white;
+        text-decoration: none;
+      }
     }
   }
 
   .logo {
-    inline-size: desktop-columns(4);
-    margin-left: $desktop-grid-gap;
+    inline-size: phone-columns(5);
+    text-align: left;
+
+    @include media-tablet {
+      inline-size: tablet-columns(5);
+    }
+
+    @include media-desktop {
+      inline-size: desktop-columns(4);
+      text-align: center;
+    }
 
     a {
-      @include font-size(26);
+      @include typography-logo-large;
       font-weight: $font-weight-regular;
       color: $white;
       text-decoration: none;
