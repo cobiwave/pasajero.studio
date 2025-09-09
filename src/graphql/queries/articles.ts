@@ -27,10 +27,10 @@ export const QueryAllArticles = graphql(
   [ResponsiveImageFragment]
 );
 
-export const QueryArticlesByCategory = graphql(
+export const QueryArticlesByCategoryId = graphql(
   /* GraphQL */ `
-    query ArticlesByCategory($categorySlug: String!) {
-      allArticles(filter: { category: { matches: { pattern: $categorySlug } } }) {
+    query ArticlesByCategory($categoryId: [ItemId]!) {
+      allArticles(filter: { categoryList: { anyIn: $categoryId } }) {
         _firstPublishedAt
         id
         slug
