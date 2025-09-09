@@ -222,7 +222,7 @@
 ///     @include z-index(modal);
 ///   }
 @mixin z-index($id) {
-  $elements: background, pages, footer, nav, modal, notification, debug-grid, fps-indicator;
+  $elements: background, pages, footer, nav, overlay, hamburger, modal, notification, debug-grid, fps-indicator;
   z-index: list.index($elements, $id);
 }
 
