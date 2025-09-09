@@ -17,6 +17,7 @@ input ArticleModelFilter {
   _isValid: BooleanFilter
   author: LinkFilter
   category: StringFilter
+  categoryList: LinksFilter
   content: StructuredTextFilter
   featuredImage: FileFilter
   slug: SlugFilter
@@ -74,6 +75,7 @@ type ArticleRecord implements RecordInterface {
   _updatedAt: DateTime!
   author: PersonRecord
   category: String
+  categoryList: [CategoryReferenceRecord!]!
   content: ArticleModelContentField!
   featuredImage: FileField!
   id: ItemId!
@@ -94,6 +96,76 @@ input BooleanFilter {
 
 """Represents `true` or `false` values."""
 scalar BooleanType
+
+input CategoryReferenceModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  description: StringFilter
+  name: StringFilter
+  slug: StringFilter
+  OR: [CategoryReferenceModelFilter]
+  AND: [CategoryReferenceModelFilter]
+}
+
+enum CategoryReferenceModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  description_ASC
+  description_DESC
+  name_ASC
+  name_DESC
+  slug_ASC
+  slug_DESC
+}
+
+"""Record of type Category Reference (category_reference)"""
+type CategoryReferenceRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  description: String
+  id: ItemId!
+  name: String
+  slug: String
+}
 
 type CollectionMetadata {
   count: IntType!
@@ -2606,6 +2678,34 @@ input LinkFilter {
   exists: BooleanType
 }
 
+"""Specifies how to filter Multiple-links fields"""
+input LinksFilter {
+  """
+  Search for records with an exact match. The specified values must be Record IDs
+  """
+  eq: [ItemId]
+
+  """
+  Filter records linked to all of the specified records. The specified values must be Record IDs
+  """
+  allIn: [ItemId]
+
+  """
+  Filter records linked to at least one of the specified records. The specified values must be Record IDs
+  """
+  anyIn: [ItemId]
+
+  """
+  Filter records not linked to any of the specified records. The specified values must be Record IDs
+  """
+  notIn: [ItemId]
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+}
+
 scalar MetaTagAttributes
 
 enum MuxThumbnailFormatType {
@@ -2802,6 +2902,13 @@ type Query {
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
+  _allCategoryReferencesMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: CategoryReferenceModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
   _allPagesMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
@@ -2851,6 +2958,25 @@ type Query {
     filter: ArticleModelFilter
     orderBy: [ArticleModelOrderBy] = [_updatedAt_DESC]
   ): [ArticleRecord!]!
+
+  """Returns a collection of records"""
+  allCategoryReferences(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: CategoryReferenceModelFilter
+    orderBy: [CategoryReferenceModelOrderBy] = [_updatedAt_DESC]
+  ): [CategoryReferenceRecord!]!
 
   """Returns a collection of records"""
   allPages(
@@ -2921,6 +3047,19 @@ type Query {
     filter: ArticleModelFilter
     orderBy: [ArticleModelOrderBy] = [_updatedAt_DESC]
   ): ArticleRecord
+
+  """Returns a specific record"""
+  categoryReference(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: CategoryReferenceModelFilter
+    orderBy: [CategoryReferenceModelOrderBy] = [_updatedAt_DESC]
+  ): CategoryReferenceRecord
 
   """Returns the single instance record"""
   homePage(
