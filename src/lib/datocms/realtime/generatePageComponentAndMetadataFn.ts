@@ -1,5 +1,5 @@
-import { type GenerateMetadataFnOptions, generateMetadataFn } from '../generateMetadataFn';
-import { type GeneratePageComponentOptions, generatePageComponent } from './generatePageComponent';
+import { generateMetadataFn, type GenerateMetadataFnOptions } from '../generateMetadataFn';
+import { generatePageComponent, type GeneratePageComponentOptions } from './generatePageComponent';
 
 /**
  * A simple wrapper that reduces the code to be written for each route. It takes
@@ -8,14 +8,14 @@ import { type GeneratePageComponentOptions, generatePageComponent } from './gene
  */
 export function generatePageComponentAndMetadataFn<PageProps, Result, Variables>(
   options: GeneratePageComponentOptions<PageProps, Result, Variables> &
-    Partial<GenerateMetadataFnOptions<PageProps, Result, Variables>>,
+    Partial<GenerateMetadataFnOptions<PageProps, Result, Variables>>
 ) {
   const Page = generatePageComponent(options);
 
   const metadataFn = options.pickSeoMetaTags
     ? generateMetadataFn({
         ...options,
-        pickSeoMetaTags: options.pickSeoMetaTags,
+        pickSeoMetaTags: options.pickSeoMetaTags
       })
     : undefined;
 

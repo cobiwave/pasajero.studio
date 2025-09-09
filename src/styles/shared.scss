@@ -4,5 +4,6 @@
 @use 'sass:map';
 
 @import 'vars';
-@import 'mixins';
+@import 'mixins/layout';
+@import 'mixins/typography';
 @import 'grid';

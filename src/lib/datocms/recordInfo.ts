@@ -14,7 +14,7 @@ import type { SchemaTypes } from '@datocms/cma-client';
 export async function recordToWebsiteRoute(
   item: SchemaTypes.Item,
   itemTypeApiKey: string,
-  locale: string,
+  locale: string
 ): Promise<string | null> {
   switch (itemTypeApiKey) {
     case 'page': {
@@ -23,21 +23,24 @@ export async function recordToWebsiteRoute(
     case 'article': {
       return `/blog/${await recordToSlug(item, itemTypeApiKey, locale)}`;
     }
-    default:
+    default: {
       return null;
+    }
   }
 }
 
 export async function recordToSlug(
   item: SchemaTypes.Item,
   itemTypeApiKey: string,
-  locale: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  locale: string
 ): Promise<string | null> {
   switch (itemTypeApiKey) {
     case 'article': {
       return item.attributes.slug as string;
     }
-    default:
+    default: {
       return null;
+    }
   }
 }

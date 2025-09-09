@@ -1,5 +1,6 @@
 type ArticleModelContentField {
-  blocks: [String!]!
+  blocks: [ImageBlockRecord!]!
+  inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
 }
@@ -15,11 +16,12 @@ input ArticleModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   author: LinkFilter
-  categories: LinksFilter
+  category: StringFilter
   content: StructuredTextFilter
   featuredImage: FileFilter
   slug: SlugFilter
   socials: SeoFilter
+  summary: TextFilter
   title: StringFilter
   OR: [ArticleModelFilter]
   AND: [ArticleModelFilter]
@@ -44,6 +46,8 @@ enum ArticleModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  category_ASC
+  category_DESC
   title_ASC
   title_DESC
 }
@@ -54,11 +58,11 @@ type ArticleRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -69,13 +73,17 @@ type ArticleRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   author: PersonRecord
-  categories: [CategoryRecord!]!
-  content: ArticleModelContentField
-  featuredImage: FileField
+  category: String
+  content: ArticleModelContentField!
+  featuredImage: FileField!
   id: ItemId!
   slug: String
   socials: SeoField
-  title: String
+  summary(
+    """Process content as markdown"""
+    markdown: Boolean
+  ): String
+  title: String!
 }
 
 """Specifies how to filter Boolean fields"""
@@ -86,77 +94,6 @@ input BooleanFilter {
 
 """Represents `true` or `false` values."""
 scalar BooleanType
-
-input CategoryModelFilter {
-  _createdAt: CreatedAtFilter
-  id: ItemIdFilter
-  _firstPublishedAt: PublishedAtFilter
-  _publicationScheduledAt: PublishedAtFilter
-  _unpublishingScheduledAt: PublishedAtFilter
-  _publishedAt: PublishedAtFilter
-  _status: StatusFilter
-  _updatedAt: UpdatedAtFilter
-  _isValid: BooleanFilter
-  description: TextFilter
-  name: StringFilter
-  slug: StringFilter
-  OR: [CategoryModelFilter]
-  AND: [CategoryModelFilter]
-}
-
-enum CategoryModelOrderBy {
-  _createdAt_ASC
-  _createdAt_DESC
-  id_ASC
-  id_DESC
-  _firstPublishedAt_ASC
-  _firstPublishedAt_DESC
-  _publicationScheduledAt_ASC
-  _publicationScheduledAt_DESC
-  _unpublishingScheduledAt_ASC
-  _unpublishingScheduledAt_DESC
-  _publishedAt_ASC
-  _publishedAt_DESC
-  _status_ASC
-  _status_DESC
-  _updatedAt_ASC
-  _updatedAt_DESC
-  _isValid_ASC
-  _isValid_DESC
-  name_ASC
-  name_DESC
-  slug_ASC
-  slug_DESC
-}
-
-"""Record of type Category (category)"""
-type CategoryRecord implements RecordInterface {
-  _createdAt: DateTime!
-
-  """Editing URL"""
-  _editingUrl: String
-  _firstPublishedAt: DateTime
-  _isValid: BooleanType!
-  _modelApiKey: String!
-  _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
-
-  """Generates SEO and Social card meta tags to be used in your frontend"""
-  _seoMetaTags(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-  ): [Tag!]!
-  _status: ItemStatus!
-  _unpublishingScheduledAt: DateTime
-  _updatedAt: DateTime!
-  description(
-    """Process content as markdown"""
-    markdown: Boolean
-  ): String
-  id: ItemId!
-  name: String
-  slug: String
-}
 
 type CollectionMetadata {
   count: IntType!
@@ -476,11 +413,11 @@ type HomePageRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -490,11 +427,10 @@ type HomePageRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  components: [ImageGalleryBlockRecord!]!
   id: ItemId!
-  imageGallery: ImageGalleryBlockRecord
   seoAnalysis: JsonField
   seoSettingsSocial: SeoField
-  title: String!
 }
 
 """Block of type 🌅 Image (image_block)"""
@@ -503,11 +439,11 @@ type ImageBlockRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -626,11 +562,11 @@ type ImageGalleryBlockRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -2670,34 +2606,6 @@ input LinkFilter {
   exists: BooleanType
 }
 
-"""Specifies how to filter Multiple-links fields"""
-input LinksFilter {
-  """
-  Search for records with an exact match. The specified values must be Record IDs
-  """
-  eq: [ItemId]
-
-  """
-  Filter records linked to all of the specified records. The specified values must be Record IDs
-  """
-  allIn: [ItemId]
-
-  """
-  Filter records linked to at least one of the specified records. The specified values must be Record IDs
-  """
-  anyIn: [ItemId]
-
-  """
-  Filter records not linked to any of the specified records. The specified values must be Record IDs
-  """
-  notIn: [ItemId]
-
-  """
-  Filter records with the specified field defined (i.e. with any value) or not
-  """
-  exists: BooleanType
-}
-
 scalar MetaTagAttributes
 
 enum MuxThumbnailFormatType {
@@ -2713,6 +2621,73 @@ input OrientationFilter {
 
   """Exclude uploads with the specified orientation"""
   neq: UploadOrientation
+}
+
+union PageModelComponentsField = ImageGalleryBlockRecord | RichTextBlockRecord
+
+input PageModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  slug: SlugFilter
+  title: StringFilter
+  OR: [PageModelFilter]
+  AND: [PageModelFilter]
+}
+
+enum PageModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  title_ASC
+  title_DESC
+}
+
+"""Record of type 📄 Page (page)"""
+type PageRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  components: [PageModelComponentsField!]!
+  id: ItemId!
+  slug: String!
+  title: String
 }
 
 input PersonModelFilter {
@@ -2760,11 +2735,11 @@ type PersonRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -2827,10 +2802,10 @@ type Query {
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
-  _allCategoriesMeta(
+  _allPagesMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
-    filter: CategoryModelFilter
+    filter: PageModelFilter
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
@@ -2878,7 +2853,7 @@ type Query {
   ): [ArticleRecord!]!
 
   """Returns a collection of records"""
-  allCategories(
+  allPages(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -2892,9 +2867,9 @@ type Query {
 
     """Limit the number of results"""
     first: IntType = 20
-    filter: CategoryModelFilter
-    orderBy: [CategoryModelOrderBy] = [_updatedAt_DESC]
-  ): [CategoryRecord!]!
+    filter: PageModelFilter
+    orderBy: [PageModelOrderBy] = [_updatedAt_DESC]
+  ): [PageRecord!]!
 
   """Returns a collection of records"""
   allPeople(
@@ -2947,19 +2922,6 @@ type Query {
     orderBy: [ArticleModelOrderBy] = [_updatedAt_DESC]
   ): ArticleRecord
 
-  """Returns a specific record"""
-  category(
-    """The locale to use to fetch the field's content"""
-    locale: SiteLocale
-
-    """
-    If you want to fallback to a default translation when a translation has not been found
-    """
-    fallbackLocales: [SiteLocale!]
-    filter: CategoryModelFilter
-    orderBy: [CategoryModelOrderBy] = [_updatedAt_DESC]
-  ): CategoryRecord
-
   """Returns the single instance record"""
   homePage(
     """The locale to use to fetch the field's content"""
@@ -2970,6 +2932,19 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): HomePageRecord
+
+  """Returns a specific record"""
+  page(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: PageModelFilter
+    orderBy: [PageModelOrderBy] = [_updatedAt_DESC]
+  ): PageRecord
 
   """Returns a specific record"""
   person(
@@ -3003,11 +2978,11 @@ interface RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(
@@ -3054,6 +3029,37 @@ type ResponsiveImage {
   title: String
   webpSrcSet: String!
   width: IntType!
+}
+
+type RichTextBlockModelContentField {
+  blocks: [ImageBlockRecord!]!
+  inlineBlocks: [String!]!
+  links: [String!]!
+  value: JsonField!
+}
+
+"""Block of type Rich Text (rich_text_block)"""
+type RichTextBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  content: RichTextBlockModelContentField
+  id: ItemId!
 }
 
 type SeoField {
@@ -3737,11 +3743,11 @@ type VideoBlockRecord implements RecordInterface {
 
   """Editing URL"""
   _editingUrl: String
-  _firstPublishedAt: DateTime
+  _firstPublishedAt: DateTime!
   _isValid: BooleanType!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
-  _publishedAt: DateTime
+  _publishedAt: DateTime!
 
   """Generates SEO and Social card meta tags to be used in your frontend"""
   _seoMetaTags(

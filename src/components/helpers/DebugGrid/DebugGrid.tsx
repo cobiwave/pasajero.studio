@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
 import styles from './DebugGrid.module.scss';
 
 export default function DebugGrid() {

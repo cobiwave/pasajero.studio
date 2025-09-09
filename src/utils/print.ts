@@ -8,7 +8,7 @@ const colors: { [key: string]: [string, string, string, string] } = {
   error: ['#e64a19', '#000', '#ff0000', '#fff'],
   cms: ['#ffeb3b', '#000', '#fbc02d', '#000'],
   graphql: ['#4caf50', '#000', '#388e3c', '#fff'],
-  props: ['#3d5afe', '#fff', '#304ffe', '#fff'],
+  props: ['#3d5afe', '#fff', '#304ffe', '#fff']
 };
 
 export const productionPrint = (label: string, ...args: string[]) => {
@@ -18,7 +18,7 @@ export const productionPrint = (label: string, ...args: string[]) => {
       `%c ${label.toLowerCase()} %c ${args.join(' ')} %c`,
       `background:${c[0]}; padding: 1px; border-radius: 2px; color: ${c[1]}; margin: 0 1px 1px;`,
       `background:${c[2]}; padding: 1px; border-radius: 2px; color: ${c[3]};`,
-      `background:transparent`,
+      `background:transparent`
     );
   }
 };

@@ -16,13 +16,13 @@ const openSharePopup = (network: 'facebook' | 'twitter' | 'linkedin', url: strin
   const shareURL = {
     facebook: `https://www.facebook.com/sharer.php?u=${encodedUrl}`,
     twitter: `https://twitter.com/intent/tweet?url=${encodedUrl}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
   }[network];
 
   const popup = window.open(
     shareURL,
     'share',
-    `location=1,status=1,scrollbars=1,resizable=1,width=${w},height=${h},top=${top},left=${left}`,
+    `location=1,status=1,scrollbars=1,resizable=1,width=${w},height=${h},top=${top},left=${left}`
   );
   if (popup) popup.opener = null;
 };
@@ -37,7 +37,7 @@ export const share = {
     const shareData: ShareData = {
       url,
       title: emailSubject,
-      text: emailBody,
+      text: emailBody
     };
 
     try {
@@ -56,7 +56,7 @@ export const share = {
     const url = window.location.href;
     const shareData: ShareData = {
       url,
-      title: document.title,
+      title: document.title
     };
 
     try {
@@ -75,7 +75,7 @@ export const share = {
     const url = window.location.href;
     const shareData: ShareData = {
       url,
-      title: document.title,
+      title: document.title
     };
 
     try {
@@ -93,7 +93,7 @@ export const share = {
     const url = window.location.href;
     const shareData: ShareData = {
       url,
-      title: document.title,
+      title: document.title
     };
 
     try {
@@ -105,5 +105,5 @@ export const share = {
     } catch (error) {
       console.error('Error sharing:', error);
     }
-  },
+  }
 };

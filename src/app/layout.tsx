@@ -1,14 +1,21 @@
-import localFont from 'next/font/local';
-import { draftMode } from 'next/headers';
 import { toNextMetadata } from 'react-datocms';
+import { Roboto } from 'next/font/google';
+import { draftMode } from 'next/headers';
+
+import { Footer } from '@/components/Footer';
+import GlobalNav from '@/components/GlobalNav/GlobalNav';
+import DebugGrid from '@/components/helpers/DebugGrid/DebugGrid';
+
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { graphql } from '@/lib/datocms/graphql';
-import DebugGrid from '@/components/helpers/DebugGrid/DebugGrid';
-import GlobalNav from '@/components/GlobalNav/GlobalNav';
+
 import '@/styles/global.scss';
 
-const myFont = localFont({ src: './StretchPro.woff2' });
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700']
+});
 
 const query = graphql(
   /* GraphQL */ `
@@ -20,7 +27,7 @@ const query = graphql(
       }
     }
   `,
-  [TagFragment],
+  [TagFragment]
 );
 
 export async function generateMetadata() {
@@ -30,15 +37,16 @@ export async function generateMetadata() {
 }
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={myFont.className}>
+    <html lang="en" className={roboto.className}>
+      <body>
         <GlobalNav />
         <main>{children}</main>
+        <Footer />
         <DebugGrid />
       </body>
     </html>

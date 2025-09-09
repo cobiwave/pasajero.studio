@@ -8,13 +8,13 @@ $color-grid: #007d56;
 // mobile
 $mobile-columns: 6;
 $mobile-grid-gap: px(8);
-$mobile-side-padding: px(10);
+$mobile-side-padding: px(20);
 $mobile-max-content-width: 100%;
 
 // tablet
 $tablet-columns: 6;
 $tablet-grid-gap: px(12);
-$tablet-side-padding: px(15);
+$tablet-side-padding: px(20);
 $tablet-max-content-width: px(1120);
 
 // desktop
@@ -161,10 +161,6 @@ $desktop-max-content-width: px(1440);
 }
 
 /// Set element size based on columns for phone
-/// @example scss Input
-///   div {
-///    width: phone-columns(6);
-///   }
 @function phone-columns($numCols: 1, $gutters: 0) {
   @if $numCols > $mobile-columns {
     @warn "Number of columns exceeds the maximum number of columns for mobile";
@@ -177,19 +173,13 @@ $desktop-max-content-width: px(1440);
   $columns-space: calc($container-size - $columns-gutter-space);
 
   // Calculating the column size
-  $inline-gutter-space: calc(
-    $columns-gutter-space / ($mobile-columns - 1) * ($numCols + $gutters - 1)
-  );
+  $inline-gutter-space: calc($columns-gutter-space / ($mobile-columns - 1) * ($numCols + $gutters - 1));
   $width: calc($columns-space * $numCols / $mobile-columns + $inline-gutter-space);
 
   @return $width;
 }
 
-/// Set element size based on columns for tablet
-/// @example scss Input
-///   div {
-///    width: tablet-columns(10);
-///   }
+// Set element size based on columns for tablet
 @function tablet-columns($numCols: 1, $gutters: 0) {
   @if $numCols > $tablet-columns {
     @warn "Number of columns exceeds the maximum number of columns for tablet";
@@ -207,21 +197,13 @@ $desktop-max-content-width: px(1440);
   $columns-space: calc($container-size - $columns-gutter-space);
 
   // Calculating the column size
-  $inline-gutter-space: calc(
-    $columns-gutter-space / ($tablet-columns - 1) * ($numCols + $gutters - 1)
-  );
+  $inline-gutter-space: calc($columns-gutter-space / ($tablet-columns - 1) * ($numCols + $gutters - 1));
   $width: calc($columns-space * $numCols / $tablet-columns + $inline-gutter-space);
 
   @return $width;
 }
 
 /// Set desktop columns
-/// Layout takes into account gutters too (e.g. 6 columns will end up being 6 columns + 5 gutters by default)
-/// @example scss Input
-///   element {
-///     width: desktop-columns(5, 1);
-///   }
-
 @function desktop-columns($numCols: 1, $gutters: 0) {
   @if $numCols > $desktop-columns {
     @warn "Number of columns exceeds the maximum number of columns for desktop";
@@ -239,9 +221,7 @@ $desktop-max-content-width: px(1440);
   $columns-space: calc($container-size - $columns-gutter-space);
 
   // Calculating the column size
-  $inline-gutter-space: calc(
-    $columns-gutter-space / ($desktop-columns - 1) * ($numCols + $gutters - 1)
-  );
+  $inline-gutter-space: calc($columns-gutter-space / ($desktop-columns - 1) * ($numCols + $gutters - 1));
   $width: calc($columns-space * $numCols / $desktop-columns + $inline-gutter-space);
 
   @return $width;

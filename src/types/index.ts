@@ -3,5 +3,5 @@ export enum SizesEnum {
   Medium = 'md',
   Large = 'lg',
   ExtraLarge = 'xl',
-  ExtraExtraLarge = 'xxl',
+  ExtraExtraLarge = 'xxl'
 }

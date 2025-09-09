@@ -13,7 +13,7 @@ const defaultProps: ScrollProps = {
   x: 0,
   y: 0,
   duration: 0, // in seconds
-  ease: 'none',
+  ease: 'none'
 };
 
 let timeoutId: NodeJS.Timeout;

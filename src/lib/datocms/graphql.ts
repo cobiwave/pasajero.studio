@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 /*
  * We use gql.tada to automatically generate TypeScript types from the GraphQL
  * schema. This module customizes the default behavior of gql.tada to match the
@@ -7,8 +9,10 @@
  * - https://gql-tada.0no.co/
  */
 
-import { initGraphQLTada, TadaDocumentNode } from 'gql.tada';
 import type { introspection } from './graphql-env.js';
+import type { TadaDocumentNode } from 'gql.tada';
+
+import { initGraphQLTada } from 'gql.tada';
 
 /**
  * The Content Delivery API exposes a number of custom GraphQL scalar types. For
@@ -21,14 +25,14 @@ export const graphql = initGraphQLTada<{
   introspection: introspection;
   scalars: {
     BooleanType: boolean;
-    CustomData: Record<string, string>;
+    CustomData: { [key: string]: string };
     Date: string;
     DateTime: string;
     FloatType: number;
     IntType: number;
     ItemId: string;
     JsonField: unknown;
-    MetaTagAttributes: Record<string, string>;
+    MetaTagAttributes: { [key: string]: string };
     UploadId: string;
   };
 }>();
@@ -37,8 +41,6 @@ export { readFragment } from 'gql.tada';
 
 export type { FragmentOf, ResultOf, VariablesOf } from 'gql.tada';
 
-export type TypeFromQuery<T extends TadaDocumentNode> =
-  T extends TadaDocumentNode<infer Q, any> ? Q : never;
+export type TypeFromQuery<T extends TadaDocumentNode> = T extends TadaDocumentNode<infer Q, any> ? Q : never;
 
-export type VariablesFromQuery<T extends TadaDocumentNode> =
-  T extends TadaDocumentNode<any, infer V> ? V : never;
+export type VariablesFromQuery<T extends TadaDocumentNode> = T extends TadaDocumentNode<any, infer V> ? V : never;

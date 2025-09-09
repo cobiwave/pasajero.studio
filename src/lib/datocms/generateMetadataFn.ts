@@ -1,7 +1,9 @@
 import type { TadaDocumentNode } from 'gql.tada';
 import type { Metadata, ResolvingMetadata } from 'next';
-import { draftMode } from 'next/headers';
+
 import { type SeoOrFaviconTag, type TitleMetaLinkTag, toNextMetadata } from 'react-datocms/seo';
+import { draftMode } from 'next/headers';
+
 import { executeQuery } from './executeQuery';
 
 /**
@@ -10,12 +12,9 @@ import { executeQuery } from './executeQuery';
  * DatoCMS GraphQL query.
  */
 export function generateMetadataFn<PageProps, Result, Variables>(
-  options: GenerateMetadataFnOptions<PageProps, Result, Variables>,
+  options: GenerateMetadataFnOptions<PageProps, Result, Variables>
 ) {
-  return async function generateMetadata(
-    pageProps: PageProps,
-    parent: ResolvingMetadata,
-  ): Promise<Metadata> {
+  return async function generateMetadata(pageProps: PageProps, parent: ResolvingMetadata): Promise<Metadata> {
     const { isEnabled: isDraftModeEnabled } = draftMode();
 
     const variables = options.buildQueryVariables?.(pageProps) || ({} as Variables);
@@ -24,8 +23,8 @@ export function generateMetadataFn<PageProps, Result, Variables>(
       parent,
       executeQuery(options.query, {
         variables,
-        includeDrafts: isDraftModeEnabled,
-      }),
+        includeDrafts: isDraftModeEnabled
+      })
     ]);
 
     const tags = options.pickSeoMetaTags(data as Result);
@@ -33,7 +32,7 @@ export function generateMetadataFn<PageProps, Result, Variables>(
     // Combine metadata from parent routes with those of this route:
     return {
       ...(parentMetadata as Metadata),
-      ...toNextMetadata(tags || []),
+      ...toNextMetadata(tags || [])
     };
   };
 }

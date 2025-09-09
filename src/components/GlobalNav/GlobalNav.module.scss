@@ -7,68 +7,77 @@
   right: 0;
   background-color: $black;
   backdrop-filter: blur(px(5));
-}
 
-.skip {
-  @include visually-hidden();
-  z-index: 999;
-  padding: px(16);
-  background-color: $black;
-  color: $white;
-
-  &:focus {
-    @include transform-center-horiz();
-    position: absolute;
-  }
-}
-
-.container {
-  @include flex-center();
-  block-size: $navbar-height;
-}
-
-.logo {
-  a {
-    font-size: px(26);
-    font-weight: $font-weight-bold;
+  .skip {
+    @include visually-hidden();
+    z-index: 999;
+    padding: px(16);
+    background-color: $black;
     color: $white;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-}
 
-.nav {
-  ul {
-    display: flex;
-    gap: px(32);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  a {
-    color: $black;
-    text-decoration: none;
-    position: relative;
-
-    &:after {
-      content: '';
-      @include position-0(absolute);
-      bottom: px(-2);
-      width: 0;
-      height: px(2);
-      background: $black;
-      transition: width 0.3s ease;
-    }
-
-    &:hover:after {
-      width: 100%;
+    &:focus {
+      @include transform-center-horiz();
+      position: absolute;
     }
   }
-}
 
-@include media-tablet {
-  .nav ul {
-    gap: px(20);
+  .nav {
+    @include horizontal-container();
+    @include flex-center-vert();
+    block-size: $navbar-height;
+    gap: $mobile-grid-gap;
+
+    @include media-tablet {
+      gap: $tablet-grid-gap;
+    }
+
+    @include media-desktop {
+      gap: $desktop-grid-gap;
+    }
+
+    // Desktop navigation
+    .desktopNav {
+      display: none;
+
+      @include media-desktop {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: $desktop-grid-gap;
+        inline-size: desktop-columns(4);
+      }
+
+      a {
+        @include typography-body-large();
+        text-transform: uppercase;
+        font-weight: $font-weight-bold;
+        position: relative;
+        color: $white;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .logo {
+    inline-size: phone-columns(5);
+    text-align: left;
+
+    @include media-tablet {
+      inline-size: tablet-columns(5);
+    }
+
+    @include media-desktop {
+      inline-size: desktop-columns(4);
+      text-align: center;
+    }
+
+    a {
+      @include typography-logo-large;
+      font-weight: $font-weight-regular;
+      color: $white;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
   }
 }

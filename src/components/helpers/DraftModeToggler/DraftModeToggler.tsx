@@ -11,9 +11,10 @@ export default function DraftModeToggler({ draftModeEnabled }: Props) {
     if (draftModeEnabled) {
       response = await fetch('/api/draft-mode/disable');
     } else {
+      // eslint-disable-next-line no-alert
       const token = prompt(
         'To enter Draft Mode, you need to insert the SECRET_API_TOKEN:',
-        'secretTokenProtectingWebhookEndpointsFromBeingCalledByAnyone',
+        'secretTokenProtectingWebhookEndpointsFromBeingCalledByAnyone'
       );
       if (!token) {
         return;
@@ -23,6 +24,7 @@ export default function DraftModeToggler({ draftModeEnabled }: Props) {
     }
 
     if (!response.ok) {
+      // eslint-disable-next-line no-alert
       alert('Could not complete the operation!');
       return;
     }

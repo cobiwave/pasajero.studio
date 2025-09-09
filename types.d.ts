@@ -1,13 +1,13 @@
 interface Window {
-  CustomEase: any;
-  trustedTypes: any;
-  fbAsyncInit: any;
+  CustomEase: unknown;
+  trustedTypes: unknown;
+  fbAsyncInit: unknown;
   dataLayer: object[];
-  MSStream: any;
-  safari: any;
-  fbq: any;
-  FB: any;
-  WM: any;
+  MSStream: unknown;
+  safari: unknown;
+  fbq: unknown;
+  FB: unknown;
+  WM: unknown;
   lenis: Lenis;
 }
 

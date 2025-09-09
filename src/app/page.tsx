@@ -1,53 +1,33 @@
+import type { TypeFromQuery } from '@/lib/datocms/graphql';
+import type { ComponentList } from '@/renderComponent';
+
 import { notFound } from 'next/navigation';
-import { graphql } from '@/lib/datocms/graphql';
+
+import { PageHome } from '@/components/PageHome';
+
+import { QueryAllArticles } from '@/graphql/queries/articles';
+import { getPageData } from '@/graphql/queries/pages';
 import { executeQuery } from '@/lib/datocms/executeQuery';
-import { TagFragment } from '@/lib/datocms/commonFragments';
-import ImageGallery, {
-  ImageGalleryBlockFragment,
-} from '@/components/organisms/ImageGallery/ImageGallery';
-import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
-import styles from './page.module.scss';
 
-const query = graphql(
-  /* GraphQL */ `
-    query HomePageQuery {
-      homePage {
-        _seoMetaTags {
-          ...TagFragment
-        }
-        title
-        imageGallery {
-          ...ImageGalleryBlockFragment
-        }
-      }
-    }
-  `,
-  [TagFragment, ImageGalleryBlockFragment],
-);
-
-/**
- * We use a helper to generate function that fits the Next.js
- * `generateMetadata()` format, automating the creation of meta tags based on
- * the `_seoMetaTags` present in a DatoCMS GraphQL query.
- */
-export const generateMetadata = generateMetadataFn({
-  query,
-  // A callback that picks the SEO meta tags from the result of the query
-  pickSeoMetaTags: (data) => data.homePage?._seoMetaTags,
-});
+export const revalidate = 0;
 
 export default async function Home() {
-  const { homePage } = await executeQuery(query);
+  const { page } = await getPageData('home-page');
+  const { allArticles }: TypeFromQuery<typeof QueryAllArticles> = await executeQuery(QueryAllArticles);
 
-  if (!homePage) {
+  const components =
+    page?.components.map((component) => {
+      const { __typename } = component;
+
+      return {
+        __typename,
+        props: { data: component }
+      };
+    }) || [];
+
+  if (!page) {
     notFound();
   }
 
-  console.log('homePage', homePage);
-
-  return (
-    <div className={styles.root}>
-      {homePage.imageGallery && <ImageGallery data={homePage.imageGallery} />}
-    </div>
-  );
+  return <PageHome articles={allArticles} components={components as unknown as ComponentList[]} />;
 }

@@ -17,7 +17,7 @@ export const KEYS = {
   HOME: 'Home',
   END: 'End',
   PAGE_UP: 'PageUp',
-  PAGE_DOWN: 'PageDown',
+  PAGE_DOWN: 'PageDown'
 } as const;
 
 type KeyType = (typeof KEYS)[keyof typeof KEYS];

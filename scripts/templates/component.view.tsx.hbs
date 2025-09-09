@@ -1,0 +1,80 @@
+{{#if forwardRef}}
+import type { ControllerProps } from './{{titleCase name}}.controller'
+
+import { forwardRef{{#if imperativeHandle}}, useImperativeHandle{{/if}}{{#if transitionPresence}}, useMemo{{/if}} } from 'react'
+{{else}}
+import type { FC } from 'react'
+import type { ControllerProps } from './{{titleCase name}}.controller'
+
+{{#if imperativeHandle}}
+import { useImperativeHandle{{#if transitionPresence}}, useMemo{{/if}} } from 'react'
+{{else}}
+{{#if transitionPresence}}
+import { useMemo } from 'react'
+{{/if}}
+{{/if}}
+{{/if}}
+import classNames from 'classnames'
+{{#if transitionPresence}}
+import { animate } from 'motion'
+{{/if}}
+
+{{#if forwardRef}}
+import { multiRef } from '@/utils/multi-ref'
+
+{{/if}}
+import { useRefs } from '@/hooks/use-refs'
+{{#if transitionPresence}}
+import { useTransitionPresence } from '@/hooks/use-transition-presence'
+{{/if}}
+
+import css from './{{titleCase name}}.module.scss'
+
+{{#if imperativeHandle}}
+export type ViewHandle = {
+  someMethod: () => void
+}
+
+{{/if}}
+export interface ViewProps extends ControllerProps {}
+
+export type ViewRefs = {
+  root: HTMLDivElement
+}
+
+{{#if forwardRef}}
+export const View = forwardRef<HTMLDivElement, ViewProps>(({ className{{#if imperativeHandle}}, handleRef{{/if}} }, ref) => {
+  const refs = useRefs<ViewRefs>()
+{{else}}
+export const View: FC<ViewProps> = ({ className{{#if imperativeHandle}}, handleRef{{/if}} }) => {
+  const refs = useRefs<ViewRefs>()
+{{/if}}
+
+{{#if imperativeHandle}}
+  useImperativeHandle(handleRef, () => ({
+    someMethod: () => {
+      //
+    }
+  }))
+
+{{/if}}
+{{#if transitionPresence}}
+  useTransitionPresence(
+    useMemo(
+      () => ({
+        animateIn: () => animate(refs.root.current!, { opacity: 1 }),
+        animateOut: () => animate(refs.root.current!, { opacity: 0 })
+      }),
+      [refs]
+    )
+  )
+
+{{/if}}
+  return (
+    <div className={classNames('{{titleCase name}}', css.root, className)} {{#if forwardRef}}ref={multiRef(refs.root, ref)}{{else}}ref={refs.root}{{/if}}>
+      <p>&lt;{{titleCase name}} /&gt;</p>
+    </div>
+  )
+}{{#if forwardRef}}){{/if}}
+
+View.displayName = '{{titleCase name}}_View'

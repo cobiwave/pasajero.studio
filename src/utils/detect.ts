@@ -8,9 +8,8 @@ export const detector =
         window,
         // https://stackoverflow.com/questions/58019463/how-to-detect-device-name-in-safari-on-ios-13-while-it-doesnt-show-the-correct
         isSpoofedIpad:
-          (/iPad/u.test(navigator.platform) ||
-            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
-          !window.MSStream,
+          (/iPad/u.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) &&
+          !window.MSStream
       }
     : {
         ua: '',
@@ -19,7 +18,7 @@ export const detector =
           getOSVersion: () => '1',
           getBrowserName: () => 'node',
           getBrowserVersion: () => '1',
-          getPlatform: () => ({ type: 'node', vendor: 'node' }),
+          getPlatform: () => ({ type: 'node', vendor: 'node' })
         },
         window: {
           devicePixelRatio: 1,
@@ -28,14 +27,14 @@ export const detector =
           navigator: {
             vendor: 'node',
             mediaDevices: null,
-            maxTouchPoints: 0,
+            maxTouchPoints: 0
           },
           screen: {
-            orientation: { type: 'landscape-primary' },
+            orientation: { type: 'landscape-primary' }
           },
-          matchMedia: null,
+          matchMedia: null
         },
-        isSpoofedIpad: false,
+        isSpoofedIpad: false
       };
 
 class OS {
@@ -65,7 +64,7 @@ class OS {
     'tumblr',
     'slurp',
     'google (+https://developers.google.com/+/web/snippet/)',
-    'https://developers.google.com/+/web/snippet/',
+    'https://developers.google.com/+/web/snippet/'
   ];
   constructor() {
     this.name = detector.isSpoofedIpad ? 'ios' : detector.base.getOSName().toLowerCase();
@@ -115,9 +114,7 @@ class Browser {
     this.name = detector.ua.includes('edg/') // https://github.com/lancedikson/bowser/issues/416
       ? 'microsoft-edge'
       : detector.base.getBrowserName().toLowerCase().replace(' ', '-');
-    this.vendor = detector.window.navigator.vendor
-      ? detector.window.navigator.vendor.toLowerCase()
-      : '';
+    this.vendor = detector.window.navigator.vendor ? detector.window.navigator.vendor.toLowerCase() : '';
     this.chrome = this.name === 'chrome';
     this.firefox = this.name === 'firefox';
     this.safari = this.name === 'safari';
@@ -194,9 +191,7 @@ class Device {
       return Math.abs(+window.orientation) === 90 ? 'landscape' : 'portrait';
     }
     if (typeof detector.window.matchMedia === 'function') {
-      return detector.window.matchMedia('(orientation: portrait)').matches === true
-        ? 'portrait'
-        : 'landscape';
+      return detector.window.matchMedia('(orientation: portrait)').matches === true ? 'portrait' : 'landscape';
     }
     if (typeof detector.window.screen === 'object') {
       const orientationType = (detector.window.screen.orientation || {}).type;

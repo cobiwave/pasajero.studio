@@ -1,0 +1,47 @@
+import type { ControllerProps } from './{{titleCase name}}.controller'
+import type { SvgId } from '#/svg-imports'
+
+import { forwardRef, useMemo } from 'react'
+import classNames from 'classnames'
+
+import { copy } from '@/utils/copy'
+import { multiRef } from '@/utils/multi-ref'
+
+import { useRefs } from '@/hooks/use-refs'
+
+import { BaseButton } from '@/components/BaseButton'
+
+import { Svgs } from '#/svg-imports'
+
+import css from './{{titleCase name}}.module.scss'
+
+export interface ViewProps extends ControllerProps {}
+
+export type ViewRefs = {
+  root: HTMLElement
+}
+
+export const View = forwardRef<HTMLElement, ViewProps>(
+  ({ className, label, icon, iconClass, ...baseButtonProps }, ref) => {
+    const refs = useRefs<ViewRefs>()
+
+    const Svg = useMemo(() => Svgs[icon as SvgId], [icon])
+
+    return (
+      <BaseButton
+        {...baseButtonProps}
+        ref={multiRef(refs.root, ref)}
+        className={classNames('{{titleCase name}}', css.root, className)}
+      >
+        {Svg ? (
+          <div className={classNames(css.icon, iconClass)}>
+            <Svg />
+          </div>
+        ) : null}
+        <span {...copy.html(label)} />
+      </BaseButton>
+    )
+  }
+)
+
+View.displayName = '{{titleCase name}}_View'

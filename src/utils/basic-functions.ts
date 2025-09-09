@@ -26,7 +26,7 @@ export function formatDate(date: Date | string): string {
   const formatter = new Intl.DateTimeFormat(undefined, {
     year: 'numeric',
     month: 'short',
-    day: 'numeric',
+    day: 'numeric'
     // hour: 'numeric',
     // minute: 'numeric',
     // second: 'numeric',
@@ -54,22 +54,19 @@ export function getCountdown(from: number, to: number) {
   const limit = new Date(to).getTime();
   const diffTime = limit - now;
   const days = diffTime < 0 ? 0 : Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  const hours =
-    diffTime < 0 ? 0 : Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const hours = diffTime < 0 ? 0 : Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = diffTime < 0 ? 0 : Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = diffTime < 0 ? 0 : Math.floor((diffTime % (1000 * 60)) / 1000);
   return {
     days: days < 10 ? `0${days}` : `${days}`,
     hours: hours < 10 ? `0${hours}` : `${hours}`,
     minutes: minutes < 10 ? `0${minutes}` : `${minutes}`,
-    seconds: seconds < 10 ? `0${seconds}` : `${seconds}`,
+    seconds: seconds < 10 ? `0${seconds}` : `${seconds}`
   };
 }
 
 export function rem(value: number): number {
-  const htmlStyle = window
-    .getComputedStyle(document.documentElement, null)
-    .getPropertyValue('font-size');
+  const htmlStyle = window.getComputedStyle(document.documentElement, null).getPropertyValue('font-size');
   return parseFloat(htmlStyle) * value;
 }
 
@@ -97,9 +94,7 @@ export function hasDiacritic(str: string): boolean {
 }
 
 export function isImageUrl(url: string): boolean {
-  return /.(bmp|cur|dds|gif|icns|ico|jpg|jpeg|ktx|png|pnm|pam|pbm|pfm|pgm|ppm|psd|svg|tiff|webp)$/iu.test(
-    url,
-  );
+  return /.(bmp|cur|dds|gif|icns|ico|jpg|jpeg|ktx|png|pnm|pam|pbm|pfm|pgm|ppm|psd|svg|tiff|webp)$/iu.test(url);
 }
 
 export function isVideoUrl(url: string): boolean {
@@ -139,9 +134,7 @@ export function formatDuration(seconds: number): string {
 }
 
 export function isYouTubeUrl(url: string): boolean {
-  return /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|.+\?.+)?|youtu\.be\/)([\w-]{11})$/iu.test(
-    url,
-  );
+  return /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|.+\?.+)?|youtu\.be\/)([\w-]{11})$/iu.test(url);
 }
 
 export function clamp(value: number, min: number, max: number): number {
@@ -163,7 +156,7 @@ export const prettifyDate = (date: Date | number | string): string => {
   return parsedDate.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric'
   });
 };
 
@@ -185,7 +178,7 @@ export const validateInput = (value: string): string | null => {
 export const buildYoutubeEmbedUrl = (url: string): string => {
   const videoIdMatch =
     /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\s/]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[&?]v=)|youtu\.be\/)([\w-]{11})/u.exec(
-      url,
+      url
     );
   const videoId = videoIdMatch ? videoIdMatch[1] : null;
   if (!videoId) {
