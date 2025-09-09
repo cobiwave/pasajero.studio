@@ -4,6 +4,7 @@
 
 $generic-fonts: system-ui, 'helvetica', 'arial', sans-serif;
 $font-stretch-pro: 'StretchPro';
+$font-default: null; // Use generic fonts by default
 
 @mixin font-family($font-family: null, $font-weight: null, $font-style: null) {
   @if $font-family {
@@ -41,69 +42,82 @@ $font-stretch-pro: 'StretchPro';
 // Based on modular scale with ratio 1.25 (Major Third)
 // Base size: 16px (body text)
 
-// Display & Headings (Bold/Semi-bold for hierarchy)
+// Display & Headings (Bold/Semi-bold for hierarchy) - Using default system fonts
 @mixin typography-display {
-  @include typography($font-stretch-pro, 700, 48, 52, 0.01em);
+  @include typography($font-default, 700, 48, 52, 0.01em);
 }
 
 @mixin typography-h1 {
-  @include typography($font-stretch-pro, 700, 36, 40, 0.01em);
+  @include typography($font-default, 700, 36, 40, 0.01em);
 }
 
 @mixin typography-h2 {
-  @include typography($font-stretch-pro, 600, 28, 32, 0.01em);
+  @include typography($font-default, 600, 28, 32, 0.01em);
 }
 
 @mixin typography-h3 {
-  @include typography($font-stretch-pro, 600, 24, 28, 0.01em);
+  @include typography($font-default, 600, 24, 28, 0.01em);
 }
 
 @mixin typography-h4 {
-  @include typography($font-stretch-pro, 500, 20, 24, 0.01em);
+  @include typography($font-default, 500, 20, 24, 0.01em);
 }
 
 @mixin typography-h5 {
-  @include typography($font-stretch-pro, 500, 18, 22, 0.01em);
+  @include typography($font-default, 500, 18, 22, 0.01em);
 }
 
 @mixin typography-h6 {
-  @include typography($font-stretch-pro, 500, 16, 20, 0.01em);
+  @include typography($font-default, 500, 16, 20, 0.01em);
 }
 
-// Body text variations
+// Body text variations - Using default system fonts
 @mixin typography-body-large {
-  @include typography($font-stretch-pro, 400, 18, 26, 0.01em);
+  @include typography($font-default, 400, 18, 26, 0.01em);
 }
 
 @mixin typography-body {
-  @include typography($font-stretch-pro, 400, 16, 24, 0.01em);
+  @include typography($font-default, 400, 16, 24, 0.01em);
 }
 
 @mixin typography-body-small {
-  @include typography($font-stretch-pro, 400, 14, 20, 0);
+  @include typography($font-default, 400, 14, 20, 0);
 }
 
 @mixin typography-body-xs {
-  @include typography($font-stretch-pro, 400, 12, 18, 0);
+  @include typography($font-default, 400, 12, 18, 0);
 }
 
-// Special purpose
+// Special purpose - Using default system fonts
 @mixin typography-subtitle {
-  @include typography($font-stretch-pro, 400, 18, 26, 0.01em);
+  @include typography($font-default, 400, 18, 26, 0.01em);
 }
 
 @mixin typography-lead {
-  @include typography($font-stretch-pro, 400, 20, 28, 0.01em);
+  @include typography($font-default, 400, 20, 28, 0.01em);
 }
 
 @mixin typography-cta {
-  @include typography($font-stretch-pro, 700, 16, 19, 0.03em);
+  @include typography($font-default, 700, 16, 19, 0.03em);
 }
 
 @mixin typography-label {
-  @include typography($font-stretch-pro, 500, 12, 16, 0.02em);
+  @include typography($font-default, 500, 12, 16, 0.02em);
 }
 
 @mixin typography-caption {
-  @include typography($font-stretch-pro, 400, 11, 14, 0);
+  @include typography($font-default, 400, 11, 14, 0);
+}
+
+// StretchPro specific mixins (for logos and special headings)
+@mixin typography-logo-large {
+  @include typography($font-stretch-pro, 600, 28, 32, 0.01em);
+}
+
+@mixin typography-logo {
+  @include typography($font-stretch-pro, 400, 24, 28, 0.01em);
+}
+
+@mixin typography-logo-small {
+  @include typography($font-stretch-pro, 400, 20, 24, 0.01em);
 }
