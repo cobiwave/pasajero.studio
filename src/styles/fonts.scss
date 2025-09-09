@@ -24,42 +24,11 @@
 
 @import 'vars';
 
-// @font-face {
-//   font-family: 'Amazon Ember Modern';
-//   font-weight: 700;
-//   src: url('~@/assets/fonts/EmberModernDisplayStd-Bold.woff2');
-// }
-
-// @font-face {
-//   font-family: 'Amazon Ember Modern';
-//   font-weight: 400;
-//   src: url('~@/assets/fonts/EmberModernDisplayStd-Regular.woff2');
-// }
-
-// @font-face {
-//   font-family: 'Amazon Ember';
-//   font-weight: 400;
-//   font-style: normal;
-//   src: url('~@/assets/fonts/AmazonEmber_W_Rg.woff2');
-// }
-
-// @font-face {
-//   font-family: 'Amazon Ember';
-//   font-weight: 400;
-//   font-style: italic;
-//   src: url('~@/assets/fonts/AmazonEmber_W_RgIt.woff2');
-// }
-
-// @font-face {
-//   font-family: 'Amazon Ember';
-//   font-weight: 700;
-//   font-style: normal;
-//   src: url('~@/assets/fonts/AmazonEmber_W_Bd.woff2');
-// }
-
-// @font-face {
-//   font-family: 'Amazon Ember';
-//   font-weight: 700;
-//   font-style: italic;
-//   src: url('~@/assets/fonts/AmazonEmber_W_BdIt.woff2');
-// }
+// StretchPro font family
+@font-face {
+  font-family: 'StretchPro';
+  font-weight: 400;
+  font-style: normal;
+  src: url('../fonts/StretchPro.woff2') format('woff2');
+  font-display: swap;
+}
