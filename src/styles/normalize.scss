@@ -1,18 +1,43 @@
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/*! 
+ * Base styles combining normalize.css v8.0.1 (MIT License) and custom reset
+ * Prioritizes custom reset rules over normalize when conflicts occur
+ */
 
 /* stylelint-disable */
 
-/* Document
-   ========================================================================== */
+/* Document & Base Reset
+ ========================================================================== */
 
 /**
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
+ * 3. Custom reset improvements
  */
 
 html {
+  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  -webkit-overflow-scrolling: touch;
+  text-size-adjust: none; /* Override normalize's -webkit-text-size-adjust: 100% */
+  font-size: 10px; /* Custom reset value */
+  text-align: center;
   line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+  scroll-behavior: smooth;
+}
+
+/* Box Model */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+
+  .mobile & {
+    user-select: none;
+  }
 }
 
 /* Sections
@@ -23,7 +48,18 @@ html {
  */
 
 body {
-  margin: 0;
+  width: 100%;
+  margin: 0; /* Normalize default */
+  padding: 0;
+  font-size: px(10);
+  word-break: keep-all;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+  line-height: 1.6; /* Override normalize's default */
+  min-block-size: 100vh;
+  -webkit-font-smoothing: antialiased;
+
+  // @include debug-cross;
 }
 
 /**
@@ -31,7 +67,12 @@ body {
  */
 
 main {
-  display: block;
+  display: block; /* Normalize default */
+  min-height: 100svh; /* Custom reset addition */
+
+  &:focus-visible {
+    outline: none;
+  }
 }
 
 /**
@@ -40,8 +81,11 @@ main {
  */
 
 h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+  font-size: 2em; /* Normalize default */
+  margin: 0; /* Override normalize's 0.67em 0 */
+  padding: 0; /* Custom reset addition */
+  text-wrap: balance; /* Custom reset addition */
+  line-height: 1.1; /* Custom reset addition */
 }
 
 /* Grouping content
@@ -76,7 +120,9 @@ pre {
  */
 
 a {
-  background-color: transparent;
+  background-color: transparent; /* Normalize default */
+  color: inherit; /* Custom reset override */
+  text-decoration: none; /* Custom reset override */
 }
 
 /**
@@ -140,7 +186,7 @@ sup {
   top: -0.5em;
 }
 
-/* Embedded content
+/* Embedded content & Media Elements
  ========================================================================== */
 
 /**
@@ -148,7 +194,64 @@ sup {
  */
 
 img {
-  border-style: none;
+  border-style: none; /* Normalize default */
+  display: block; /* Custom reset addition */
+  max-inline-size: 100%; /* Custom reset addition */
+}
+
+/* Media Elements */
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-inline-size: 100%;
+}
+
+svg {
+  overflow: visible; /* Custom reset addition */
+  fill: currentcolor; /* Custom reset addition */
+}
+
+/* Typography & Headings
+ ========================================================================== */
+
+/* Custom reset for typography */
+li,
+dt,
+dd,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+/* Text wrapping improvements */
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+  line-height: 1.1;
+}
+
+p,
+li,
+a {
+  text-wrap: pretty;
+}
+
+i {
+  font-style: normal;
+}
+
+mark {
+  background-color: transparent;
+  font-weight: 700;
 }
 
 /* Forms
@@ -164,10 +267,31 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: inherit; /* 1 */
-  font-size: 100%; /* 1 */
-  line-height: 1.15; /* 1 */
+  font-family: inherit; /* 1 - Normalize default */
+  font-size: inherit; /* Custom reset override: inherit instead of 100% */
+  line-height: 1.1; /* Custom reset override: 1.1 instead of 1.15 */
   margin: 0; /* 2 */
+}
+
+/**
+ * Custom reset for buttons
+ */
+
+button {
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 0;
+  text-align: inherit;
+  letter-spacing: inherit;
+  font-weight: inherit;
+  text-transform: inherit;
+  display: inline-block;
+  text-decoration: none;
+  appearance: none;
+  color: currentcolor;
+  overflow: visible; /* Normalize default for IE */
+  text-transform: none; /* Normalize default */
 }
 
 /**
@@ -175,10 +299,15 @@ textarea {
  * 1. Show the overflow in Edge.
  */
 
-button,
 input {
-  /* 1 */
-  overflow: visible;
+  overflow: visible; /* 1 */
+  appearance: none; /* Custom reset addition */
+  border-radius: 0; /* Custom reset addition */
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    appearance: none;
+  }
 }
 
 /**
@@ -186,10 +315,8 @@ input {
  * 1. Remove the inheritance of text transform in Firefox.
  */
 
-button,
 select {
-  /* 1 */
-  text-transform: none;
+  text-transform: none; /* 1 */
 }
 
 /**
@@ -200,7 +327,7 @@ button,
 [type='button'],
 [type='reset'],
 [type='submit'] {
-  appearance: initial;
+  appearance: initial; /* Custom reset override */
   -webkit-appearance: button;
 }
 
@@ -265,6 +392,8 @@ progress {
 
 textarea {
   overflow: auto;
+  appearance: none; /* Custom reset addition */
+  border-radius: 0; /* Custom reset addition */
 }
 
 /**
@@ -293,7 +422,7 @@ textarea {
  */
 
 [type='search'] {
-  appearance: initial;
+  appearance: initial; /* Custom reset override */
   -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
@@ -333,6 +462,45 @@ details {
 
 summary {
   display: list-item;
+}
+
+/* Focus & Accessibility
+ ========================================================================== */
+
+/* Custom reset focus styles */
+button,
+input,
+select,
+a {
+  &:focus {
+    outline-offset: 4px;
+  }
+
+  &:focus:not(.focus-visible) {
+    outline: none;
+  }
+}
+
+/* Accessibility fix for lists in Safari */
+[role='list'] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Misc
