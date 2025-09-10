@@ -16,8 +16,7 @@ input ArticleModelFilter {
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
   author: LinkFilter
-  category: StringFilter
-  categoryList: LinksFilter
+  categories: LinksFilter
   content: StructuredTextFilter
   featuredImage: FileFilter
   slug: SlugFilter
@@ -47,8 +46,6 @@ enum ArticleModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  category_ASC
-  category_DESC
   title_ASC
   title_DESC
 }
@@ -74,8 +71,7 @@ type ArticleRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   author: PersonRecord
-  category: String
-  categoryList: [CategoryReferenceRecord!]!
+  categories: [CategoryReferenceRecord!]!
   content: ArticleModelContentField!
   featuredImage: FileField!
   id: ItemId!
