@@ -13,7 +13,11 @@ export const QueryAllArticles = graphql(
         slug
         title
         summary
-        category
+        categories {
+          id
+          name
+          slug
+        }
         featuredImage {
           id
           alt
@@ -27,16 +31,20 @@ export const QueryAllArticles = graphql(
   [ResponsiveImageFragment]
 );
 
-export const QueryArticlesByCategory = graphql(
+export const QueryArticlesByCategoryId = graphql(
   /* GraphQL */ `
-    query ArticlesByCategory($categorySlug: String!) {
-      allArticles(filter: { category: { matches: { pattern: $categorySlug } } }) {
+    query ArticlesByCategory($categoryId: [ItemId]!) {
+      allArticles(filter: { categories: { anyIn: $categoryId } }) {
         _firstPublishedAt
         id
         slug
         title
         summary
-        category
+        categories {
+          id
+          name
+          slug
+        }
         featuredImage {
           id
           alt
@@ -59,8 +67,8 @@ export const QueryArticle = graphql(
           ...TagFragment
         }
         id
-        title
         slug
+        title
         content {
           value
           links
@@ -68,7 +76,11 @@ export const QueryArticle = graphql(
             ...ImageBlockFragment
           }
         }
-        category
+        categories {
+          id
+          name
+          slug
+        }
         featuredImage {
           id
           alt

@@ -41,10 +41,10 @@ const MobileNavOverlay = forwardRef<HTMLDivElement, MobileNavOverlayProps>(({ na
         }
 
         // Animate overlay
-        const overlayAnim = animate(refs.root.current, { opacity: [0, 1] }, { duration: 0.4 });
+        const overlayAnim = animate(refs.root.current, { opacity: [0, 1] }, { duration: 0.2 });
 
         // Animate nav items with stagger
-        animate(items, { opacity: [0, 1], y: [30, 0] }, { duration: 0.6, delay: stagger(0.1, { from: 'first' }) });
+        animate(items, { opacity: [0, 1], y: [30, 0] }, { duration: 0.3, delay: stagger(0.1, { from: 'first' }) });
 
         return overlayAnim;
       },
@@ -56,11 +56,11 @@ const MobileNavOverlay = forwardRef<HTMLDivElement, MobileNavOverlayProps>(({ na
 
         // Animate nav items out first
         if (items && items.length > 0) {
-          animate(items, { opacity: [1, 0], y: [0, -20] }, { duration: 0.3 });
+          animate(items, { opacity: [1, 0], y: [0, -20] }, { duration: 0.2 });
         }
 
         // Then animate overlay
-        return animate(refs.root.current, { opacity: [1, 0] }, { duration: 0.3, delay: 0.1 });
+        return animate(refs.root.current, { opacity: [1, 0] }, { duration: 0.2, delay: 0.1 });
       }
     }),
     [refs]

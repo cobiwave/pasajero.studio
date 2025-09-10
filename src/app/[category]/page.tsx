@@ -5,20 +5,32 @@ import { notFound } from 'next/navigation';
 
 import { PageTemplate } from '@/components/PageTemplate';
 
-import { QueryArticlesByCategory } from '@/graphql/queries/articles';
+import { QueryArticlesByCategoryId } from '@/graphql/queries/articles';
+import { QueryAllCategories } from '@/graphql/queries/categories';
 import { getPageData } from '@/graphql/queries/pages';
 import { executeQuery } from '@/lib/datocms/executeQuery';
-
-export const revalidate = 0;
 
 export default async function Page({ params }: PageProps) {
   const { category } = params;
   const { page } = await getPageData(category);
-  const result = await executeQuery(QueryArticlesByCategory, {
+
+  // Category filtering
+  const allCategories = (await executeQuery(QueryAllCategories)) as {
+    allCategoryReferences: { id: string; name: string; slug: string }[];
+  };
+  const categoryId = allCategories.allCategoryReferences.find((cat) => cat.slug === category)?.id;
+
+  if (!categoryId) {
+    notFound();
+  }
+
+  // Fetch articles based on the filtered category ID
+  const result = await executeQuery(QueryArticlesByCategoryId, {
     variables: {
-      categorySlug: category
+      categoryId: [categoryId]
     }
   });
+
   const { allArticles } = result;
 
   const components =
