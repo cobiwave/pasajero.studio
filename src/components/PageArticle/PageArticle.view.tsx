@@ -40,7 +40,7 @@ export const View: FC<ViewProps> = ({ article }) => {
     <section className={classNames('PageArticle', css.root)} ref={refs.root}>
       <div className={css.heading}>
         {article?.title ? <h1 className={css.title}>{article.title}</h1> : null}
-        {article?._publishedAt ? <div className={css.date}>{prettifyDate(article._publishedAt)}</div> : null}
+        {article?._firstPublishedAt ? <div className={css.date}>{prettifyDate(article._firstPublishedAt)}</div> : null}
       </div>
 
       <div className={css.banner}>
