@@ -45,7 +45,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ className }, ref) =
           </li>
         </ul>
         <div className={css.copyright}>
-          <p>© {new Date().getFullYear()} PASAJERO STUDIO.</p>
+          <p>© {new Date().getFullYear()} PASAJERO.</p>
         </div>
         <ul className={css.social}>
           <li>
