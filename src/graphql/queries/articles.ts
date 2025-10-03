@@ -62,7 +62,7 @@ export const QueryArticle = graphql(
   /* GraphQL */ `
     query ArticleBySlug($slug: String) {
       article(filter: { slug: { eq: $slug } }) {
-        _publishedAt
+        _firstPublishedAt
         _seoMetaTags {
           ...TagFragment
         }
