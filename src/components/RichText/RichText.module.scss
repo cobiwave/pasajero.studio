@@ -10,8 +10,13 @@
   h4,
   h5,
   h6 {
+    margin-block-start: px(15);
     margin-block-end: px(30);
     text-align: left;
+
+    &:first-child {
+      margin-block-start: 0;
+    }
   }
 
   p {
