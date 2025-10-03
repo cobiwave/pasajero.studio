@@ -1,5 +1,7 @@
+union ArticleModelContentBlocksField = ImageBlockRecord | VideoBlockRecord
+
 type ArticleModelContentField {
-  blocks: [ImageBlockRecord!]!
+  blocks: [ArticleModelContentBlocksField!]!
   inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
