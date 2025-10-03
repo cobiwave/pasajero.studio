@@ -18,8 +18,9 @@ const stretchPro = localFont({
 
 // Mock data - luego puedes reemplazar con datos del CMS
 const navigationLinks: NavigationLink[] = [
-  { href: '/skate', label: 'Skate' },
+  { href: '/film', label: 'Film' },
   { href: '/surf', label: 'Surf' },
+  { href: '/skate', label: 'Skate' },
   { href: '/art', label: 'Art' }
 ];
 
