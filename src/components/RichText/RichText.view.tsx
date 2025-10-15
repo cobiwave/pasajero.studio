@@ -13,7 +13,7 @@ import { useRefs } from '@/hooks/use-refs';
 
 import css from './RichText.module.scss';
 
-import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
+import ResponsiveImage from '../atoms/ResponsiveImage/ResponsiveImage';
 
 export interface ViewProps {
   content: ContentType;

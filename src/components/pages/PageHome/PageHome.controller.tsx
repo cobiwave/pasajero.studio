@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import type { QueryAllArticles } from '@/graphql/queries/articles';
+import type { QueryAllArticles } from '@/graphql/QueryAllArticles';
 import type { TypeFromQuery } from '@/lib/datocms/graphql';
 import type { ComponentList } from '@/renderComponent';
 

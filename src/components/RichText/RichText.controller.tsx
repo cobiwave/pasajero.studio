@@ -1,10 +1,10 @@
-import type { QueryArticle } from '@/graphql/queries/articles';
+import type { QueryArticle } from '@/graphql/QueryArticle';
 
 import { forwardRef, memo } from 'react';
 
+import { RichTextBlockFragment } from '@/graphql/components/RichText.fragment';
 import { type FragmentOf, readFragment, type TypeFromQuery } from '@/lib/datocms/graphql';
 
-import { RichTextBlockFragment } from './RichText.fragment';
 import { View } from './RichText.view';
 
 type StructuredContent = {

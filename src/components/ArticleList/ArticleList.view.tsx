@@ -15,7 +15,7 @@ import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import css from './ArticleList.module.scss';
 
-import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
+import ResponsiveImage from '../atoms/ResponsiveImage/ResponsiveImage';
 
 export interface ViewProps extends ControllerProps {}
 

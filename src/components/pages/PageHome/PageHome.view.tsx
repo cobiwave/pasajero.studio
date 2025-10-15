@@ -1,7 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
-import type { ControllerProps } from './PageTemplate.controller';
+import type { ControllerProps } from './PageHome.controller';
 
 import { useMemo } from 'react';
 import classNames from 'classnames';
@@ -12,9 +12,9 @@ import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import RenderComponents from '@/renderComponent';
 
-import css from './PageTemplate.module.scss';
+import css from './PageHome.module.scss';
 
-import { ArticleList } from '../ArticleList';
+import { ArticleList } from '../../ArticleList';
 
 export interface ViewProps extends ControllerProps {}
 
@@ -36,11 +36,11 @@ export const View: FC<ViewProps> = ({ articles, components }) => {
   );
 
   return (
-    <section className={classNames('PageTemplate', css.root)} ref={refs.root}>
+    <section className={classNames('PageHome', css.root)} ref={refs.root}>
       <ArticleList articles={articles} />
       <RenderComponents components={components} />
     </section>
   );
 };
 
-View.displayName = 'PageTemplate_View';
+View.displayName = 'PageHome_View';

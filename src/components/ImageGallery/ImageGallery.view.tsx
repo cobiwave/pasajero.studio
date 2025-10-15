@@ -9,10 +9,7 @@ import { multiRef } from '@/utils/multi-ref';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
-import { ImageGalleryBlockFragment } from '@/components/ImageGallery/ImageGallery.fragment';
-import ResponsiveImage from '@/components/ResponsiveImage/ResponsiveImage';
-
-import { readFragment } from '@/lib/datocms/graphql';
+import ResponsiveImage from '@/components/atoms/ResponsiveImage/ResponsiveImage';
 
 import css from './ImageGallery.module.scss';
 
@@ -26,7 +23,6 @@ export type ViewRefs = {
 
 export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, ref) => {
   const refs = useRefs<ViewRefs>();
-  const unmaskedData = readFragment(ImageGalleryBlockFragment, data);
 
   useTransitionPresence(
     useMemo(
@@ -41,7 +37,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, 
   return (
     <div className={classNames('ImageGallery', css.root, className)} ref={multiRef(refs.root, ref)}>
       <ul>
-        {unmaskedData?.assets?.map((asset) => (
+        {data?.assets?.map((asset) => (
           <li key={asset.id}>
             <figure>
               <ResponsiveImage
