@@ -3,7 +3,7 @@ import type { ComponentList } from '@/renderComponent';
 
 import { notFound } from 'next/navigation';
 
-import { PageHome } from '@/components/PageHome';
+import { PageHome } from '@/components/pages/PageHome';
 
 import { QueryAllArticles } from '@/graphql/queries/articles';
 import { getPageData } from '@/graphql/queries/pages';

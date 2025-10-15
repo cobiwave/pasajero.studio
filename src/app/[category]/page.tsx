@@ -3,7 +3,7 @@ import type { ComponentList } from '@/renderComponent';
 
 import { notFound } from 'next/navigation';
 
-import { PageTemplate } from '@/components/PageTemplate';
+import { PageTemplate } from '@/components/pages/PageTemplate';
 
 import { QueryArticlesByCategoryId } from '@/graphql/queries/articles';
 import { QueryAllCategories } from '@/graphql/queries/categories';

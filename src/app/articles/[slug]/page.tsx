@@ -2,9 +2,10 @@ import type { TypeFromQuery, VariablesFromQuery } from '@/lib/datocms/graphql';
 
 import { notFound } from 'next/navigation';
 
-import { PageArticle } from '@/components/PageArticle';
+import { PageArticle } from '@/components/pages/PageArticle';
 
-import { QueryAllArticles, QueryArticle } from '@/graphql/queries/articles';
+import { QueryAllArticles } from '@/graphql/QueryAllArticles';
+import { QueryArticle } from '@/graphql/QueryArticle';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 import { generateMetadataFn } from '@/lib/datocms/generateMetadataFn';
 

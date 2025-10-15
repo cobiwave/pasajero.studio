@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 
-import { PageArticles } from '@/components/PageArticles';
+import { PageArticles } from '@/components/pages/PageArticles';
 
-import { QueryAllArticles } from '@/graphql/queries/articles';
+import { QueryAllArticles } from '@/graphql/QueryAllArticles';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export default async function Page() {
