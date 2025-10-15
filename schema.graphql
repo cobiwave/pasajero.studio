@@ -17,6 +17,7 @@ input ArticleModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  articleDate: DateFilter
   author: LinkFilter
   categories: LinksFilter
   content: StructuredTextFilter
@@ -48,6 +49,8 @@ enum ArticleModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
+  articleDate_ASC
+  articleDate_DESC
   title_ASC
   title_DESC
 }
@@ -72,6 +75,7 @@ type ArticleRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  articleDate: Date!
   author: PersonRecord
   categories: [CategoryReferenceRecord!]!
   content: ArticleModelContentField!
@@ -193,6 +197,31 @@ type ColorField {
   red: IntType!
 }
 
+"""Block of type Component Config (config_block)"""
+type ConfigBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  bottomPadding: String
+  id: ItemId!
+  topPadding: String
+}
+
 """Specifies how to filter by creation datetime"""
 input CreatedAtFilter {
   """
@@ -232,6 +261,41 @@ input CreatedAtFilter {
 }
 
 scalar CustomData
+
+"""A ISO 8601 compliant date value"""
+scalar Date
+
+"""Specifies how to filter Date fields"""
+input DateFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: Date
+
+  """Filter records with a value that's less than the one specified"""
+  lt: Date
+
+  """
+  Filter records with a value that's greater than or equal to the one specified
+  """
+  gte: Date
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: Date
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+
+  """Search for records with an exact match"""
+  eq: Date
+
+  """Exclude records with an exact match"""
+  neq: Date
+}
 
 """A ISO 8601 compliant datetime value"""
 scalar DateTime
@@ -477,7 +541,7 @@ type GlobalSeoField {
   twitterAccount: String
 }
 
-"""Record of type 🏠 Home Page (home_page)"""
+"""Record of type 🏠 Home (home_page)"""
 type HomePageRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -626,7 +690,7 @@ type ImageFileField implements FileFieldInterface {
   width: IntType!
 }
 
-"""Block of type 🎠 Image Gallery (image_gallery_block)"""
+"""Block of type Image Gallery (image_gallery_block)"""
 type ImageGalleryBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -647,6 +711,7 @@ type ImageGalleryBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   assets: [ImageFileField!]!
+  config: ConfigBlockRecord
   id: ItemId!
 }
 
@@ -2762,7 +2827,7 @@ enum PageModelOrderBy {
   title_DESC
 }
 
-"""Record of type 📄 Page (page)"""
+"""Record of type 📄 Page Modular (page)"""
 type PageRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -3195,6 +3260,7 @@ type RichTextBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
+  config: ConfigBlockRecord
   content: RichTextBlockModelContentField
   id: ItemId!
 }
