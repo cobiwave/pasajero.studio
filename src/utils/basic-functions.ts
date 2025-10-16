@@ -110,6 +110,13 @@ export function download(blob: Blob, filename: string) {
   link.remove();
 }
 
+export function decorativeElementProps() {
+  return {
+    role: 'presentation',
+    'aria-hidden': true
+  };
+}
+
 export async function copyToClipboard(text?: string): Promise<void> {
   if (!text) {
     return;
