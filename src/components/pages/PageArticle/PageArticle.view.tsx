@@ -12,6 +12,9 @@ import { prettifyDate } from '@/utils/basic-functions';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
+import { RichTextBlockFragment } from '@/graphql/components/RichText.fragment';
+import { readFragment } from '@/lib/datocms/graphql';
+
 import css from './PageArticle.module.scss';
 
 import ResponsiveImage from '../../atoms/ResponsiveImage/ResponsiveImage';
@@ -24,6 +27,7 @@ export type ViewRefs = {
 };
 
 export const View: FC<ViewProps> = ({ article }) => {
+  const unmaskedRichText = readFragment(RichTextBlockFragment, article?.richText);
   const refs = useRefs<ViewRefs>();
 
   useTransitionPresence(
@@ -40,7 +44,7 @@ export const View: FC<ViewProps> = ({ article }) => {
     <section className={classNames('PageArticle', css.root)} ref={refs.root}>
       <div className={css.heading}>
         {article?.title ? <h1 className={css.title}>{article.title}</h1> : null}
-        {article?._firstPublishedAt ? <div className={css.date}>{prettifyDate(article._firstPublishedAt)}</div> : null}
+        {article?.articleDate ? <div className={css.date}>{prettifyDate(article.articleDate)}</div> : null}
       </div>
 
       <div className={css.banner}>
@@ -59,7 +63,7 @@ export const View: FC<ViewProps> = ({ article }) => {
         ) : null}
       </div>
 
-      <RichText className={css.content} content={article?.content} />
+      {unmaskedRichText ? <RichText data={unmaskedRichText} /> : null}
     </section>
   );
 };
