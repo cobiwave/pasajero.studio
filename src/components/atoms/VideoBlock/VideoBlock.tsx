@@ -1,6 +1,8 @@
-import VideoPlayer, { VideoPlayerFragment } from '@/components/VideoPlayer/VideoPlayer';
+import VideoPlayer from '@/components/atoms/VideoPlayer/VideoPlayer';
 
 import { type FragmentOf, graphql, readFragment } from '@/lib/datocms/graphql';
+
+import { VideoPlayerFragment } from '../VideoPlayer/VideoPlayer';
 
 /**
  * Let's define the GraphQL fragment needed for the component to function.

@@ -1,7 +1,7 @@
 import type { BaseBlockRecord } from '@/graphql/types/index';
 import type { FragmentOf } from '@/lib/datocms/graphql';
 
-import { ResponsiveImageFragment } from '@/graphql/fragments/ResponsiveImage.fragment';
+import { ResponsiveImageFragment } from '@/graphql/atoms/ResponsiveImage.fragment';
 import { graphql } from '@/lib/datocms/graphql';
 
 export interface ImageBlockRecord extends BaseBlockRecord {

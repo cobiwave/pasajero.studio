@@ -1,6 +1,7 @@
-import { ConfigBlockFragment } from '@/graphql/fragments/ConfigBlock.fragment';
-import { ImageBlockFragment } from '@/graphql/fragments/ImageBlock.fragment';
 import { graphql } from '@/lib/datocms/graphql';
+
+import { ImageBlockFragment } from '../atoms/ImageBlock.fragment';
+import { ConfigBlockFragment } from '../infra/ConfigBlock.fragment';
 
 export const RichTextBlockFragment = graphql(
   /* GraphQL */ `
