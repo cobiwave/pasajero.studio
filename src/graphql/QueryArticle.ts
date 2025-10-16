@@ -1,8 +1,8 @@
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { graphql } from '@/lib/datocms/graphql';
 
-import { ImageBlockFragment } from './atoms/ImageBlock.fragment';
 import { ResponsiveImageFragment } from './atoms/ResponsiveImage.fragment';
+import { RichTextBlockFragment } from './components/RichText.fragment';
 
 export const QueryArticle = graphql(
   /* GraphQL */ `
@@ -15,17 +15,19 @@ export const QueryArticle = graphql(
         id
         slug
         title
-        content {
-          value
-          links
-          blocks {
-            ...ImageBlockFragment
-          }
+        summary
+        articleDate
+        author {
+          id
+          name
         }
         categories {
           id
           name
           slug
+        }
+        richText {
+          ...RichTextBlockFragment
         }
         featuredImage {
           id
@@ -37,5 +39,5 @@ export const QueryArticle = graphql(
       }
     }
   `,
-  [TagFragment, ResponsiveImageFragment, ImageBlockFragment]
+  [TagFragment, ResponsiveImageFragment, RichTextBlockFragment]
 );
