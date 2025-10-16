@@ -1,12 +1,3 @@
-union ArticleModelContentBlocksField = ImageBlockRecord | VideoBlockRecord
-
-type ArticleModelContentField {
-  blocks: [ArticleModelContentBlocksField!]!
-  inlineBlocks: [String!]!
-  links: [String!]!
-  value: JsonField!
-}
-
 input ArticleModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
@@ -20,7 +11,6 @@ input ArticleModelFilter {
   articleDate: DateFilter
   author: LinkFilter
   categories: LinksFilter
-  content: StructuredTextFilter
   featuredImage: FileFilter
   slug: SlugFilter
   socials: SeoFilter
@@ -78,9 +68,9 @@ type ArticleRecord implements RecordInterface {
   articleDate: Date!
   author: PersonRecord
   categories: [CategoryReferenceRecord!]!
-  content: ArticleModelContentField!
   featuredImage: FileField!
   id: ItemId!
+  richText: RichTextBlockRecord!
   slug: String
   socials: SeoField
   summary(
@@ -3233,8 +3223,10 @@ type ResponsiveImage {
   width: IntType!
 }
 
+union RichTextBlockModelContentBlocksField = ImageBlockRecord | SpacingBlockRecord
+
 type RichTextBlockModelContentField {
-  blocks: [ImageBlockRecord!]!
+  blocks: [RichTextBlockModelContentBlocksField!]!
   inlineBlocks: [String!]!
   links: [String!]!
   value: JsonField!
@@ -3319,6 +3311,30 @@ input SlugFilter {
   notIn: [String]
 }
 
+"""Block of type 📐 Spacing (spacing_block)"""
+type SpacingBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  variant: String
+}
+
 """Specifies how to filter by status"""
 input StatusFilter {
   """Search the record with the specified status"""
@@ -3374,30 +3390,6 @@ input StringMatchesFilter {
   pattern: String!
   caseSensitive: BooleanType = false
   regexp: BooleanType = true
-}
-
-"""Specifies how to filter Structured Text fields values"""
-input StructuredTextFilter {
-  """Filter records based on a regular expression"""
-  matches: StringMatchesFilter
-
-  """Exclude records based on a regular expression"""
-  notMatches: StringMatchesFilter
-
-  """
-  Filter records with the specified field set as blank (null or single empty paragraph)
-  """
-  isBlank: BooleanType
-
-  """
-  Filter records with the specified field present (neither null, nor empty string)
-  """
-  isPresent: BooleanType
-
-  """
-  Filter records with the specified field defined (i.e. with any value) or not [DEPRECATED]
-  """
-  exists: BooleanType
 }
 
 type Tag {
