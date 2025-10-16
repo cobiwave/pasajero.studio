@@ -1,7 +1,8 @@
 import type { ImageGalleryBlockFragment } from '@/graphql/components/ImageGallery.fragment';
-import type { ResultOf } from '@/lib/datocms/graphql';
 
 import { forwardRef, memo } from 'react';
+
+import { type ResultOf } from '@/lib/datocms/graphql';
 
 import { View } from './ImageGallery.view';
 
@@ -12,8 +13,6 @@ export interface ControllerProps {
 
 export const Controller = memo(
   forwardRef<HTMLDivElement, ControllerProps>((props, ref) => {
-    console.log('Props.data:', props.data);
-
     return <View {...props} ref={ref} />;
   })
 );

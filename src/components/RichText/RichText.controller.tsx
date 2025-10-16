@@ -3,7 +3,8 @@ import type { QueryArticle } from '@/graphql/QueryArticle';
 import { forwardRef, memo } from 'react';
 
 import { RichTextBlockFragment } from '@/graphql/components/RichText.fragment';
-import { type FragmentOf, readFragment, type TypeFromQuery } from '@/lib/datocms/graphql';
+import { ConfigBlockFragment } from '@/graphql/infra/ConfigBlock.fragment';
+import { readFragment, type ResultOf, type TypeFromQuery } from '@/lib/datocms/graphql';
 
 import { View } from './RichText.view';
 
@@ -16,7 +17,7 @@ type DatoCMSArticleContent = NonNullable<TypeFromQuery<typeof QueryArticle>['art
 export type ContentType = DatoCMSArticleContent | StructuredContent | null | undefined;
 
 export interface PropsWithData {
-  data: FragmentOf<typeof RichTextBlockFragment>;
+  data: ResultOf<typeof RichTextBlockFragment>;
   content?: never;
   className?: string;
 }
@@ -36,13 +37,14 @@ export const Controller = memo(
     if ('data' in props && props.data) {
       const { data, className } = props;
       const unmaskedData = readFragment(RichTextBlockFragment, data);
+      const unmaskedConfig = readFragment(ConfigBlockFragment, data.config) ?? undefined;
       filteredContent = unmaskedData?.content;
 
       if (!filteredContent) {
         return null;
       }
 
-      return <View content={filteredContent} className={className} ref={ref} />;
+      return <View content={filteredContent} config={unmaskedConfig} className={className} ref={ref} />;
     }
 
     if ('content' in props) {

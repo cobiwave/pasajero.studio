@@ -5,18 +5,8 @@
   opacity: 0;
   width: 100%;
 
-  @include top-spacing('sm');
-  @include bottom-spacing('sm');
-
-  @include media-tablet {
-    @include top-spacing('md');
-    @include bottom-spacing('md');
-  }
-
-  @include media-desktop {
-    @include top-spacing('sm');
-    @include bottom-spacing('sm');
-  }
+  @include select-top-spacing;
+  @include select-bottom-spacing;
 
   ul {
     @include horizontal-container();

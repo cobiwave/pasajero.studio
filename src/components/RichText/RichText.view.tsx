@@ -1,6 +1,8 @@
 'use client';
 
-import type { ImageBlockRecord } from '@/graphql/fragments/ImageBlock.fragment';
+import type { CmsBaseComponent } from '@/data/types';
+import type { ImageBlockRecord } from '@/graphql/atoms/ImageBlock.fragment';
+import type { ConfigBlockFragment } from '@/graphql/infra/ConfigBlock.fragment';
 import type { ContentType } from './RichText.controller';
 
 import { forwardRef } from 'react';
@@ -11,12 +13,15 @@ import { multiRef } from '@/utils/multi-ref';
 
 import { useRefs } from '@/hooks/use-refs';
 
+import { type ResultOf } from '@/lib/datocms/graphql';
+
 import css from './RichText.module.scss';
 
 import ResponsiveImage from '../atoms/ResponsiveImage/ResponsiveImage';
 
-export interface ViewProps {
+export interface ViewProps extends CmsBaseComponent {
   content: ContentType;
+  config?: ResultOf<typeof ConfigBlockFragment>;
   className?: string;
 }
 
@@ -24,11 +29,20 @@ export type ViewRefs = {
   root: HTMLDivElement;
 };
 
-export const View = forwardRef<HTMLDivElement, ViewProps>(({ content, className }, ref) => {
+export const View = forwardRef<HTMLDivElement, ViewProps>(({ content, config, className }, ref) => {
   const refs = useRefs<ViewRefs>();
 
   return (
-    <div className={classNames('RichText', css.root, className)} ref={multiRef(refs.root, ref)}>
+    <div
+      className={classNames(
+        'RichText',
+        css.root,
+        css[`top-padding-${config?.topPadding}`],
+        css[`bottom-padding-${config?.bottomPadding}`],
+        className
+      )}
+      ref={multiRef(refs.root, ref)}
+    >
       <StructuredText
         data={content as unknown as Parameters<typeof StructuredText>[0]['data']}
         renderBlock={({ record }) => {
