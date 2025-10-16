@@ -1,0 +1,36 @@
+@import '@/styles/shared';
+
+.root {
+  display: block;
+  width: 100%;
+  height: var(--mobile-height);
+
+  @include media-tablet {
+    height: var(--desktop-height);
+  }
+
+  &.none {
+    --mobile-height: 0;
+    --desktop-height: 0;
+  }
+
+  &.xs {
+    --mobile-height: #{$spacing-mobile-xsmall};
+    --desktop-height: #{$spacing-desktop-xsmall};
+  }
+
+  &.sm {
+    --mobile-height: #{$spacing-mobile-small};
+    --desktop-height: #{$spacing-desktop-small};
+  }
+
+  &.md {
+    --mobile-height: #{$spacing-mobile-medium};
+    --desktop-height: #{$spacing-desktop-medium};
+  }
+
+  &.lg {
+    --mobile-height: #{$spacing-mobile-large};
+    --desktop-height: #{$spacing-desktop-large};
+  }
+}
