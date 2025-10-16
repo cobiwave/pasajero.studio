@@ -1,6 +1,6 @@
 import { graphql } from '@/lib/datocms/graphql';
 
-import { ResponsiveImageFragment } from './fragments/ResponsiveImage.fragment';
+import { ResponsiveImageFragment } from './atoms/ResponsiveImage.fragment';
 
 export const QueryArticlesByCategoryId = graphql(
   /* GraphQL */ `

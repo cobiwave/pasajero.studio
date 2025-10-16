@@ -1,8 +1,8 @@
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { graphql } from '@/lib/datocms/graphql';
 
-import { ImageBlockFragment } from './fragments/ImageBlock.fragment';
-import { ResponsiveImageFragment } from './fragments/ResponsiveImage.fragment';
+import { ImageBlockFragment } from './atoms/ImageBlock.fragment';
+import { ResponsiveImageFragment } from './atoms/ResponsiveImage.fragment';
 
 export const QueryArticle = graphql(
   /* GraphQL */ `
