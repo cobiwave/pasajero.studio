@@ -1,64 +1,19 @@
-import type { QueryArticle } from '@/graphql/QueryArticle';
+import type { RichTextBlockFragment } from '@/graphql/components/RichText.fragment';
 
 import { forwardRef, memo } from 'react';
 
-import { RichTextBlockFragment } from '@/graphql/components/RichText.fragment';
-import { ConfigBlockFragment } from '@/graphql/infra/ConfigBlock.fragment';
-import { readFragment, type ResultOf, type TypeFromQuery } from '@/lib/datocms/graphql';
+import { type ResultOf } from '@/lib/datocms/graphql';
 
 import { View } from './RichText.view';
 
-type StructuredContent = {
-  value: unknown;
-  links: string[];
-  blocks: unknown[];
-};
-type DatoCMSArticleContent = NonNullable<TypeFromQuery<typeof QueryArticle>['article']>['content'];
-export type ContentType = DatoCMSArticleContent | StructuredContent | null | undefined;
-
-export interface PropsWithData {
+export interface ControllerProps {
   data: ResultOf<typeof RichTextBlockFragment>;
-  content?: never;
   className?: string;
 }
-
-export interface PropsWithContent {
-  data?: never;
-  content: ContentType;
-  className?: string;
-}
-
-export type ControllerProps = PropsWithData | PropsWithContent;
 
 export const Controller = memo(
   forwardRef<HTMLDivElement, ControllerProps>((props, ref) => {
-    let filteredContent: ContentType;
-
-    if ('data' in props && props.data) {
-      const { data, className } = props;
-      const unmaskedData = readFragment(RichTextBlockFragment, data);
-      const unmaskedConfig = readFragment(ConfigBlockFragment, data.config) ?? undefined;
-      filteredContent = unmaskedData?.content;
-
-      if (!filteredContent) {
-        return null;
-      }
-
-      return <View content={filteredContent} config={unmaskedConfig} className={className} ref={ref} />;
-    }
-
-    if ('content' in props) {
-      const { content, className } = props;
-      filteredContent = content;
-
-      if (!filteredContent) {
-        return null;
-      }
-
-      return <View content={filteredContent} className={className} ref={ref} />;
-    }
-
-    return null;
+    return <View {...props} ref={ref} />;
   })
 );
 
