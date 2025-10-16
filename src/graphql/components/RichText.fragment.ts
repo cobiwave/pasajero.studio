@@ -1,6 +1,7 @@
 import { graphql } from '@/lib/datocms/graphql';
 
 import { ImageBlockFragment } from '../atoms/ImageBlock.fragment';
+import { SpacingBlockFragment } from '../atoms/SpacingBlock.fragment';
 import { ConfigBlockFragment } from '../infra/ConfigBlock.fragment';
 
 export const RichTextBlockFragment = graphql(
@@ -17,9 +18,10 @@ export const RichTextBlockFragment = graphql(
         links
         blocks {
           ...ImageBlockFragment
+          ...SpacingBlockFragment
         }
       }
     }
   `,
-  [ImageBlockFragment, ConfigBlockFragment]
+  [ImageBlockFragment, ConfigBlockFragment, SpacingBlockFragment]
 );
