@@ -5,9 +5,9 @@ import { notFound } from 'next/navigation';
 
 import { PageTemplate } from '@/components/pages/PageTemplate';
 
-import { QueryArticlesByCategoryId } from '@/graphql/queries/articles';
-import { QueryAllCategories } from '@/graphql/queries/categories';
-import { getPageData } from '@/graphql/queries/pages';
+import { QueryAllCategories } from '@/graphql/QueryAllCategories';
+import { QueryArticlesByCategoryId } from '@/graphql/QueryArticlesByCategoryId';
+import { getPageData } from '@/graphql/QueryPage';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export default async function Page({ params }: PageProps) {
