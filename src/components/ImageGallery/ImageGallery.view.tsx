@@ -53,16 +53,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ className, data }, 
         {data.assets?.map((asset) => (
           <li key={asset.id}>
             <figure>
-              <ResponsiveImage
-                imgStyle={{
-                  width: '100%',
-                  height: '100%',
-                  maxWidth: '100%',
-                  objectFit: 'cover',
-                  aspectRatio: '1 / 1'
-                }}
-                data={asset.responsiveImage}
-              />
+              <ResponsiveImage data={asset.responsiveImage} />
               <figcaption>{asset.title}</figcaption>
             </figure>
           </li>

@@ -86,19 +86,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ data, className }, 
               case 'ImageBlockRecord': {
                 const imageRecord = record as unknown as ResultOf<typeof ImageBlockFragment>;
 
-                return (
-                  <ResponsiveImage
-                    imgStyle={{
-                      width: '100%',
-                      height: '100%',
-                      maxWidth: '100%',
-                      objectFit: 'cover',
-                      aspectRatio: '16 / 9'
-                    }}
-                    pictureClassName={css.image}
-                    data={imageRecord.asset.responsiveImage}
-                  />
-                );
+                return <ResponsiveImage pictureClassName={css.image} data={imageRecord.asset.responsiveImage} />;
               }
               case 'SpacingBlockRecord': {
                 const spacingRecord = record as unknown as ResultOf<typeof SpacingBlockFragment>;
