@@ -1,7 +1,26 @@
 export const DEBUG = process.env.NEXT_PUBLIC_DEBUG === 'true';
 
-export const AspectRatioOptions = ['1:1', '3:2', '16:9'] as const;
-export type AspectRatio = (typeof AspectRatioOptions)[number];
+// Parallax constants
+export const parallaxScaleFactor = 1.1;
+export const parallaxSpeed = 0.2;
+export const parallaxTranslateYPercentage = 20;
 
-export const VerticalSpacingSizes = ['none', 'xs', 'sm', 'md', 'lg'] as const;
-export type PaddingSizes = (typeof VerticalSpacingSizes)[number];
+export enum AspectRatio {
+  Square = '1:1',
+  ThreeTwo = '3:2',
+  SixteenNine = '16:9'
+}
+
+export enum PaddingSizes {
+  None = 'none',
+  ExtraSmall = 'xs',
+  Small = 'sm',
+  Medium = 'md',
+  Large = 'lg'
+}
+
+export enum Sizes {
+  Small = 'sm',
+  Medium = 'md',
+  Large = 'lg'
+}
