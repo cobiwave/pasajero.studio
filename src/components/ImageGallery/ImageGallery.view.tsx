@@ -9,13 +9,13 @@ import { multiRef } from '@/utils/multi-ref';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
-import ResponsiveImage from '@/components/atoms/ResponsiveImage/ResponsiveImage';
-
 import { ConfigBlockFragment } from '@/graphql/infra/ConfigBlock.fragment';
 import { readFragment } from '@/lib/datocms/graphql';
 
 import css from './ImageGallery.module.scss';
 
+import { Image } from '../atoms/Image';
+import { ImageBlockFragment } from '../atoms/Image/Image.controller';
 import { type ControllerProps } from './ImageGallery.controller';
 
 export interface ViewProps extends ControllerProps {}
@@ -26,6 +26,7 @@ export type ViewRefs = {
 
 export const View = forwardRef<HTMLDivElement, ViewProps>(({ className, data }, ref) => {
   const unmaskedConfig = readFragment(ConfigBlockFragment, data.config);
+  const unmaskedImages = readFragment(ImageBlockFragment, data.images);
   const refs = useRefs<ViewRefs>();
 
   useTransitionPresence(
@@ -50,12 +51,9 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ className, data }, 
       ref={multiRef(refs.root, ref)}
     >
       <ul>
-        {data.assets?.map((asset) => (
-          <li key={asset.id}>
-            <figure>
-              <ResponsiveImage data={asset.responsiveImage} />
-              <figcaption>{asset.title}</figcaption>
-            </figure>
+        {unmaskedImages?.map((image) => (
+          <li key={image.id}>
+            <Image data={image} />
           </li>
         ))}
       </ul>

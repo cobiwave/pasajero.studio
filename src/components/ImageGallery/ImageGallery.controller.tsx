@@ -1,10 +1,27 @@
-import type { ImageGalleryBlockFragment } from '@/graphql/components/ImageGallery.fragment';
-
 import { forwardRef, memo } from 'react';
 
-import { type ResultOf } from '@/lib/datocms/graphql';
+import { ConfigBlockFragment } from '@/graphql/infra/ConfigBlock.fragment';
+import { graphql, type ResultOf } from '@/lib/datocms/graphql';
 
+import { ImageBlockFragment } from '../atoms/Image/Image.controller';
 import { View } from './ImageGallery.view';
+
+export const ImageGalleryBlockFragment = graphql(
+  /* GraphQL */ `
+    fragment ImageGalleryBlockFragment on ImageGalleryBlockRecord {
+      __typename
+      _modelApiKey
+      id
+      config {
+        ...ConfigBlockFragment
+      }
+      images {
+        ...ImageBlockFragment
+      }
+    }
+  `,
+  [ConfigBlockFragment, ImageBlockFragment]
+);
 
 export interface ControllerProps {
   data: ResultOf<typeof ImageGalleryBlockFragment>;
