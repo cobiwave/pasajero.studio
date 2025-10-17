@@ -8,10 +8,9 @@ input ArticleModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
-  articleDate: DateFilter
   author: LinkFilter
   categories: LinksFilter
-  featuredImage: FileFilter
+  date: DateFilter
   slug: SlugFilter
   socials: SeoFilter
   summary: TextFilter
@@ -39,8 +38,8 @@ enum ArticleModelOrderBy {
   _updatedAt_DESC
   _isValid_ASC
   _isValid_DESC
-  articleDate_ASC
-  articleDate_DESC
+  date_ASC
+  date_DESC
   title_ASC
   title_DESC
 }
@@ -65,11 +64,12 @@ type ArticleRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  articleDate: Date!
   author: PersonRecord
   categories: [CategoryReferenceRecord!]!
-  featuredImage: FileField!
+  date: Date!
+  featuredImage: ImageBlockRecord!
   id: ItemId!
+  mediaConfig: MediaConfigBlockRecord!
   richText: RichTextBlockRecord!
   slug: String
   socials: SeoField
@@ -187,7 +187,7 @@ type ColorField {
   red: IntType!
 }
 
-"""Block of type Component Config (config_block)"""
+"""Block of type ⚙️ Component Config (config_block)"""
 type ConfigBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -700,9 +700,9 @@ type ImageGalleryBlockRecord implements RecordInterface {
   _status: ItemStatus!
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
-  assets: [ImageFileField!]!
   config: ConfigBlockRecord
   id: ItemId!
+  images: [ImageBlockRecord!]!
 }
 
 input ImgixParams {
@@ -2759,6 +2759,58 @@ input LinksFilter {
   exists: BooleanType
 }
 
+union MediaBlockModelMediaAssetField = ImageBlockRecord | VideoBlockRecord
+
+"""Block of type Media (media_block)"""
+type MediaBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  mediaAsset: MediaBlockModelMediaAssetField!
+  mediaConfig: MediaConfigBlockRecord!
+}
+
+"""Block of type ⚙️ Media Config (media_config_block)"""
+type MediaConfigBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  aspectRatio: String
+  id: ItemId!
+  mediaSize: String
+}
+
 scalar MetaTagAttributes
 
 enum MuxThumbnailFormatType {
@@ -3223,7 +3275,7 @@ type ResponsiveImage {
   width: IntType!
 }
 
-union RichTextBlockModelContentBlocksField = ImageBlockRecord | SpacingBlockRecord
+union RichTextBlockModelContentBlocksField = MediaBlockRecord | SpacingBlockRecord
 
 type RichTextBlockModelContentField {
   blocks: [RichTextBlockModelContentBlocksField!]!
