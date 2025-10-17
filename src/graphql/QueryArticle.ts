@@ -1,14 +1,14 @@
+import { ImageBlockFragment } from '@/components/atoms/Image/Image.controller';
+
 import { TagFragment } from '@/lib/datocms/commonFragments';
 import { graphql } from '@/lib/datocms/graphql';
 
-import { ResponsiveImageFragment } from './atoms/ResponsiveImage.fragment';
-import { RichTextBlockFragment } from './components/RichText.fragment';
+import { RichTextBlockFragment } from './components/RichTextBlock.fragment';
 
 export const QueryArticle = graphql(
   /* GraphQL */ `
     query ArticleBySlug($slug: String) {
       article(filter: { slug: { eq: $slug } }) {
-        _firstPublishedAt
         _seoMetaTags {
           ...TagFragment
         }
@@ -16,7 +16,7 @@ export const QueryArticle = graphql(
         slug
         title
         summary
-        articleDate
+        date
         author {
           id
           name
@@ -26,18 +26,17 @@ export const QueryArticle = graphql(
           name
           slug
         }
-        richText {
-          ...RichTextBlockFragment
+        mediaConfig {
+          ...MediaConfigBlockFragment
         }
         featuredImage {
-          id
-          alt
-          responsiveImage {
-            ...ResponsiveImageFragment
-          }
+          ...ImageBlockFragment
+        }
+        richText {
+          ...RichTextBlockFragment
         }
       }
     }
   `,
-  [TagFragment, ResponsiveImageFragment, RichTextBlockFragment]
+  [TagFragment, RichTextBlockFragment, ImageBlockFragment]
 );
