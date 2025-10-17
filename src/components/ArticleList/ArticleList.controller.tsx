@@ -15,8 +15,8 @@ export const Controller = memo(
     const sortedArticles = useMemo(() => {
       if (!articles || articles.length === 0) return articles;
       return [...articles].sort((a, b) => {
-        const dateA = new Date(a._firstPublishedAt);
-        const dateB = new Date(b._firstPublishedAt);
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
         return dateB.getTime() - dateA.getTime();
       });
     }, [articles]);
