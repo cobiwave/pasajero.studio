@@ -12,8 +12,7 @@
     @include horizontal-container(desktop-columns(8), tablet-columns(6), phone-columns(8));
   }
 
-  .image,
-  .video {
+  .media {
     width: 100%;
   }
 

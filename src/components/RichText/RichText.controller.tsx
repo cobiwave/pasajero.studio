@@ -1,4 +1,4 @@
-import type { RichTextBlockFragment } from '@/graphql/components/RichText.fragment';
+import type { RichTextBlockFragment } from '@/graphql/components/RichTextBlock.fragment';
 
 import { forwardRef, memo } from 'react';
 
