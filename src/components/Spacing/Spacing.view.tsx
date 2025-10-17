@@ -1,3 +1,5 @@
+'use client';
+
 import type { ControllerProps } from './Spacing.controller';
 
 import { forwardRef } from 'react';
