@@ -1,12 +1,13 @@
 'use client';
 
-import type { AspectRatio } from '@/data/constants';
 import type { ControllerProps } from './ArticleList.controller';
 
 import { forwardRef, useMemo } from 'react';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { animate } from 'motion';
+
+import { AspectRatio } from '@/data/constants';
 
 import { prettifyDate } from '@/utils/basic-functions';
 import { multiRef } from '@/utils/multi-ref';
@@ -16,7 +17,6 @@ import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import { Image } from '@/components/atoms/Image';
 
-import { MediaConfigBlockFragment } from '@/graphql/infra/MediaConfigBlock.fragment';
 import { readFragment } from '@/lib/datocms/graphql';
 
 import css from './ArticleList.module.scss';
@@ -45,9 +45,8 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
   return (
     <div className={classNames('ArticleList', css.root, className)} ref={multiRef(refs.root, ref)}>
       <ul role="list">
-        {articles.map(({ id, slug, title, date, summary, mediaConfig, featuredImage }) => {
+        {articles.map(({ id, slug, title, date, summary, featuredImage }) => {
           const unmaskedFeaturedImage = readFragment(ImageBlockFragment, featuredImage);
-          const unmaskedMediaConfig = readFragment(MediaConfigBlockFragment, mediaConfig);
 
           return (
             <li key={id}>
@@ -56,7 +55,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
                   <Link className={css.title} href={`/articles/${slug}`}>
                     <Image
                       data={unmaskedFeaturedImage}
-                      aspectRatio={unmaskedMediaConfig.aspectRatio as AspectRatio}
+                      aspectRatio={AspectRatio.ThreeTwo}
                       className={css.image}
                       parallaxEffect
                     />

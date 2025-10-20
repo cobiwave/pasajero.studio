@@ -3,8 +3,6 @@ import { ResponsiveImageFragment } from '@/components/atoms/ResponsiveImage/Resp
 
 import { graphql } from '@/lib/datocms/graphql';
 
-import { MediaConfigBlockFragment } from './infra/MediaConfigBlock.fragment';
-
 export const QueryArticlesByCategoryId = graphql(
   /* GraphQL */ `
     query ArticlesByCategory($categoryId: [ItemId]!) {
@@ -19,14 +17,12 @@ export const QueryArticlesByCategoryId = graphql(
           name
           slug
         }
-        mediaConfig {
-          ...MediaConfigBlockFragment
-        }
+
         featuredImage {
           ...ImageBlockFragment
         }
       }
     }
   `,
-  [ResponsiveImageFragment, ImageBlockFragment, MediaConfigBlockFragment]
+  [ResponsiveImageFragment, ImageBlockFragment]
 );

@@ -26,9 +26,7 @@ export const QueryArticle = graphql(
           name
           slug
         }
-        mediaConfig {
-          ...MediaConfigBlockFragment
-        }
+
         featuredImage {
           ...ImageBlockFragment
         }
