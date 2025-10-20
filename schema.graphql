@@ -69,7 +69,6 @@ type ArticleRecord implements RecordInterface {
   date: Date!
   featuredImage: ImageBlockRecord!
   id: ItemId!
-  mediaConfig: MediaConfigBlockRecord!
   richText: RichTextBlockRecord!
   slug: String
   socials: SeoField
@@ -2808,7 +2807,6 @@ type MediaConfigBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   aspectRatio: String
   id: ItemId!
-  mediaSize: String
 }
 
 scalar MetaTagAttributes
