@@ -289,6 +289,30 @@ input DateFilter {
 """A ISO 8601 compliant datetime value"""
 scalar DateTime
 
+"""Block of type 📺 External Video (external_video_block)"""
+type ExternalVideoBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  link: VideoField!
+}
+
 enum FaviconType {
   icon
   appleTouchIcon
@@ -2758,7 +2782,7 @@ input LinksFilter {
   exists: BooleanType
 }
 
-union MediaBlockModelMediaAssetField = ImageBlockRecord | VideoBlockRecord
+union MediaBlockModelMediaField = ExternalVideoBlockRecord | ImageBlockRecord | VideoBlockRecord
 
 """Block of type Media (media_block)"""
 type MediaBlockRecord implements RecordInterface {
@@ -2781,7 +2805,7 @@ type MediaBlockRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   id: ItemId!
-  mediaAsset: MediaBlockModelMediaAssetField!
+  media: MediaBlockModelMediaField!
   mediaConfig: MediaConfigBlockRecord!
 }
 
@@ -4004,6 +4028,16 @@ type VideoBlockRecord implements RecordInterface {
   _updatedAt: DateTime!
   asset: VideoFileField!
   id: ItemId!
+}
+
+type VideoField {
+  height: IntType!
+  provider: String!
+  providerUid: String!
+  thumbnailUrl: String!
+  title: String!
+  url: String!
+  width: IntType!
 }
 
 type VideoFileField implements FileFieldInterface {
