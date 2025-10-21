@@ -9,7 +9,7 @@
   @include select-bottom-spacing;
 
   .wrapper {
-    @include horizontal-container(desktop-columns(8), tablet-columns(6), phone-columns(8));
+    @include horizontal-container(desktop-columns(8), tablet-columns(6));
   }
 
   .media {
