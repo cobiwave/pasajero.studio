@@ -4,8 +4,9 @@ import { MediaConfigBlockFragment } from '@/graphql/infra/MediaConfigBlock.fragm
 import { type ResultOf } from '@/lib/datocms/graphql';
 import { graphql } from '@/lib/datocms/graphql';
 
+import { ExternalVideoBlockFragment } from '../atoms/ExternalVideo/ExternalVideo.controller';
 import { ImageBlockFragment } from '../atoms/Image/Image.controller';
-import { VideoBlockFragment } from '../atoms/VideoBlock/VideoBlock';
+import { VideoBlockFragment } from '../atoms/Video/Video.controller';
 import { View } from './Media.view';
 
 export const MediaBlockFragment = graphql(
@@ -17,13 +18,14 @@ export const MediaBlockFragment = graphql(
       mediaConfig {
         ...MediaConfigBlockFragment
       }
-      mediaAsset {
+      media {
         ...ImageBlockFragment
         ...VideoBlockFragment
+        ...ExternalVideoBlockFragment
       }
     }
   `,
-  [MediaConfigBlockFragment, ImageBlockFragment, VideoBlockFragment]
+  [MediaConfigBlockFragment, ImageBlockFragment, VideoBlockFragment, ExternalVideoBlockFragment]
 );
 
 export interface ControllerProps {
