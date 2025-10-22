@@ -24,3 +24,7 @@ export enum Sizes {
   Medium = 'md',
   Large = 'lg'
 }
+
+export const ROUTES = {
+  ARTICLES: '/articles/'
+};
