@@ -12,6 +12,7 @@ import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export default async function Page({ params }: PageProps) {
   const { category } = params;
+
   const { page } = await getPageData(category);
 
   // Category filtering
@@ -20,18 +21,17 @@ export default async function Page({ params }: PageProps) {
   };
   const categoryId = allCategories.allCategoryReferences.find((cat) => cat.slug === category)?.id;
 
-  if (!categoryId) {
-    notFound();
+  let allArticles;
+
+  // Fetch articles only if categoryId exists
+  if (categoryId) {
+    const result = await executeQuery(QueryArticlesByCategoryId, {
+      variables: {
+        categoryId: [categoryId]
+      }
+    });
+    allArticles = result.allArticles;
   }
-
-  // Fetch articles based on the filtered category ID
-  const result = await executeQuery(QueryArticlesByCategoryId, {
-    variables: {
-      categoryId: [categoryId]
-    }
-  });
-
-  const { allArticles } = result;
 
   const components =
     page?.components.map((component) => {

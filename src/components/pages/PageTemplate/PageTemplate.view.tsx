@@ -37,7 +37,7 @@ export const View: FC<ViewProps> = ({ articles, components }) => {
 
   return (
     <section className={classNames('PageTemplate', css.root)} ref={refs.root}>
-      <ArticleList articles={articles} />
+      {articles ? <ArticleList articles={articles} /> : null}
       <RenderComponents components={components} />
     </section>
   );
