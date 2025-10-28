@@ -50,12 +50,12 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ className }, ref) =
         <ul className={css.social}>
           <li>
             <a href="https://www.instagram.com/pasajero.studio/" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/instagram.svg" alt="Instagram" />
+              <img src="/assets/instagram.svg" alt="Instagram" width="24" height="24" />
             </a>
           </li>
           <li>
             <a href="https://www.youtube.com/@pasajero.studio" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/youtube.svg" alt="Youtube" />
+              <img src="/assets/youtube.svg" alt="Youtube" width="24" height="24" />
             </a>
           </li>
         </ul>
