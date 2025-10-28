@@ -8,6 +8,7 @@ input ArticleModelFilter {
   _status: StatusFilter
   _updatedAt: UpdatedAtFilter
   _isValid: BooleanFilter
+  _locales: LocalesFilter
   author: LinkFilter
   categories: LinksFilter
   date: DateFilter
@@ -46,12 +47,40 @@ enum ArticleModelOrderBy {
 
 """Record of type 📮 Article (article)"""
 type ArticleRecord implements RecordInterface {
+  _allDateLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [DateNonNullMultiLocaleField!]
+  _allRichTextLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [RichTextBlockRecordNonNullMultiLocaleField!]
+  _allSummaryLocales(
+    """Process content as markdown"""
+    markdown: Boolean
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringMultiLocaleField!]
+  _allTitleLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringNonNullMultiLocaleField!]
   _createdAt: DateTime!
 
   """Editing URL"""
   _editingUrl: String
   _firstPublishedAt: DateTime!
   _isValid: BooleanType!
+  _locales: [SiteLocale!]!
   _modelApiKey: String!
   _publicationScheduledAt: DateTime
   _publishedAt: DateTime!
@@ -65,18 +94,50 @@ type ArticleRecord implements RecordInterface {
   _unpublishingScheduledAt: DateTime
   _updatedAt: DateTime!
   author: PersonRecord
-  categories: [CategoryReferenceRecord!]!
-  date: Date!
+  categories: [CategoryRecord!]!
+  date(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): Date!
   featuredImage: ImageBlockRecord!
   id: ItemId!
-  richText: RichTextBlockRecord!
+  richText(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): RichTextBlockRecord!
   slug: String
   socials: SeoField
   summary(
     """Process content as markdown"""
     markdown: Boolean
+
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
   ): String
-  title: String!
+  title(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String!
 }
 
 """Specifies how to filter Boolean fields"""
@@ -88,7 +149,7 @@ input BooleanFilter {
 """Represents `true` or `false` values."""
 scalar BooleanType
 
-input CategoryReferenceModelFilter {
+input CategoryModelFilter {
   _createdAt: CreatedAtFilter
   id: ItemIdFilter
   _firstPublishedAt: PublishedAtFilter
@@ -101,11 +162,11 @@ input CategoryReferenceModelFilter {
   description: StringFilter
   name: StringFilter
   slug: StringFilter
-  OR: [CategoryReferenceModelFilter]
-  AND: [CategoryReferenceModelFilter]
+  OR: [CategoryModelFilter]
+  AND: [CategoryModelFilter]
 }
 
-enum CategoryReferenceModelOrderBy {
+enum CategoryModelOrderBy {
   _createdAt_ASC
   _createdAt_DESC
   id_ASC
@@ -132,8 +193,8 @@ enum CategoryReferenceModelOrderBy {
   slug_DESC
 }
 
-"""Record of type Category Reference (category_reference)"""
-type CategoryReferenceRecord implements RecordInterface {
+"""Record of type Category (category)"""
+type CategoryRecord implements RecordInterface {
   _createdAt: DateTime!
 
   """Editing URL"""
@@ -284,6 +345,11 @@ input DateFilter {
 
   """Exclude records with an exact match"""
   neq: Date
+}
+
+type DateNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: Date!
 }
 
 """A ISO 8601 compliant datetime value"""
@@ -2705,6 +2771,38 @@ Represents non-fractional signed whole numeric values. Int can represent values 
 """
 scalar IntType
 
+"""Specifies how to filter Integer fields"""
+input IntegerFilter {
+  """
+  Filter records with a value that's strictly greater than the one specified
+  """
+  gt: IntType
+
+  """Filter records with a value that's less than the one specified"""
+  lt: IntType
+
+  """
+  Filter records with a value that's greater than or equal to the one specified
+  """
+  gte: IntType
+
+  """
+  Filter records with a value that's less or equal than the one specified
+  """
+  lte: IntType
+
+  """
+  Filter records with the specified field defined (i.e. with any value) or not
+  """
+  exists: BooleanType
+
+  """Search for records with an exact match"""
+  eq: IntType
+
+  """Exclude records with an exact match"""
+  neq: IntType
+}
+
 scalar ItemId
 
 """Specifies how to filter by ID"""
@@ -2729,6 +2827,37 @@ enum ItemStatus {
 }
 
 scalar JsonField
+
+"""Block of type Link (link_block)"""
+type LinkBlockRecord implements RecordInterface {
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  isDisabled: BooleanType!
+  text: String
+  url: String
+}
+
+type LinkBlockRecordMultiLocaleField {
+  locale: SiteLocale
+  value: LinkBlockRecord
+}
 
 """Specifies how to filter Single-link fields"""
 input LinkFilter {
@@ -2782,9 +2911,23 @@ input LinksFilter {
   exists: BooleanType
 }
 
+"""Specifies how to filter by locale"""
+input LocalesFilter {
+  """Filter records that are localized in all the specified locales"""
+  allIn: [SiteLocale!]
+
+  """
+  Filter records that are localized in at least one of the specified locales
+  """
+  anyIn: [SiteLocale!]
+
+  """Filter records that are not localized in any of the specified locales"""
+  notIn: [SiteLocale!]
+}
+
 union MediaBlockModelMediaField = ExternalVideoBlockRecord | ImageBlockRecord | VideoBlockRecord
 
-"""Block of type Media (media_block)"""
+"""Block of type 📀 Media (media_block)"""
 type MediaBlockRecord implements RecordInterface {
   _createdAt: DateTime!
 
@@ -2839,6 +2982,103 @@ enum MuxThumbnailFormatType {
   jpg
   png
   gif
+}
+
+input NavigationModelFilter {
+  _createdAt: CreatedAtFilter
+  id: ItemIdFilter
+  _firstPublishedAt: PublishedAtFilter
+  _publicationScheduledAt: PublishedAtFilter
+  _unpublishingScheduledAt: PublishedAtFilter
+  _publishedAt: PublishedAtFilter
+  _status: StatusFilter
+  _updatedAt: UpdatedAtFilter
+  _isValid: BooleanFilter
+  _locales: LocalesFilter
+  order: IntegerFilter
+  slug: StringFilter
+  OR: [NavigationModelFilter]
+  AND: [NavigationModelFilter]
+}
+
+enum NavigationModelOrderBy {
+  _createdAt_ASC
+  _createdAt_DESC
+  id_ASC
+  id_DESC
+  _firstPublishedAt_ASC
+  _firstPublishedAt_DESC
+  _publicationScheduledAt_ASC
+  _publicationScheduledAt_DESC
+  _unpublishingScheduledAt_ASC
+  _unpublishingScheduledAt_DESC
+  _publishedAt_ASC
+  _publishedAt_DESC
+  _status_ASC
+  _status_DESC
+  _updatedAt_ASC
+  _updatedAt_DESC
+  _isValid_ASC
+  _isValid_DESC
+  order_ASC
+  order_DESC
+  slug_ASC
+  slug_DESC
+}
+
+"""Record of type Navigation (navigation)"""
+type NavigationRecord implements RecordInterface {
+  _allLinkLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [LinkBlockRecordMultiLocaleField!]
+  _allSlugLocales(
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): [StringMultiLocaleField!]
+  _createdAt: DateTime!
+
+  """Editing URL"""
+  _editingUrl: String
+  _firstPublishedAt: DateTime!
+  _isValid: BooleanType!
+  _locales: [SiteLocale!]!
+  _modelApiKey: String!
+  _publicationScheduledAt: DateTime
+  _publishedAt: DateTime!
+
+  """Generates SEO and Social card meta tags to be used in your frontend"""
+  _seoMetaTags(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+  ): [Tag!]!
+  _status: ItemStatus!
+  _unpublishingScheduledAt: DateTime
+  _updatedAt: DateTime!
+  id: ItemId!
+  link(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): LinkBlockRecord
+  order: IntType!
+  slug(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+  ): String
 }
 
 """Specifies how to filter by image orientation"""
@@ -3029,10 +3269,17 @@ type Query {
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
-  _allCategoryReferencesMeta(
+  _allCategoriesMeta(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
-    filter: CategoryReferenceModelFilter
+    filter: CategoryModelFilter
+  ): CollectionMetadata!
+
+  """Returns meta information regarding a record collection"""
+  _allNavigationsMeta(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+    filter: NavigationModelFilter
   ): CollectionMetadata!
 
   """Returns meta information regarding a record collection"""
@@ -3087,7 +3334,7 @@ type Query {
   ): [ArticleRecord!]!
 
   """Returns a collection of records"""
-  allCategoryReferences(
+  allCategories(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -3101,9 +3348,28 @@ type Query {
 
     """Limit the number of results"""
     first: IntType = 20
-    filter: CategoryReferenceModelFilter
-    orderBy: [CategoryReferenceModelOrderBy] = [_updatedAt_DESC]
-  ): [CategoryReferenceRecord!]!
+    filter: CategoryModelFilter
+    orderBy: [CategoryModelOrderBy] = [_updatedAt_DESC]
+  ): [CategoryRecord!]!
+
+  """Returns a collection of records"""
+  allNavigations(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+
+    """Skip the first results"""
+    skip: IntType
+
+    """Limit the number of results"""
+    first: IntType = 20
+    filter: NavigationModelFilter
+    orderBy: [NavigationModelOrderBy] = [_updatedAt_DESC]
+  ): [NavigationRecord!]!
 
   """Returns a collection of records"""
   allPages(
@@ -3176,7 +3442,7 @@ type Query {
   ): ArticleRecord
 
   """Returns a specific record"""
-  categoryReference(
+  category(
     """The locale to use to fetch the field's content"""
     locale: SiteLocale
 
@@ -3184,9 +3450,9 @@ type Query {
     If you want to fallback to a default translation when a translation has not been found
     """
     fallbackLocales: [SiteLocale!]
-    filter: CategoryReferenceModelFilter
-    orderBy: [CategoryReferenceModelOrderBy] = [_updatedAt_DESC]
-  ): CategoryReferenceRecord
+    filter: CategoryModelFilter
+    orderBy: [CategoryModelOrderBy] = [_updatedAt_DESC]
+  ): CategoryRecord
 
   """Returns the single instance record"""
   homePage(
@@ -3198,6 +3464,19 @@ type Query {
     """
     fallbackLocales: [SiteLocale!]
   ): HomePageRecord
+
+  """Returns a specific record"""
+  navigation(
+    """The locale to use to fetch the field's content"""
+    locale: SiteLocale
+
+    """
+    If you want to fallback to a default translation when a translation has not been found
+    """
+    fallbackLocales: [SiteLocale!]
+    filter: NavigationModelFilter
+    orderBy: [NavigationModelOrderBy] = [_updatedAt_DESC]
+  ): NavigationRecord
 
   """Returns a specific record"""
   page(
@@ -3331,6 +3610,11 @@ type RichTextBlockRecord implements RecordInterface {
   id: ItemId!
 }
 
+type RichTextBlockRecordNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: RichTextBlockRecord!
+}
+
 type SeoField {
   description: String
   image: FileField
@@ -3368,6 +3652,7 @@ type Site {
 
 enum SiteLocale {
   en
+  es
 }
 
 """Specifies how to filter Slug fields"""
@@ -3464,6 +3749,16 @@ input StringMatchesFilter {
   pattern: String!
   caseSensitive: BooleanType = false
   regexp: BooleanType = true
+}
+
+type StringMultiLocaleField {
+  locale: SiteLocale
+  value: String
+}
+
+type StringNonNullMultiLocaleField {
+  locale: SiteLocale
+  value: String!
 }
 
 type Tag {
