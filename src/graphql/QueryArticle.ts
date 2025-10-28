@@ -7,8 +7,8 @@ import { RichTextBlockFragment } from './components/RichTextBlock.fragment';
 
 export const QueryArticle = graphql(
   /* GraphQL */ `
-    query ArticleBySlug($slug: String) {
-      article(filter: { slug: { eq: $slug } }) {
+    query ArticleBySlug($locale: SiteLocale, $slug: String) {
+      article(locale: $locale, filter: { slug: { eq: $slug } }) {
         _seoMetaTags {
           ...TagFragment
         }
@@ -26,7 +26,6 @@ export const QueryArticle = graphql(
           name
           slug
         }
-
         featuredImage {
           ...ImageBlockFragment
         }

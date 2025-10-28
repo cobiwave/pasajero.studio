@@ -5,8 +5,8 @@ import { graphql } from '@/lib/datocms/graphql';
 
 export const QueryArticlesByCategoryId = graphql(
   /* GraphQL */ `
-    query ArticlesByCategory($categoryId: [ItemId]!) {
-      allArticles(filter: { categories: { anyIn: $categoryId } }) {
+    query ArticlesByCategory($locale: SiteLocale, $categoryId: [ItemId]!) {
+      allArticles(locale: $locale, filter: { categories: { anyIn: $categoryId } }) {
         id
         slug
         title

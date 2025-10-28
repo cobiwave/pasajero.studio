@@ -5,8 +5,8 @@ import { graphql } from '@/lib/datocms/graphql';
 
 export const QueryAllArticles = graphql(
   /* GraphQL */ `
-    query ArticlePaths {
-      allArticles {
+    query ArticlePaths($locale: SiteLocale) {
+      allArticles(locale: $locale) {
         id
         slug
         title
