@@ -1,3 +1,4 @@
+import type { PageProps } from '@/data/types';
 import type { TypeFromQuery } from '@/lib/datocms/graphql';
 import type { ComponentList } from '@/renderComponent';
 
@@ -6,14 +7,25 @@ import { notFound } from 'next/navigation';
 import { PageHome } from '@/components/pages/PageHome';
 
 import { QueryAllArticles } from '@/graphql/QueryAllArticles';
-import { getPageData } from '@/graphql/QueryPage';
+import { QueryPage } from '@/graphql/QueryPage';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 
-export const revalidate = 0;
+export const revalidate = 60;
 
-export default async function Home() {
-  const { page } = await getPageData('home-page');
-  const { allArticles }: TypeFromQuery<typeof QueryAllArticles> = await executeQuery(QueryAllArticles);
+export default async function Home({ params }: PageProps) {
+  const { lang } = params;
+
+  const [{ page }, { allArticles }] = await Promise.all([
+    executeQuery(QueryPage, {
+      variables: {
+        locale: lang,
+        slug: 'home-page'
+      }
+    }),
+    executeQuery(QueryAllArticles, {
+      variables: { locale: lang }
+    }) as Promise<TypeFromQuery<typeof QueryAllArticles>>
+  ]);
 
   const components =
     page?.components.map((component) => {

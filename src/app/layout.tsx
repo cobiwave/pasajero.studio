@@ -2,8 +2,6 @@ import { toNextMetadata } from 'react-datocms';
 import { Roboto } from 'next/font/google';
 import { draftMode } from 'next/headers';
 
-import { Footer } from '@/components/Footer';
-import GlobalNav from '@/components/GlobalNav/GlobalNav';
 import DebugGrid from '@/components/helpers/DebugGrid/DebugGrid';
 
 import { TagFragment } from '@/lib/datocms/commonFragments';
@@ -36,7 +34,7 @@ export async function generateMetadata() {
   return toNextMetadata(data._site.faviconMetaTags);
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
@@ -44,9 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.className}>
       <body>
-        <GlobalNav />
-        <main>{children}</main>
-        <Footer />
+        {children}
         <DebugGrid />
       </body>
     </html>

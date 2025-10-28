@@ -7,19 +7,24 @@ import { PageTemplate } from '@/components/pages/PageTemplate';
 
 import { QueryAllCategories } from '@/graphql/QueryAllCategories';
 import { QueryArticlesByCategoryId } from '@/graphql/QueryArticlesByCategoryId';
-import { getPageData } from '@/graphql/QueryPage';
+import { QueryPage } from '@/graphql/QueryPage';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export default async function Page({ params }: PageProps) {
-  const { category } = params;
+  const { lang, slug } = params;
 
-  const { page } = await getPageData(category);
+  const { page } = await executeQuery(QueryPage, {
+    variables: {
+      locale: lang,
+      slug
+    }
+  });
 
   // Category filtering
   const allCategories = (await executeQuery(QueryAllCategories)) as {
     allCategoryReferences: { id: string; name: string; slug: string }[];
   };
-  const categoryId = allCategories.allCategoryReferences.find((cat) => cat.slug === category)?.id;
+  const categoryId = allCategories.allCategoryReferences.find((category) => category.slug === slug)?.id;
 
   let allArticles;
 
@@ -27,6 +32,7 @@ export default async function Page({ params }: PageProps) {
   if (categoryId) {
     const result = await executeQuery(QueryArticlesByCategoryId, {
       variables: {
+        locale: lang,
         categoryId: [categoryId]
       }
     });
