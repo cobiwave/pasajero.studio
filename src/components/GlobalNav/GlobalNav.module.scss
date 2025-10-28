@@ -8,19 +8,6 @@
   background-color: $black;
   backdrop-filter: blur(px(5));
 
-  .skip {
-    @include visually-hidden();
-    z-index: 999;
-    padding: px(16);
-    background-color: $black;
-    color: $white;
-
-    &:focus {
-      @include transform-center-horiz();
-      position: absolute;
-    }
-  }
-
   .nav {
     @include horizontal-container();
     @include flex-center-vert();
@@ -78,6 +65,18 @@
       color: $white;
       text-decoration: none;
       text-transform: uppercase;
+    }
+  }
+
+  .languageSelector {
+    display: none;
+
+    @include media-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      inline-size: desktop-columns(4);
     }
   }
 }

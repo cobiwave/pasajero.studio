@@ -6,32 +6,32 @@ import Link from 'next/link';
 import { useIsClient, useWindowSize } from '@uidotdev/usehooks';
 import classNames from 'classnames';
 
+import { useLanguage } from '@/hooks/use-language';
+
 import { TransitionPresence } from '@/motion/transition.presence';
 
 import css from './GlobalNav.module.scss';
 
+import LanguageSelector from './LanguageSelector';
 import MobileNav, { type NavigationLink } from './MobileNav';
 
 const stretchPro = localFont({
   src: '../../fonts/StretchPro.woff2'
 });
 
-// Mock data - luego puedes reemplazar con datos del CMS
-const navigationLinks: NavigationLink[] = [
-  { href: '/film', label: 'Film' },
-  { href: '/surf', label: 'Surf' },
-  { href: '/skate', label: 'Skate' },
-  { href: '/art', label: 'Art' }
-];
-
 // Breakpoint from vars.scss
 // TODO - sync with SCSS variable
 const DESKTOP_BREAKPOINT = 1080;
 
-export default function GlobalNav() {
+export interface GlobalNavProps {
+  links: NavigationLink[];
+}
+
+export default function GlobalNav({ links }: GlobalNavProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const windowSize = useWindowSize();
   const isClient = useIsClient();
+  const { currentLanguage } = useLanguage();
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -48,23 +48,23 @@ export default function GlobalNav() {
 
   return (
     <header className={css.root}>
-      <a href="#main-content" className={css.skip}>
-        Skip to main content
-      </a>
-
       <nav className={classNames(css.nav)} role="navigation" aria-label="Main Navigation">
         <ul role="list" className={css.desktopNav}>
-          {navigationLinks.map((link) => (
-            <li key={link.href}>
-              <Link href={link.href}>{link.label}</Link>
+          {links.map((link) => (
+            <li key={link.id}>
+              <Link href={`/${currentLanguage}${link.link?.url}`}>{link.link?.text}</Link>
             </li>
           ))}
         </ul>
 
         <div className={classNames(css.logo, stretchPro.className)}>
-          <Link href="/" aria-label="Home">
+          <Link href={`/${currentLanguage}`} aria-label="Home">
             Pasajero
           </Link>
+        </div>
+
+        <div className={css.languageSelector}>
+          <LanguageSelector />
         </div>
 
         {/* Mobile Navigation with TransitionPresence */}
@@ -75,7 +75,10 @@ export default function GlobalNav() {
               isOpen={isMobileMenuOpen}
               onClose={closeMobileMenu}
               onToggle={toggleMobileMenu}
-              navigationLinks={navigationLinks}
+              navigationLinks={links.map((link) => ({
+                ...link,
+                href: `/${currentLanguage}${link.link?.url}`
+              }))}
             />
           </TransitionPresence>
         )}
