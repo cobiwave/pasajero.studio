@@ -15,8 +15,12 @@ import { useTransitionPresence } from '@/hooks/use-transition-presence';
 import css from './MobileNav.module.scss';
 
 export interface NavigationLink {
-  href: string;
-  label: string;
+  id: string;
+  slug: string | null;
+  link: {
+    text: string | null;
+    url: string | null;
+  } | null;
 }
 
 interface MobileNavOverlayProps {
@@ -84,9 +88,9 @@ const MobileNavOverlay = forwardRef<HTMLDivElement, MobileNavOverlayProps>(({ na
     <div ref={multiRef(refs.root, ref)} className={css.mobileMenuOverlay} aria-hidden={false}>
       <ul role="list" className={css.mobileNavList}>
         {navigationLinks.map((link, index) => (
-          <li key={link.href} ref={(el) => handleRef(el, index)} className={css.mobileNavItem}>
-            <Link href={link.href} onClick={onClose} className={css.mobileNavLink}>
-              {link.label}
+          <li key={link.link?.url} ref={(el) => handleRef(el, index)} className={css.mobileNavItem}>
+            <Link href={link.link?.url ?? '#'} onClick={onClose} className={css.mobileNavLink}>
+              {link.link?.text}
             </Link>
           </li>
         ))}
