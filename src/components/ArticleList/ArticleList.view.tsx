@@ -7,11 +7,12 @@ import Link from 'next/link';
 import classNames from 'classnames';
 import { animate } from 'motion';
 
-import { AspectRatio } from '@/data/constants';
+import { AspectRatio, ROUTES } from '@/data/constants';
 
 import { prettifyDate } from '@/utils/basic-functions';
 import { multiRef } from '@/utils/multi-ref';
 
+import { useLanguage } from '@/hooks/use-language';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
@@ -31,6 +32,7 @@ export type ViewRefs = {
 
 export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className }, ref) => {
   const refs = useRefs<ViewRefs>();
+  const { currentLanguage } = useLanguage();
 
   useTransitionPresence(
     useMemo(
@@ -52,7 +54,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
             <li key={id}>
               {unmaskedFeaturedImage ? (
                 <div className={css.imageWrapper}>
-                  <Link className={css.title} href={`/articles/${slug}`}>
+                  <Link className={css.title} href={`${currentLanguage}${ROUTES.ARTICLES}${slug}`}>
                     <Image
                       data={unmaskedFeaturedImage}
                       aspectRatio={AspectRatio.ThreeTwo}
@@ -66,7 +68,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
                 <div className={css.date}>{prettifyDate(date)}</div>
                 <div className={css.summary}>
                   <div className={css.titleWrapper}>
-                    <Link className={css.title} href={`/articles/${slug}`}>
+                    <Link className={css.title} href={`${currentLanguage}${ROUTES.ARTICLES}${slug}`}>
                       {title}
                     </Link>
                   </div>
