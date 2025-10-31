@@ -9,6 +9,7 @@ import { useIsClient, useWindowSize } from '@uidotdev/usehooks';
 import classNames from 'classnames';
 
 import { multiRef } from '@/utils/multi-ref';
+import { sass } from '@/utils/sass';
 
 import { useLanguage } from '@/hooks/use-language';
 import { useRefs } from '@/hooks/use-refs';
@@ -19,10 +20,6 @@ import css from './Navigation.module.scss';
 
 import { LanguageSelector } from '../LanguageSelector';
 import { MobileNavigation } from '../MobileNavigation';
-
-// Breakpoint from vars.scss
-// TODO - sync with SCSS variable
-const DESKTOP_BREAKPOINT = 1080;
 
 const stretchPro = localFont({
   src: '../../fonts/StretchPro.woff2'
@@ -45,7 +42,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ links, className },
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   // Use window size instead of device detection
-  const isMobile = isClient && windowSize.width && windowSize.width < DESKTOP_BREAKPOINT;
+  const isMobile = isClient && windowSize.width && windowSize.width < parseInt(sass['breakpoint-desktop'], 10);
 
   // Close mobile menu when switching to desktop
   useEffect(() => {
