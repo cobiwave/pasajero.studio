@@ -10,6 +10,8 @@ import { animate } from 'motion';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
+import { ArticleList } from '@/components/ArticleList';
+
 import css from './PageArticles.module.scss';
 
 export interface ViewProps extends ControllerProps {}
@@ -18,7 +20,7 @@ export type ViewRefs = {
   root: HTMLElement;
 };
 
-export const View: FC<ViewProps> = ({ content }) => {
+export const View: FC<ViewProps> = ({ content: { allArticles } }) => {
   const refs = useRefs<ViewRefs>();
 
   useTransitionPresence(
@@ -33,11 +35,7 @@ export const View: FC<ViewProps> = ({ content }) => {
 
   return (
     <section className={classNames('PageArticles', css.root)} ref={refs.root}>
-      <ul role="list">
-        {content.allArticles.map(({ slug, id }) => (
-          <li key={id}>{slug}</li>
-        ))}
-      </ul>
+      <ArticleList articles={allArticles} />
     </section>
   );
 };

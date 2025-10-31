@@ -1,4 +1,6 @@
 import type { FC } from 'react';
+import type { QueryAllArticles } from '@/graphql/QueryAllArticles';
+import type { TypeFromQuery } from '@/lib/datocms/graphql';
 
 import { memo } from 'react';
 
@@ -6,7 +8,7 @@ import { View } from './PageArticles.view';
 
 export interface ControllerProps {
   content: {
-    allArticles: { id: string; slug: string | null }[];
+    allArticles: TypeFromQuery<typeof QueryAllArticles>['allArticles'];
   };
 }
 
