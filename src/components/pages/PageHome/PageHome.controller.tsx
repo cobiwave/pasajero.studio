@@ -8,8 +8,10 @@ import { memo } from 'react';
 import { View } from './PageHome.view';
 
 export interface ControllerProps {
-  articles: TypeFromQuery<typeof QueryAllArticles>['allArticles'];
-  components: ComponentList[];
+  content: {
+    allArticles: TypeFromQuery<typeof QueryAllArticles>['allArticles'];
+    components: ComponentList[];
+  };
 }
 
 export const Controller: FC<ControllerProps> = memo((props) => {

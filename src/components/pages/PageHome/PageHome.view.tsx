@@ -22,7 +22,7 @@ export type ViewRefs = {
   root: HTMLElement;
 };
 
-export const View: FC<ViewProps> = ({ articles, components }) => {
+export const View: FC<ViewProps> = ({ content: { allArticles, components } }) => {
   const refs = useRefs<ViewRefs>();
 
   useTransitionPresence(
@@ -37,8 +37,8 @@ export const View: FC<ViewProps> = ({ articles, components }) => {
 
   return (
     <section className={classNames('PageHome', css.root)} ref={refs.root}>
-      <ArticleList articles={articles} />
       <RenderComponents components={components} />
+      <ArticleList articles={allArticles} />
     </section>
   );
 };
