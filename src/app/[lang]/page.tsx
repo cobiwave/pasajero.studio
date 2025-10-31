@@ -12,9 +12,7 @@ import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export const revalidate = 60;
 
-export default async function Home({ params }: PageProps) {
-  const { lang } = params;
-
+export default async function Home({ params: { lang } }: PageProps) {
   const [{ page }, { allArticles }] = await Promise.all([
     executeQuery(QueryPage, {
       variables: {
@@ -41,5 +39,5 @@ export default async function Home({ params }: PageProps) {
     notFound();
   }
 
-  return <PageHome articles={allArticles} components={components as unknown as ComponentList[]} />;
+  return <PageHome content={{ allArticles, components: components as unknown as ComponentList[] }} />;
 }

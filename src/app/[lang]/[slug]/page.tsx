@@ -22,9 +22,10 @@ export default async function Page({ params }: PageProps) {
 
   // Category filtering
   const allCategories = (await executeQuery(QueryAllCategories)) as {
-    allCategoryReferences: { id: string; name: string; slug: string }[];
+    allCategories: { id: string; name: string; slug: string }[];
   };
-  const categoryId = allCategories.allCategoryReferences.find((category) => category.slug === slug)?.id;
+
+  const categoryId = allCategories.allCategories.find((category) => category.slug === slug)?.id;
 
   let allArticles;
 
