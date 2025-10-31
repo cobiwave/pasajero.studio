@@ -1,21 +1,28 @@
 'use client';
 
+import type { FC } from 'react';
 import type { Language } from '@/hooks/use-language';
+import type { ControllerProps } from './LanguageSelector.controller';
 
-import { useLanguage } from '@/hooks/use-language';
+import classNames from 'classnames';
+
+import { languageNames, useLanguage } from '@/hooks/use-language';
+import { useRefs } from '@/hooks/use-refs';
 
 import css from './LanguageSelector.module.scss';
 
-const languageNames: { [K in Language]: string } = {
-  en: 'EN',
-  es: 'ES'
+export interface ViewProps extends ControllerProps {}
+
+export type ViewRefs = {
+  root: HTMLDivElement;
 };
 
-export default function LanguageSelector() {
+export const View: FC<ViewProps> = ({ className }) => {
+  const refs = useRefs<ViewRefs>();
   const { currentLanguage, changeLanguage, availableLanguages } = useLanguage();
 
   return (
-    <div className={css.root} role="group" aria-label="Language selection">
+    <div className={classNames('LanguageSelector', css.root, className)} ref={refs.root}>
       {availableLanguages.map((lang: Language) => (
         <button
           key={lang}
@@ -30,4 +37,6 @@ export default function LanguageSelector() {
       ))}
     </div>
   );
-}
+};
+
+View.displayName = 'LanguageSelector_View';

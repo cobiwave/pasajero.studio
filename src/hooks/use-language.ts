@@ -5,6 +5,11 @@ import { usePathname, useRouter } from 'next/navigation';
 
 export type Language = 'en' | 'es';
 
+export const languageNames: { [K in Language]: string } = {
+  en: 'EN',
+  es: 'ES'
+};
+
 export function useLanguage() {
   const pathname = usePathname();
   const router = useRouter();

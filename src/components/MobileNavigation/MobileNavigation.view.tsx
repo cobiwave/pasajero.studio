@@ -1,5 +1,8 @@
 'use client';
 
+import type { NavigationLink } from '../Navigation/Navigation.controller';
+import type { ControllerProps } from './MobileNavigation.controller';
+
 import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useLockBodyScroll } from '@uidotdev/usehooks';
@@ -12,17 +15,54 @@ import useKeyPress, { KEYS } from '@/hooks/use-key-press';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
-import css from './MobileNav.module.scss';
+import css from './MobileNavigation.module.scss';
 
-export interface NavigationLink {
-  id: string;
-  slug: string | null;
-  link: {
-    text: string | null;
-    url: string | null;
-  } | null;
-}
+export interface ViewProps extends ControllerProps {}
 
+export type ViewRefs = {
+  root: HTMLDivElement;
+  button: HTMLButtonElement;
+};
+
+export const View = forwardRef<HTMLDivElement, ViewProps>(
+  ({ isOpen, navigationLinks, onClose, onToggle, className }, ref) => {
+    const refs = useRefs<ViewRefs>();
+
+    // Handle button click - simple toggle
+    const handleToggle = useCallback(() => {
+      onToggle();
+    }, [onToggle]);
+
+    return (
+      <div className={classNames('MobileNavigation', css.root, className)} ref={multiRef(refs.root, ref)}>
+        {/* Mobile Menu Button */}
+        <div className={css.mobileMenuButtonContainer}>
+          <button
+            ref={refs.button}
+            className={classNames(css.mobileMenuButton, {
+              [css.isOpen]: isOpen
+            })}
+            onClick={handleToggle}
+            aria-expanded={isOpen}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            type="button"
+          >
+            <span className={css.hamburgerLine} />
+            <span className={css.hamburgerLine} />
+            <span className={css.hamburgerLine} />
+          </button>
+        </div>
+
+        {/* Mobile Menu Overlay with TransitionPresence */}
+        {isOpen && <MobileNavContent navigationLinks={navigationLinks} onClose={onClose} />}
+      </div>
+    );
+  }
+);
+
+View.displayName = 'MobileNavigation_View';
+
+// another component
 interface MobileNavOverlayProps {
   navigationLinks: NavigationLink[];
   onClose: () => void;
@@ -101,13 +141,7 @@ const MobileNavOverlay = forwardRef<HTMLDivElement, MobileNavOverlayProps>(({ na
 
 MobileNavOverlay.displayName = 'MobileNavOverlay';
 
-interface MobileNavProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onToggle: () => void;
-  navigationLinks: NavigationLink[];
-}
-
+// another component
 interface MobileNavContentProps {
   onClose: () => void;
   navigationLinks: NavigationLink[];
@@ -134,38 +168,4 @@ function MobileNavContent({ onClose, navigationLinks }: MobileNavContentProps) {
   }, [onClose]);
 
   return <MobileNavOverlay ref={overlayRef} navigationLinks={navigationLinks} onClose={onClose} />;
-}
-
-export default function MobileNav({ isOpen, onClose, onToggle, navigationLinks }: MobileNavProps) {
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  // Handle button click - simple toggle
-  const handleToggle = useCallback(() => {
-    onToggle();
-  }, [onToggle]);
-
-  return (
-    <>
-      {/* Mobile Menu Button */}
-      <div className={css.mobileMenuButtonContainer}>
-        <button
-          ref={buttonRef}
-          className={classNames(css.mobileMenuButton, {
-            [css.isOpen]: isOpen
-          })}
-          onClick={handleToggle}
-          aria-expanded={isOpen}
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          type="button"
-        >
-          <span className={css.hamburgerLine} />
-          <span className={css.hamburgerLine} />
-          <span className={css.hamburgerLine} />
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay with TransitionPresence */}
-      {isOpen && <MobileNavContent navigationLinks={navigationLinks} onClose={onClose} />}
-    </>
-  );
 }

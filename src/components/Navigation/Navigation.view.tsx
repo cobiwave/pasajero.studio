@@ -1,33 +1,41 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import type { ControllerProps } from './Navigation.controller';
+
+import { forwardRef, useEffect, useState } from 'react';
 import localFont from 'next/font/local';
 import Link from 'next/link';
 import { useIsClient, useWindowSize } from '@uidotdev/usehooks';
 import classNames from 'classnames';
 
+import { multiRef } from '@/utils/multi-ref';
+
 import { useLanguage } from '@/hooks/use-language';
+import { useRefs } from '@/hooks/use-refs';
 
 import { TransitionPresence } from '@/motion/transition.presence';
 
-import css from './GlobalNav.module.scss';
+import css from './Navigation.module.scss';
 
-import LanguageSelector from './LanguageSelector';
-import MobileNav, { type NavigationLink } from './MobileNav';
-
-const stretchPro = localFont({
-  src: '../../fonts/StretchPro.woff2'
-});
+import { LanguageSelector } from '../LanguageSelector';
+import { MobileNavigation } from '../MobileNavigation';
 
 // Breakpoint from vars.scss
 // TODO - sync with SCSS variable
 const DESKTOP_BREAKPOINT = 1080;
 
-export interface GlobalNavProps {
-  links: NavigationLink[];
-}
+const stretchPro = localFont({
+  src: '../../fonts/StretchPro.woff2'
+});
 
-export default function GlobalNav({ links }: GlobalNavProps) {
+export interface ViewProps extends ControllerProps {}
+
+export type ViewRefs = {
+  root: HTMLDivElement;
+};
+
+export const View = forwardRef<HTMLDivElement, ViewProps>(({ links, className }, ref) => {
+  const refs = useRefs<ViewRefs>();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const windowSize = useWindowSize();
   const isClient = useIsClient();
@@ -47,8 +55,8 @@ export default function GlobalNav({ links }: GlobalNavProps) {
   }, [isMobile, isMobileMenuOpen]);
 
   return (
-    <header className={css.root}>
-      <nav className={classNames(css.nav)} role="navigation" aria-label="Main Navigation">
+    <header className={classNames('Navigation', css.root, className)} ref={multiRef(refs.root, ref)}>
+      <nav className={classNames(css.nav)}>
         <ul role="list" className={css.desktopNav}>
           {links.map((link) => (
             <li key={link.id}>
@@ -70,7 +78,7 @@ export default function GlobalNav({ links }: GlobalNavProps) {
         {/* Mobile Navigation with TransitionPresence */}
         {isMobile && (
           <TransitionPresence>
-            <MobileNav
+            <MobileNavigation
               key="mobile-nav"
               isOpen={isMobileMenuOpen}
               onClose={closeMobileMenu}
@@ -85,4 +93,6 @@ export default function GlobalNav({ links }: GlobalNavProps) {
       </nav>
     </header>
   );
-}
+});
+
+View.displayName = 'Navigation_View';

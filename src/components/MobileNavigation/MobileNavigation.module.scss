@@ -1,5 +1,9 @@
 @import '@/styles/shared';
 
+.root {
+  display: block;
+}
+
 // Mobile menu button (hamburger)
 .mobileMenuButtonContainer {
   @include flex-center-vert();

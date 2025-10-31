@@ -1,7 +1,7 @@
 import type { TypeFromQuery } from '@/lib/datocms/graphql';
 
 import { Footer } from '@/components/Footer';
-import GlobalNav from '@/components/GlobalNav/GlobalNav';
+import { Navigation } from '@/components/Navigation';
 
 import { executeQuery } from '@/lib/datocms/executeQuery';
 
@@ -26,7 +26,7 @@ export default async function LangLayout({
 
   return (
     <>
-      {allNavigations.length > 0 ? <GlobalNav links={allNavigations} /> : null}
+      {allNavigations.length > 0 ? <Navigation links={allNavigations} /> : null}
       <main>{children}</main>
       <Footer />
     </>
