@@ -57,6 +57,12 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ links, className },
   return (
     <header className={classNames('Navigation', css.root, className)} ref={multiRef(refs.root, ref)}>
       <nav className={classNames(css.nav)}>
+        <div className={classNames(css.logo, stretchPro.className)}>
+          <Link href={`/${currentLanguage}`} aria-label="Home">
+            Pasajero
+          </Link>
+        </div>
+
         <ul role="list" className={css.desktopNav}>
           {links.map((link) => (
             <li key={link.id}>
@@ -64,12 +70,6 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ links, className },
             </li>
           ))}
         </ul>
-
-        <div className={classNames(css.logo, stretchPro.className)}>
-          <Link href={`/${currentLanguage}`} aria-label="Home">
-            Pasajero
-          </Link>
-        </div>
 
         <div className={css.languageSelector}>
           <LanguageSelector />

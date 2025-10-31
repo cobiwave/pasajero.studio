@@ -6,7 +6,6 @@
   @include gpu();
   right: 0;
   background-color: $black;
-  backdrop-filter: blur(px(5));
 
   .nav {
     @include horizontal-container();
@@ -22,17 +21,39 @@
       gap: $desktop-grid-gap;
     }
 
+    .logo {
+      inline-size: phone-columns(5);
+      text-align: left;
+
+      @include media-tablet {
+        inline-size: tablet-columns(5);
+      }
+
+      @include media-desktop {
+        inline-size: desktop-columns(3);
+      }
+
+      a {
+        @include typography-logo-large;
+        font-weight: $font-weight-regular;
+        color: $white;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+
     // Desktop navigation
     .desktopNav {
       display: none;
 
       @include media-desktop {
         display: flex;
+        justify-content: flex-end;
         list-style: none;
         margin: 0;
         padding: 0;
-        gap: $desktop-grid-gap;
-        inline-size: desktop-columns(4);
+        gap: calc(2 * #{$desktop-grid-gap});
+        inline-size: desktop-columns(8);
       }
 
       a {
@@ -46,28 +67,6 @@
     }
   }
 
-  .logo {
-    inline-size: phone-columns(5);
-    text-align: left;
-
-    @include media-tablet {
-      inline-size: tablet-columns(5);
-    }
-
-    @include media-desktop {
-      inline-size: desktop-columns(4);
-      text-align: center;
-    }
-
-    a {
-      @include typography-logo-large;
-      font-weight: $font-weight-regular;
-      color: $white;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-  }
-
   .languageSelector {
     display: none;
 
@@ -76,7 +75,7 @@
       align-items: center;
       justify-content: flex-end;
 
-      inline-size: desktop-columns(4);
+      inline-size: desktop-columns(1);
     }
   }
 }
