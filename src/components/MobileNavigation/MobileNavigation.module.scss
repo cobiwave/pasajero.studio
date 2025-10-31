@@ -64,45 +64,34 @@
   }
 }
 
-// Mobile menu overlay
-.mobileMenuOverlay {
-  @include position-0(fixed);
-  @include z-index(overlay);
+// Mobile navigation list styles
+.mobileNavList {
   @include flex-center(column);
-  width: 100%;
-  height: 100vh;
-  background-color: $black;
-  backdrop-filter: blur(px(10));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: px(40);
+}
+
+.mobileNavItem {
   opacity: 0; // Initial state for motion animation
+  transform: translateY(px(30)); // Initial state for motion animation
+}
 
-  .mobileNavList {
-    @include flex-center(column);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    gap: px(40);
+.mobileNavLink {
+  @include typography-h2;
+  font-weight: $font-weight-bold;
+  color: $white;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s $ease1;
+
+  &:focus-visible {
+    outline: 2px solid $white;
+    outline-offset: px(4);
   }
+}
 
-  .mobileNavItem {
-    opacity: 0; // Initial state for motion animation
-    transform: translateY(px(30)); // Initial state for motion animation
-  }
-
-  .mobileNavLink {
-    @include typography-h2;
-    font-weight: $font-weight-bold;
-    color: $white;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.3s $ease1;
-
-    &:focus-visible {
-      outline: 2px solid $white;
-      outline-offset: px(4);
-    }
-  }
-
-  .mobilelanguageSelector {
-    margin-top: px(40);
-  }
+.mobilelanguageSelector {
+  margin-top: px(40);
 }
