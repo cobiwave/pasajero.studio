@@ -16,6 +16,7 @@ export async function executeQuery<Result, Variables>(
   buildRequestInit;
   const result = await libExecuteQuery(query, {
     variables: options?.variables,
+    environment: process.env.DATOCMS_ENVIRONMENT,
     excludeInvalid: true,
     includeDrafts: options?.includeDrafts,
     token: options?.includeDrafts
