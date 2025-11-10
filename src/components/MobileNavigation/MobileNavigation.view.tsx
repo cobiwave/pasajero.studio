@@ -54,7 +54,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(
         </div>
 
         {/* Mobile Menu Overlay with TransitionPresence */}
-        {isOpen && <MobileNavContent navigationLinks={navigationLinks} onClose={onClose} />}
+        {isOpen && <MobileNavigationOverlay navigationLinks={navigationLinks} onClose={onClose} />}
       </div>
     );
   }
@@ -62,37 +62,12 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(
 
 View.displayName = 'MobileNavigation_View';
 
-// another component
-interface MobileNavOverlayProps {
-  navigationLinks: NavigationLink[];
-  onClose: () => void;
-}
-
-const MobileNavOverlay = forwardRef<HTMLDivElement, MobileNavOverlayProps>(({ navigationLinks, onClose }, ref) => {
-  return (
-    <Overlay ref={ref}>
-      <ul role="list" className={css.mobileNavList}>
-        {navigationLinks.map((link) => (
-          <li key={link.link?.url} className={css.mobileNavItem}>
-            <Link href={link.link?.url ?? '#'} onClick={onClose} className={css.mobileNavLink}>
-              {link.link?.text}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </Overlay>
-  );
-});
-
-MobileNavOverlay.displayName = 'MobileNavOverlay';
-
-// another component
-interface MobileNavContentProps {
+interface MobileNavigationOverlayProps {
   onClose: () => void;
   navigationLinks: NavigationLink[];
 }
 
-function MobileNavContent({ onClose, navigationLinks }: MobileNavContentProps) {
+function MobileNavigationOverlay({ onClose, navigationLinks }: MobileNavigationOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
   // Lock body scroll when component is mounted
@@ -112,5 +87,17 @@ function MobileNavContent({ onClose, navigationLinks }: MobileNavContentProps) {
     return () => window.removeEventListener('popstate', handleRouteChange);
   }, [onClose]);
 
-  return <MobileNavOverlay ref={overlayRef} navigationLinks={navigationLinks} onClose={onClose} />;
+  return (
+    <Overlay ref={overlayRef}>
+      <ul role="list" className={css.mobileNavList}>
+        {navigationLinks.map((link) => (
+          <li key={link.link?.url} className={css.mobileNavItem}>
+            <Link href={link.link?.url ?? '#'} onClick={onClose} className={css.mobileNavLink}>
+              {link.link?.text}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Overlay>
+  );
 }
