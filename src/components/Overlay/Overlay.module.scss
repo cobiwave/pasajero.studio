@@ -1,12 +1,10 @@
 @import '@/styles/shared';
 
-.overlay {
+.root {
   @include position-0(fixed);
   @include z-index(overlay);
   @include flex-center(column);
-  width: 100%;
-  height: 100vh;
+  @include box(100%, 100vh);
   background-color: $black;
-  backdrop-filter: blur(px(10));
-  opacity: 0; // Initial state for motion animation
+  opacity: 0;
 }

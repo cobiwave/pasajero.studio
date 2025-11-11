@@ -1,30 +1,60 @@
 'use client';
 
-import { forwardRef, useMemo } from 'react';
+import type { ControllerProps } from './Overlay.controller';
+
+import { forwardRef, useEffect, useMemo } from 'react';
+import classNames from 'classnames';
 import { animate, stagger } from 'motion';
 
 import { multiRef } from '@/utils/multi-ref';
 
+import useKeyPress, { KEYS } from '@/hooks/use-key-press';
 import { useRefs } from '@/hooks/use-refs';
 import { useTransitionPresence } from '@/hooks/use-transition-presence';
 
 import css from './Overlay.module.scss';
 
-export interface OverlayProps {
-  children: React.ReactNode;
-  className?: string;
-  animateChildren?: boolean;
-  childrenSelector?: string;
-}
+export interface ViewProps extends ControllerProps {}
 
-type OverlayRefs = {
+export type ViewRefs = {
   root: HTMLDivElement;
   animatedItems: HTMLElement[];
 };
 
-export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
-  ({ children, className, animateChildren = true, childrenSelector = 'li' }, ref) => {
-    const refs = useRefs<OverlayRefs>();
+export const View = forwardRef<HTMLDivElement, ViewProps>(
+  (
+    {
+      children,
+      className,
+      animateChildren = true,
+      childrenSelector = 'li',
+      onClose,
+      closeOnEscape = true,
+      closeOnRouteChange = true
+    },
+    ref
+  ) => {
+    const refs = useRefs<ViewRefs>();
+
+    // Close menu when pressing Escape
+    useKeyPress({
+      keys: KEYS.ESCAPE,
+      onPress: () => {
+        if (onClose) {
+          onClose();
+        }
+      },
+      shouldListen: closeOnEscape && !!onClose
+    });
+
+    // Close menu on route change
+    useEffect(() => {
+      if (!closeOnRouteChange || !onClose) return;
+
+      const handleRouteChange = () => onClose();
+      window.addEventListener('popstate', handleRouteChange);
+      return () => window.removeEventListener('popstate', handleRouteChange);
+    }, [onClose, closeOnRouteChange]);
 
     const animations = useMemo(
       () => ({
@@ -70,14 +100,24 @@ export const Overlay = forwardRef<HTMLDivElement, OverlayProps>(
       [refs, animateChildren, childrenSelector]
     );
 
+    useTransitionPresence(
+      useMemo(
+        () => ({
+          animateIn: () => animate(refs.root.current!, { opacity: 1 }),
+          animateOut: () => animate(refs.root.current!, { opacity: 0 })
+        }),
+        [refs]
+      )
+    );
+
     useTransitionPresence(animations);
 
     return (
-      <div ref={multiRef(refs.root, ref)} className={`${css.overlay} ${className || ''}`} aria-hidden={false}>
+      <div className={classNames('Overlay', css.root, className)} ref={multiRef(refs.root, ref)} aria-hidden={false}>
         {children}
       </div>
     );
   }
 );
 
-Overlay.displayName = 'Overlay';
+View.displayName = 'Overlay_View';
