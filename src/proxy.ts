@@ -23,7 +23,7 @@ function getLocale(request: LocaleRequest): string {
   return 'en';
 }
 
-export function middleware(request: LocaleRequest) {
+export function proxy(request: LocaleRequest) {
   // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl;
   const pathnameHasLocale = locales.some((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
