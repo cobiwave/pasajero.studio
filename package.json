@@ -34,22 +34,22 @@
     "js-cookie": "^3.0.5",
     "jsdom": "^24.1.0",
     "motion": "^12.4.3",
-    "next": "^14.2.33",
-    "react": "^18",
+    "next": "^16.0.7",
+    "react": "19.2.1",
     "react-datocms": "^7.0.1",
-    "react-dom": "^18",
+    "react-dom": "19.2.1",
     "serialize-error": "^11.0.3",
     "string-format": "^2.0.0",
     "xss": "^1.0.15"
   },
   "devDependencies": {
     "@0no-co/graphqlsp": "^1.12.10",
-    "@next/eslint-plugin-next": "^15.1.7",
+    "@next/eslint-plugin-next": "16.0.8",
     "@types/js-cookie": "^3.0.6",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3",
     "@typescript-eslint/eslint-plugin": "^8.24.0",
     "@typescript-eslint/parser": "^8.24.0",
     "dotenv-cli": "^7.4.2",
@@ -74,5 +74,9 @@
     "stylelint-config-standard-scss": "^14.0.0",
     "stylelint-prettier": "^5.0.3",
     "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "19.2.7",
+    "@types/react-dom": "19.2.3"
   }
 }
