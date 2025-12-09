@@ -11,11 +11,12 @@ import { QueryPage } from '@/graphql/QueryPage';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export default async function Page({ params }: PageProps) {
-  const { lang, slug } = params;
+  const { lang, slug } = await params;
+  const locale = lang as 'en' | 'es';
 
   const { page } = await executeQuery(QueryPage, {
     variables: {
-      locale: lang,
+      locale,
       slug
     }
   });
@@ -33,7 +34,7 @@ export default async function Page({ params }: PageProps) {
   if (categoryId) {
     const result = await executeQuery(QueryArticlesByCategoryId, {
       variables: {
-        locale: lang,
+        locale,
         categoryId: [categoryId]
       }
     });

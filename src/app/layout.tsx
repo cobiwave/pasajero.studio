@@ -29,7 +29,7 @@ const query = graphql(
 );
 
 export async function generateMetadata() {
-  const { isEnabled: isDraftModeEnabled } = draftMode();
+  const { isEnabled: isDraftModeEnabled } = await draftMode();
   const data = await executeQuery(query, { includeDrafts: isDraftModeEnabled });
   return toNextMetadata(data._site.faviconMetaTags);
 }

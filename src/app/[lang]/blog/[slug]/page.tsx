@@ -26,17 +26,18 @@ export const generateMetadata = generateMetadataFn<
   VariablesFromQuery<typeof QueryArticle>
 >({
   query: QueryArticle,
-  buildQueryVariables: (props) => ({
-    slug: props.params.slug
+  buildQueryVariables: async (props) => ({
+    slug: (await props.params).slug
   }),
   pickSeoMetaTags: (data) => data?.article?._seoMetaTags
 });
 
 export default async function Article({ params }: PageProps) {
-  const { lang, slug } = params;
+  const { lang, slug } = await params;
+  const locale = lang as 'en' | 'es';
   const { article }: TypeFromQuery<typeof QueryArticle> = await executeQuery(QueryArticle, {
     variables: {
-      locale: lang,
+      locale,
       slug
     }
   });

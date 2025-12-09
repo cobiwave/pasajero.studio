@@ -7,9 +7,11 @@ import { PageArticles } from '@/components/pages/PageArticles';
 import { QueryAllArticles } from '@/graphql/QueryAllArticles';
 import { executeQuery } from '@/lib/datocms/executeQuery';
 
-export default async function Page({ params: { lang } }: PageProps) {
+export default async function Page({ params }: PageProps) {
+  const { lang } = await params;
+  const locale = lang as 'en' | 'es';
   const { allArticles } = await executeQuery(QueryAllArticles, {
-    variables: { locale: lang }
+    variables: { locale }
   });
 
   if (allArticles.length === 0) {

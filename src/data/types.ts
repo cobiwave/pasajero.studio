@@ -20,6 +20,6 @@ export interface CmsBaseComponent {
 }
 
 export type PageProps = {
-  params: { lang: 'en'; slug: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ lang: string; slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };

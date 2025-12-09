@@ -12,13 +12,14 @@ export default async function LangLayout({
   params
 }: {
   children: React.ReactNode;
-  params: { lang: 'en' | 'es' };
+  params: Promise<{ lang: string }>;
 }) {
-  const { lang } = params;
+  const { lang } = await params;
+  const locale = lang as 'en' | 'es';
 
   const [{ allNavigations: unsortedNavigations }] = await Promise.all([
     executeQuery(QueryNavigationLinks, {
-      variables: { locale: lang }
+      variables: { locale }
     }) as Promise<TypeFromQuery<typeof QueryNavigationLinks>>
   ]);
 

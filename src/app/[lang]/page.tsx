@@ -12,16 +12,18 @@ import { executeQuery } from '@/lib/datocms/executeQuery';
 
 export const revalidate = 60;
 
-export default async function Home({ params: { lang } }: PageProps) {
+export default async function Home({ params }: PageProps) {
+  const { lang } = await params;
+  const locale = lang as 'en' | 'es';
   const [{ page }, { allArticles }] = await Promise.all([
     executeQuery(QueryPage, {
       variables: {
-        locale: lang,
+        locale,
         slug: 'home-page'
       }
     }),
     executeQuery(QueryAllArticles, {
-      variables: { locale: lang }
+      variables: { locale }
     }) as Promise<TypeFromQuery<typeof QueryAllArticles>>
   ]);
 

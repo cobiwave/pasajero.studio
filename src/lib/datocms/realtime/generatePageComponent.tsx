@@ -24,21 +24,20 @@ export function generatePageComponent<PageProps, Result, Variables>(
   options: GeneratePageComponentOptions<PageProps, Result, Variables>
 ) {
   return async function Page(unsanitizedPageProps: PageProps) {
-    const { isEnabled: isDraftModeEnabled } = draftMode();
+    const { isEnabled: isDraftModeEnabled } = await draftMode();
 
     /*
      * Since props passed from the server to client components must be
      * serializable, we extract the non-serializable `searchParams` property
      * from the original object.
      */
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { searchParams, ...pagePropsWithoutSearchParams } = unsanitizedPageProps as PageProps & {
+    const { searchParams: _searchParams, ...pagePropsWithoutSearchParams } = unsanitizedPageProps as PageProps & {
       searchParams: unknown;
     };
 
     const pageProps = pagePropsWithoutSearchParams as unknown as PageProps;
 
-    const variables = options.buildQueryVariables?.(pageProps) || ({} as Variables);
+    const variables = (await options.buildQueryVariables?.(pageProps)) || ({} as Variables);
 
     const data = await executeQuery(options.query, {
       variables,
