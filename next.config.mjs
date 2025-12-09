@@ -7,6 +7,9 @@ const nextConfig = {
         hostname: 'www.datocms-assets.com'
       }
     ]
+  },
+  sassOptions: {
+    silenceDeprecations: ['import', 'global-builtin', 'legacy-js-api', 'mixed-decls']
   }
 };
 
