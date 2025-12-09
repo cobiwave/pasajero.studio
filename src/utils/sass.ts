@@ -1,27 +1,25 @@
-import { rgbaToHex } from '@/utils/color';
+import { breakpoints, colors } from '@/styles/tokens';
 
-import * as vars from '../styles/export-vars.module.scss';
+// Export breakpoints as strings with 'px' suffix for compatibility
+export const sass = {
+  // breakpoints
+  'breakpoint-mobile': `${breakpoints.mobile}`,
+  'breakpoint-tablet': `${breakpoints.tablet}`,
+  'breakpoint-desktop': `${breakpoints.desktop}`,
+  'breakpoint-desktop-large': `${breakpoints.desktopLarge}`,
 
-export const sass = vars.default as unknown as { [key: string]: string };
+  // colors
+  white: colors.white,
+  black: colors.black,
+  'gray-light': colors.grayLight,
+  'form-error': colors.formError
+} as const;
 
-export const colors = Object.entries(sass)
-  .map(([key, value]) => {
-    if (value.startsWith('rgba')) {
-      try {
-        return [key, rgbaToHex(value)];
-      } catch (error) {
-        console.error(error);
-        return [key, value];
-      }
-    }
-    return [key, value];
-  })
-  .reduce<{ [key: string]: string }>((acc, [key, value]) => {
-    acc[key] = value;
-    return acc;
-  }, {});
+// Re-export colors for convenience
+export { colors };
 
 // Usage:
-// sass['white']
-// sass['black']
+// sass['breakpoint-desktop'] -> '1080'
+// sass['white'] -> '#fff'
+// sass['black'] -> '#0d1212'
 // etc...
