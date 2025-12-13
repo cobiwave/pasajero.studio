@@ -54,7 +54,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
             <li key={id}>
               {unmaskedFeaturedImage ? (
                 <div className={css.imageWrapper}>
-                  <Link className={css.title} href={`${currentLanguage}${ROUTES.ARTICLES}${slug}`}>
+                  <Link className={css.title} href={`/${currentLanguage}${ROUTES.BLOG}${slug}`}>
                     <Image
                       data={unmaskedFeaturedImage}
                       aspectRatio={AspectRatio.ThreeTwo}
@@ -68,7 +68,7 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
                 <div className={css.date}>{prettifyDate(date)}</div>
                 <div className={css.summary}>
                   <div className={css.titleWrapper}>
-                    <Link className={css.title} href={`${currentLanguage}${ROUTES.ARTICLES}${slug}`}>
+                    <Link className={css.title} href={`/${currentLanguage}${ROUTES.BLOG}${slug}`}>
                       {title}
                     </Link>
                   </div>

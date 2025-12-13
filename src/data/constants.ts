@@ -26,5 +26,5 @@ export enum Sizes {
 }
 
 export const ROUTES = {
-  ARTICLES: '/articles/'
+  BLOG: '/blog/'
 };
