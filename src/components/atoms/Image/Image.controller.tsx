@@ -31,7 +31,7 @@ export const ImageBlockFragment = graphql(
 export interface ControllerProps {
   data: ResultOf<typeof ImageBlockFragment>;
   aspectRatio?: AspectRatio;
-  responsiveImageProps?: ResponsiveImageProps;
+  responsiveImageProps?: Omit<ResponsiveImageProps, 'data'>;
   className?: string;
   parallaxEffect?: boolean;
 }
