@@ -55,8 +55,14 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ className, data }, 
       >
         <ul>
           {unmaskedImages?.map((image) => (
-            <li key={image.id} onClick={() => setSelectedImage(image)} role="button" tabIndex={0}>
-              <Image data={image} />
+            <li
+              className={css.imageWrapper}
+              key={image.id}
+              onClick={() => setSelectedImage(image)}
+              role="button"
+              tabIndex={0}
+            >
+              <Image parallaxEffect data={image} />
             </li>
           ))}
         </ul>

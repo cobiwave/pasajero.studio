@@ -24,12 +24,13 @@
       column-gap: $desktop-grid-gap;
     }
 
-    li {
+    .imageWrapper {
       break-inside: avoid;
       margin-bottom: $mobile-grid-gap;
       width: 100%;
       cursor: pointer;
       transition: opacity 0.2s ease;
+      overflow: hidden;
 
       @include media-tablet {
         margin-bottom: $tablet-grid-gap;
@@ -41,10 +42,6 @@
 
       &:last-child {
         margin-bottom: 0;
-      }
-
-      &:hover {
-        opacity: 0.8;
       }
 
       &:focus {
