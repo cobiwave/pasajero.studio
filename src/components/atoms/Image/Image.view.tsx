@@ -26,7 +26,7 @@ export type ViewRefs = {
 };
 
 export const View = forwardRef<HTMLDivElement, ViewProps>(
-  ({ data, className, aspectRatio, responsiveImageProps }, ref) => {
+  ({ data, className, aspectRatio, parallaxEffect, responsiveImageProps }, ref) => {
     const refs = useRefs<ViewRefs>();
 
     useTransitionPresence(
@@ -42,7 +42,8 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(
     return (
       <div
         className={classNames('Image', css.root, className, {
-          [css[ratioToClass(aspectRatio as AspectRatio)]]: aspectRatio
+          [css[ratioToClass(aspectRatio as AspectRatio)]]: aspectRatio,
+          [css.parallaxEffect]: parallaxEffect
         })}
         ref={multiRef(refs.root, ref)}
       >
