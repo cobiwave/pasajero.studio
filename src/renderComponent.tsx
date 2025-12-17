@@ -1,5 +1,5 @@
-import type { ControllerProps as ImageGalleryProps } from './components/ImageGallery/ImageGallery.controller';
-import type { PropsWithData as RichTextProps } from './components/RichText/RichText.controller';
+import type { ImageGalleryProps } from './components/ImageGallery';
+import type { RichTextProps } from './components/RichText';
 
 import { Fragment, type ReactElement } from 'react';
 

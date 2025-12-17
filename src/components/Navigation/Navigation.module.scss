@@ -1,0 +1,81 @@
+@import '@/styles/shared';
+
+.root {
+  @include z-index(nav);
+  @include position-0(fixed);
+  @include gpu();
+  right: 0;
+  background-color: $black;
+
+  .nav {
+    @include horizontal-container();
+    @include flex-center-vert();
+    block-size: $navbar-height;
+    gap: $mobile-grid-gap;
+
+    @include media-tablet {
+      gap: $tablet-grid-gap;
+    }
+
+    @include media-desktop {
+      gap: $desktop-grid-gap;
+    }
+
+    .logo {
+      inline-size: phone-columns(5);
+      text-align: left;
+
+      @include media-tablet {
+        inline-size: tablet-columns(5);
+      }
+
+      @include media-desktop {
+        inline-size: desktop-columns(3);
+      }
+
+      a {
+        @include typography-logo-large;
+        font-weight: $font-weight-regular;
+        color: $white;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+    }
+
+    // Desktop navigation
+    .desktopNav {
+      display: none;
+
+      @include media-desktop {
+        display: flex;
+        justify-content: flex-end;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        gap: calc(2 * #{$desktop-grid-gap});
+        inline-size: desktop-columns(8);
+      }
+
+      a {
+        @include typography-body-large();
+        text-transform: uppercase;
+        font-weight: $font-weight-bold;
+        position: relative;
+        color: $white;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .languageSelector {
+    display: none;
+
+    @include media-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      inline-size: desktop-columns(1);
+    }
+  }
+}

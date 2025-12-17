@@ -70,8 +70,11 @@
   }
 
   .image {
-    filter: grayscale(100%);
-    transition: 0.6s ease all;
+    transition: 0.6s $ease-joris-special-in-out all;
+
+    @include media-desktop {
+      filter: grayscale(100%);
+    }
   }
 
   .content {

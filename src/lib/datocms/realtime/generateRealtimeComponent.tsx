@@ -10,8 +10,7 @@ import { type EnabledQueryListenerOptions, useQuerySubscription } from 'react-da
  * updates on content changes, and re-renders the `contentComponent`.
  */
 export function generateRealtimeComponent<PageProps, Result, Variables>({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  query,
+  query: _query,
   contentComponent: ContentComponent
 }: GenerateRealtimeComponentOptions<PageProps, Result, Variables>) {
   const RealtimeComponent: RealtimeComponentType<PageProps, Result, Variables> = ({

@@ -1,0 +1,10 @@
+@import '@/styles/shared';
+
+.root {
+  @include position-0(fixed);
+  @include z-index(overlay);
+  @include flex-center(column);
+  @include box(100%, 100vh);
+  background-color: $black;
+  opacity: 0;
+}

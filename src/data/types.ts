@@ -1,3 +1,5 @@
+import type { PaddingSizes } from './constants';
+
 export interface DatoGetPageData {
   page: Page;
 }
@@ -6,18 +8,18 @@ export interface Page {
   id: string;
   slug: string;
   title: string;
-  components: Component[];
+  components: CmsBaseComponent[];
 }
 
-export interface Component {
-  __typename: string;
+export interface CmsBaseComponent {
+  __typename?: string;
+  _modelApiKey?: string;
   id?: string;
-  title?: string;
-  eyebrow?: string;
-  description?: string;
+  topPadding?: PaddingSizes;
+  bottomPadding?: PaddingSizes;
 }
 
 export type PageProps = {
-  params: { category: string };
-  searchParams: { [key: string]: string | string[] | undefined };
+  params: Promise<{ lang: string; slug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };

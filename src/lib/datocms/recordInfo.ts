@@ -32,8 +32,7 @@ export async function recordToWebsiteRoute(
 export async function recordToSlug(
   item: SchemaTypes.Item,
   itemTypeApiKey: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  locale: string
+  _locale: string
 ): Promise<string | null> {
   switch (itemTypeApiKey) {
     case 'article': {

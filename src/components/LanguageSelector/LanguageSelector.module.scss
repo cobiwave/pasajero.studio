@@ -1,0 +1,63 @@
+@import '@/styles/shared';
+
+.root {
+  position: relative;
+  display: block;
+}
+
+.currentButton {
+  @include flex-center();
+  @include typography-body-large();
+  font-weight: $font-weight-bold;
+  border: 1px solid rgba($gray-light, 0.3);
+  border-radius: px(24);
+  color: $white;
+  cursor: pointer;
+  padding: px(6) px(16);
+  text-transform: uppercase;
+  transition: all 0.3s $ease-joris-special-in-out;
+
+  &:hover {
+    background-color: rgba($gray-light, 0.1);
+    border-color: rgba($gray-light, 0.5);
+  }
+}
+
+// Language selection overlay content
+.languageList {
+  @include flex-center(column);
+  gap: px(16);
+}
+
+.title {
+  @include typography-h2;
+  color: $white;
+  text-transform: uppercase;
+}
+
+.languageOption {
+  @include flex-center();
+  @include typography-body;
+  border: 1px solid rgba($gray-light, 0.2);
+  border-radius: px(24);
+  color: rgba($gray-light, 0.8);
+  cursor: pointer;
+  font-weight: $font-weight-bold;
+  justify-content: space-between;
+  padding: px(12) px(16);
+  text-transform: uppercase;
+  transition: all 0.3s $ease-joris-special-in-out;
+  width: 100%;
+
+  &:hover {
+    background-color: rgba($gray-light, 0.1);
+    border-color: rgba($gray-light, 0.4);
+    color: $white;
+  }
+
+  &.active {
+    background-color: rgba($gray-light, 0.15);
+    border-color: rgba($gray-light, 0.6);
+    color: $white;
+  }
+}

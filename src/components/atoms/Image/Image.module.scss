@@ -1,0 +1,30 @@
+@import '@/styles/shared';
+
+.root {
+  display: block;
+  opacity: 0;
+  width: 100%;
+
+  &.ratio1by1 {
+    .picture {
+      aspect-ratio: 1/1 !important;
+    }
+  }
+
+  &.ratio3by2 {
+    .picture {
+      aspect-ratio: 3/2 !important;
+    }
+  }
+
+  &.ratio16by9 {
+    .picture {
+      aspect-ratio: 16/9 !important;
+    }
+  }
+
+  .picture {
+    width: 100%;
+    display: block;
+  }
+}

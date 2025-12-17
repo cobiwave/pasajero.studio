@@ -3,6 +3,7 @@
 import type { ControllerProps } from './Footer.controller';
 
 import { forwardRef, useMemo } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { animate } from 'motion';
@@ -45,17 +46,17 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ className }, ref) =
           </li>
         </ul>
         <div className={css.copyright}>
-          <p>© {new Date().getFullYear()} PASAJERO STUDIO.</p>
+          <p>© {new Date().getFullYear()} PASAJERO</p>
         </div>
         <ul className={css.social}>
           <li>
             <a href="https://www.instagram.com/pasajero.studio/" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/instagram.svg" alt="Instagram" />
+              <Image src="/assets/instagram.svg" alt="Instagram" width="24" height="24" />
             </a>
           </li>
           <li>
             <a href="https://www.youtube.com/@pasajero.studio" target="_blank" rel="noopener noreferrer">
-              <img src="/assets/youtube.svg" alt="Youtube" />
+              <Image src="/assets/youtube.svg" alt="Youtube" width="24" height="24" />
             </a>
           </li>
         </ul>

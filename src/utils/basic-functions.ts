@@ -1,3 +1,5 @@
+import { AspectRatio } from '@/data/constants';
+
 const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || '';
 
 export function getScrollTop() {
@@ -110,6 +112,13 @@ export function download(blob: Blob, filename: string) {
   link.remove();
 }
 
+export function decorativeElementProps() {
+  return {
+    role: 'presentation',
+    'aria-hidden': true
+  };
+}
+
 export async function copyToClipboard(text?: string): Promise<void> {
   if (!text) {
     return;
@@ -135,6 +144,23 @@ export function formatDuration(seconds: number): string {
 
 export function isYouTubeUrl(url: string): boolean {
   return /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|.+\?.+)?|youtu\.be\/)([\w-]{11})$/iu.test(url);
+}
+
+export function ratioToClass(aspectRatio: AspectRatio): string {
+  switch (aspectRatio) {
+    case AspectRatio.Square: {
+      return 'ratio1by1';
+    }
+    case AspectRatio.ThreeTwo: {
+      return 'ratio3by2';
+    }
+    case AspectRatio.SixteenNine: {
+      return 'ratio16by9';
+    }
+    default: {
+      return 'ratio1by1';
+    }
+  }
 }
 
 export function clamp(value: number, min: number, max: number): number {

@@ -1,25 +1,22 @@
 @import '@/styles/shared';
 
 .root {
-  display: flex;
-  flex-direction: column;
+  display: block;
+  width: 100%;
+  text-align: left;
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin-block-end: px(30);
-    text-align: left;
+  @include select-top-spacing;
+  @include select-bottom-spacing;
+
+  .wrapper {
+    @include horizontal-container(desktop-columns(8), tablet-columns(6));
   }
 
-  p {
-    margin-block-end: px(14);
-    text-align: left;
+  .media {
+    width: 100%;
   }
 
-  picture {
-    margin-block-end: px(20);
+  .paragraphSpacer {
+    block-size: px(30);
   }
 }

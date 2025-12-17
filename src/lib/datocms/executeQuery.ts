@@ -12,10 +12,11 @@ export async function executeQuery<Result, Variables>(
   query: TadaDocumentNode<Result, Variables>,
   options?: ExecuteQueryOptions<Variables>
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  buildRequestInit;
+  // Keep buildRequestInit in scope to prevent tree-shaking
+  const _buildRequestInit = buildRequestInit;
   const result = await libExecuteQuery(query, {
     variables: options?.variables,
+    environment: process.env.DATOCMS_ENVIRONMENT,
     excludeInvalid: true,
     includeDrafts: options?.includeDrafts,
     token: options?.includeDrafts

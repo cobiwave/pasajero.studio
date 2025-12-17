@@ -31,7 +31,7 @@
     align-items: flex-start;
     justify-content: flex-start;
     gap: px(6);
-    inline-size: phone-columns(6);
+    inline-size: phone-columns(2);
 
     @include media-tablet {
       inline-size: tablet-columns(6);
@@ -50,8 +50,7 @@
 
   .copyright {
     @include flex-center(column);
-    inline-size: phone-columns(6);
-    gap: px(4);
+    inline-size: phone-columns(2);
     color: $white;
 
     @include media-tablet {
@@ -68,7 +67,7 @@
     justify-content: flex-end;
     list-style: none;
     gap: px(8);
-    inline-size: phone-columns(6);
+    inline-size: phone-columns(2);
 
     @include media-tablet {
       inline-size: tablet-columns(6);

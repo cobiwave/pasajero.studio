@@ -1,15 +1,25 @@
-import * as vars from '../styles/export-vars.module.scss';
+import { breakpoints, colors } from '@/styles/tokens';
 
-export const sass = vars.default as unknown as { [key: string]: string };
+// Export breakpoints as strings with 'px' suffix for compatibility
+export const sass = {
+  // breakpoints
+  'breakpoint-mobile': `${breakpoints.mobile}`,
+  'breakpoint-tablet': `${breakpoints.tablet}`,
+  'breakpoint-desktop': `${breakpoints.desktop}`,
+  'breakpoint-desktop-large': `${breakpoints.desktopLarge}`,
 
-export const colors = Object.values(sass)
-  .filter((value) => value.startsWith('#'))
-  .reduce<{ [key: string]: string }>((acc, entry) => {
-    acc[entry[1]] = entry[0];
-    return acc;
-  }, {});
+  // colors
+  white: colors.white,
+  black: colors.black,
+  'gray-light': colors.grayLight,
+  'form-error': colors.formError
+} as const;
+
+// Re-export colors for convenience
+export { colors };
 
 // Usage:
-// sass['white']
-// sass['black']
+// sass['breakpoint-desktop'] -> '1080'
+// sass['white'] -> '#fff'
+// sass['black'] -> '#0d1212'
 // etc...
