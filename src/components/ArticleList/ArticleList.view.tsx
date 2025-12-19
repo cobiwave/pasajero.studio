@@ -60,6 +60,12 @@ export const View = forwardRef<HTMLDivElement, ViewProps>(({ articles, className
                       aspectRatio={AspectRatio.ThreeTwo}
                       className={css.image}
                       parallaxEffect
+                      responsiveImageProps={{
+                        imgStyle: {
+                          objectFit: 'cover',
+                          height: '100%'
+                        }
+                      }}
                     />
                   </Link>
                 </div>
