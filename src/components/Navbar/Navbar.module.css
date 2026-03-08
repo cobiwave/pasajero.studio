@@ -1,0 +1,73 @@
+.tile {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+  transition: clip-path 1s cubic-bezier(0.9, 0, 0.1, 1);
+}
+:global([data-nav-status="active"]) .tile {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  pointer-events: auto;
+}
+
+/* Hamburger bars */
+.bar {
+  transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+}
+.bar:nth-child(1) {
+  transform: translate(0, -0.45em) scale(1, 1) rotate(0.001deg);
+}
+.bar:nth-child(3) {
+  transform: translate(0, 0.45em) scale(1, 1) rotate(0.001deg);
+}
+
+.hamburger:hover .bar:nth-child(1) {
+  transform: translate(0, -0.45em) scale(0.5, 1) rotate(0.001deg);
+}
+.hamburger:hover .bar:nth-child(3) {
+  transform: translate(0, 0.45em) scale(0.5, 1) rotate(0.001deg);
+}
+
+:global([data-nav-status="active"]) .bar:nth-child(1) {
+  transform: translate(0, 0) rotate(45deg) scale(1, 1);
+}
+:global([data-nav-status="active"]) .bar:nth-child(2) {
+  transform: translate(-150%, 0) rotate(0.001deg) scale(1, 1);
+}
+:global([data-nav-status="active"]) .bar:nth-child(3) {
+  transform: translate(0, 0) rotate(-45deg) scale(1, 1);
+}
+
+:global([data-nav-status="active"]) .hamburger:hover .bar:nth-child(1) {
+  transform: translate(0, 0) rotate(45deg) scale(0.7, 1);
+}
+:global([data-nav-status="active"]) .hamburger:hover .bar:nth-child(3) {
+  transform: translate(0, 0) rotate(-45deg) scale(0.7, 1);
+}
+
+/* Staggered link reveal */
+.link {
+  transform: translateY(100%) rotate(5deg);
+  transition: transform 0.75s cubic-bezier(0.7, 0, 0.3, 1);
+}
+:global([data-nav-status="active"]) .link {
+  transform: translateY(0%) rotate(0.001deg);
+}
+
+.item:nth-child(1) .link { transition-delay: 0.2s; }
+.item:nth-child(2) .link { transition-delay: 0.15s; }
+.item:nth-child(3) .link { transition-delay: 0.1s; }
+.item:nth-child(4) .link { transition-delay: 0.05s; }
+.item:nth-child(5) .link { transition-delay: 0s; }
+
+:global([data-nav-status="active"]) .item:nth-child(1) .link { transition-delay: 0.3s; }
+:global([data-nav-status="active"]) .item:nth-child(2) .link { transition-delay: 0.35s; }
+:global([data-nav-status="active"]) .item:nth-child(3) .link { transition-delay: 0.4s; }
+:global([data-nav-status="active"]) .item:nth-child(4) .link { transition-delay: 0.45s; }
+:global([data-nav-status="active"]) .item:nth-child(5) .link { transition-delay: 0.5s; }
+
+/* Italic morph hover effect */
+.linkText {
+  display: inline-block;
+  will-change: transform, font-style, letter-spacing;
+  transform: translateZ(0);
+  transform-origin: center center;
+  transition: font-family 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+}

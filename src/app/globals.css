@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #CCFF00;
+  --muted: #737373;
+  --surface: #111111;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Ambient glow utilities */
+.glow-ambient {
+  position: absolute;
+  width: 60vw;
+  height: 60vh;
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(10,10,10,0) 70%);
+  filter: blur(80px);
+  z-index: -1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Selection */
+::selection {
+  background: var(--primary);
+  color: var(--background);
+}
+
+/* Defer layout/paint for off-screen sections */
+section:not(:first-child) {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 800px;
+}
+
+/* Form autofill override */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--foreground);
+  -webkit-box-shadow: 0 0 0px 1000px var(--background) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}

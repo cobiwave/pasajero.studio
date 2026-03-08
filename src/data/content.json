@@ -1,0 +1,164 @@
+{
+  "loader": {
+    "words": ["Hello", "Bonjour", "Hola", "Ciao", "Olá", "Hallo", "Hallå", "こんにちは", "Guten tag"]
+  },
+  "nav": {
+    "items": [
+      { "label": "Home", "href": "/" },
+      { "label": "Work", "href": "#work" },
+      { "label": "About", "href": "#about" },
+      { "label": "Experience", "href": "#experience" },
+      { "label": "Contact", "href": "#contact" }
+    ],
+    "footer": {
+      "location": "Made by PASAJERO STUDIO",
+      "email": "cobimr@proton.me"
+    }
+  },
+  "hero": {
+    "headline": [
+      "Jacobo",
+      "Martínez"
+    ],
+    "subtitle": "Building high-performance web experiences for global brands. Specialist in React, Next.js & AI Agent architectures."
+  },
+  "work": {
+    "sectionTitle": "Selected Work",
+    "sectionNumber": "01",
+    "headline": ["Crafting digital", "experiences that", "move people"],
+    "projects": [
+      {
+        "title": "Zoox Autonomous",
+        "category": "Interactive Experience",
+        "year": "2024",
+        "description": "Immersive 3D configurator for autonomous vehicle visualization. Built with Three.js and React.",
+        "tags": ["React", "Three.js", "WebGL"]
+      },
+      {
+        "title": "McLaren Digital",
+        "category": "Web Platform",
+        "year": "2023",
+        "description": "High-performance web platform for McLaren's digital racing division. Sub-second load times globally.",
+        "tags": ["Next.js", "Edge Functions", "Vercel"]
+      },
+      {
+        "title": "Coca-Cola Studio",
+        "category": "Brand Experience",
+        "year": "2023",
+        "description": "Interactive brand experience merging real-time data with generative visuals for global campaign.",
+        "tags": ["React", "GSAP", "Canvas API"]
+      },
+      {
+        "title": "Intuit AI Platform",
+        "category": "Design System",
+        "year": "2022",
+        "description": "Enterprise design system powering AI-driven financial tools across TurboTax and QuickBooks.",
+        "tags": ["React", "TypeScript", "Storybook"]
+      }
+    ]
+  },
+  "about": {
+    "sectionTitle": "About",
+    "sectionNumber": "02",
+    "statement": [
+      "A frontend engineer",
+      "who believes the web",
+      "should feel effortless",
+      "— even when the",
+      "engineering isn't."
+    ],
+    "bio": [
+      "Based globally. Previously shipping at scale with Amazon Web Services, Coca-Cola, Zoox, McLaren, and Intuit. I specialize in building interfaces that marry technical precision with craft — high-performance React applications, design systems, and AI-powered experiences.",
+      "Every project is an opportunity to push the boundaries of what the browser can do. I'm drawn to the intersection of engineering rigor and creative expression."
+    ],
+    "principles": [
+      {
+        "number": "01",
+        "title": "Performance First",
+        "description": "Every millisecond matters. I obsess over Core Web Vitals, bundle sizes, and rendering strategies to deliver sub-second experiences."
+      },
+      {
+        "number": "02",
+        "title": "Design Engineering",
+        "description": "Bridging the gap between design and code. Pixel-perfect implementation with motion that feels alive, not bolted on."
+      },
+      {
+        "number": "03",
+        "title": "Scalable Systems",
+        "description": "Component architectures and design systems that grow with your product — from startup MVP to enterprise scale."
+      }
+    ]
+  },
+  "experience": {
+    "sectionTitle": "Experience",
+    "sectionNumber": "03",
+    "headline": ["Five years building", "for the world's most", "ambitious companies"],
+    "roles": [
+      {
+        "period": "2024 — Present",
+        "role": "Senior Frontend Engineer",
+        "company": "Amazon Web Services",
+        "scope": "AI Agent architectures, design systems, React at scale"
+      },
+      {
+        "period": "2023 — 2024",
+        "role": "Frontend Lead",
+        "company": "Zoox (Autonomous Vehicles)",
+        "scope": "3D visualization, real-time dashboards, WebGL pipelines"
+      },
+      {
+        "period": "2022 — 2023",
+        "role": "Creative Developer",
+        "company": "McLaren Digital",
+        "scope": "Immersive web experiences, performance optimization, CMS architecture"
+      },
+      {
+        "period": "2021 — 2022",
+        "role": "UI Engineer",
+        "company": "Intuit",
+        "scope": "Enterprise design system, component libraries, accessibility"
+      },
+      {
+        "period": "2020 — 2021",
+        "role": "Web Developer",
+        "company": "Coca-Cola (Agency)",
+        "scope": "Campaign microsites, brand experiences, motion design"
+      }
+    ],
+    "capabilitiesLabel": "Core Capabilities",
+    "capabilities": [
+      "React & Next.js",
+      "TypeScript",
+      "Three.js & WebGL",
+      "GSAP & Motion",
+      "Design Systems",
+      "AI/ML Interfaces",
+      "Performance Eng.",
+      "Accessibility"
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Contact",
+    "sectionNumber": "04",
+    "headline": ["Let's build", "something remarkable", "together."],
+    "email": "cobimr@proton.me",
+    "socials": [
+      { "label": "GitHub", "href": "https://github.com/pasajero-studio" },
+      { "label": "LinkedIn", "href": "https://linkedin.com/in/pasajero-studio" },
+      { "label": "Twitter / X", "href": "https://x.com/pasajero-studio" }
+    ],
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "your@email.com",
+      "messageLabel": "Project Details",
+      "messagePlaceholder": "Tell me about your project, timeline, and budget...",
+      "submitLabel": "Send Message"
+    },
+    "footer": {
+      "copyright": "Jacobo Martínez. All rights reserved.",
+      "tagline": "Designed & Engineered with precision."
+    }
+  }
+}
