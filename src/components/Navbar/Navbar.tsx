@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { gsap } from "@/lib/gsap";
 import { useLenis } from "@/components/SmoothScroll";
 import { Magnetic } from "./Magnetic";
-import content from "@/data/content.json";
+import content from "@/lib/content";
 import styles from "./Navbar.module.css";
 
 const { items: NAV_ITEMS, footer: NAV_FOOTER } = content.nav;
@@ -152,9 +152,11 @@ export default function Navbar() {
             onClick={close}
             className="pointer-events-auto relative z-10"
           >
-            <Magnetic>
-              <div className="text-xl font-bold tracking-tighter uppercase p-2 text-foreground">
-                JM<span className="text-primary">.</span>
+            <Magnetic xDistance={0.1} yDistance={0.1}>
+              <div className="text-lg font-bold tracking-tighter uppercase p-2 text-foreground"
+                style={{ fontFamily: "StretchPro, sans-serif" }}
+              >
+                PASAJERO STUDIO<span className="text-primary">.</span>
               </div>
             </Magnetic>
           </Link>
@@ -196,7 +198,8 @@ export default function Navbar() {
                       onMouseEnter={onEnter}
                       onMouseLeave={onLeave}
                       tabIndex={isOpen ? 0 : -1}
-                      className="block font-light leading-[1.1] tracking-[-0.04em] text-[clamp(2.5rem,calc(4vw+4vh),10rem)] no-underline px-[0.075em] text-foreground"
+                      className="block font-light leading-[1.1] tracking-[-0.04em] text-4xl no-underline px-[0.075em] text-foreground"
+                      style={{ fontFamily: "StretchPro, sans-serif" }}
                     >
                       <span className={cn(styles.linkText, "block relative")}>
                         {item.label}

@@ -7,9 +7,11 @@ import { cn } from "@/lib/utils";
 interface MagneticProps {
   children: React.ReactElement;
   className?: string;
+  xDistance?: number;
+  yDistance?: number;
 }
 
-export const Magnetic = memo(function Magnetic({ children, className }: MagneticProps) {
+export const Magnetic = memo(function Magnetic({ children, className, xDistance = 0.35, yDistance = 0.35 }: MagneticProps) {
   const magnetic = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,8 +32,8 @@ export const Magnetic = memo(function Magnetic({ children, className }: Magnetic
       const { height, width, left, top } = element.getBoundingClientRect();
       const x = clientX - (left + width / 2);
       const y = clientY - (top + height / 2);
-      xTo(x * 0.35);
-      yTo(y * 0.35);
+      xTo(x * xDistance);
+      yTo(y * yDistance);
     };
 
     const handleMouseLeave = () => {
