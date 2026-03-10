@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
-import content from "@/data/content.json";
+import content from "@/lib/content";
 
 const { sectionTitle, sectionNumber, headline, projects: PROJECTS } = content.work;
 
@@ -99,45 +99,65 @@ export default function WorkSection() {
         </div>
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground/5">
-          {PROJECTS.map((project) => (
-            <article
-              key={project.title}
-              className="project-card group relative bg-background p-8 md:p-12 flex flex-col justify-between min-h-[360px] md:min-h-[420px] opacity-0 transition-colors duration-500 hover:bg-surface"
-            >
-              <div className="flex justify-between items-start">
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs uppercase tracking-[0.15em] text-muted font-semibold">
-                    {project.category}
-                  </span>
-                  <span className="text-xs text-muted/60 font-mono">
-                    {project.year}
-                  </span>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all duration-500">
-                  <ArrowUpRight className="w-4 h-4 text-foreground/40 group-hover:text-background group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-500" />
-                </div>
-              </div>
+          {PROJECTS.map((project) => {
+            const Wrapper = project.href ? "a" : "div";
+            const wrapperProps = project.href
+              ? { href: project.href, target: "_blank" as const, rel: "noopener noreferrer" }
+              : {};
 
-              <div className="flex flex-col gap-4">
-                <h4 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
-                  {project.title}
-                </h4>
-                <p className="text-sm text-muted leading-relaxed max-w-sm">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-[10px] uppercase tracking-[0.15em] text-foreground/40 border border-foreground/8 rounded-full px-3 py-1"
-                    >
-                      {tag}
+            return (
+              <Wrapper
+                key={project.title}
+                {...wrapperProps}
+                className="project-card group relative bg-background flex flex-col justify-between min-h-[360px] md:min-h-[420px] opacity-0 transition-colors duration-500 hover:bg-surface overflow-hidden"
+              >
+                {project.imageUrl && (
+                  <div className="absolute inset-0 z-0">
+                    <img
+                      src={project.imageUrl}
+                      alt={project.title}
+                      className="w-full h-full object-cover opacity-0 group-hover:opacity-20 transition-opacity duration-700"
+                    />
+                  </div>
+                )}
+
+                <div className="relative z-10 flex justify-between items-start p-8 md:p-12 pb-0">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-xs uppercase tracking-[0.15em] text-muted font-semibold">
+                      {project.category}
                     </span>
-                  ))}
+                    <span className="text-xs text-muted/60 font-mono">
+                      {project.year}
+                    </span>
+                  </div>
+                  {project.href && (
+                    <div className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all duration-500">
+                      <ArrowUpRight className="w-4 h-4 text-foreground/40 group-hover:text-background group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-500" />
+                    </div>
+                  )}
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <div className="relative z-10 flex flex-col gap-4 p-8 md:p-12 pt-0">
+                  <h4 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+                    {project.title}
+                  </h4>
+                  <p className="text-sm text-muted leading-relaxed max-w-sm">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[10px] uppercase tracking-[0.15em] text-foreground/40 border border-foreground/8 rounded-full px-3 py-1"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Wrapper>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
-import content from "@/data/content.json";
+import content from "@/lib/content";
 
 const { words } = content.loader;
 
@@ -88,7 +88,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           <div className="bg-primary rounded-full w-[0.75em] h-[0.75em]" />
           <p
             ref={wordRef}
-            className="text-[4.5em] max-md:text-[2.75vw] font-medium leading-none m-0 text-foreground"
+            className="text-xl font-medium leading-none m-0 text-foreground"
+            style={{ fontFamily: "StretchPro, sans-serif" }}
           >
             {words[0]}
           </p>
