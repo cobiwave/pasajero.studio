@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
-import content from "@/data/content.json";
+import content from "@/lib/content";
 
 const {
   sectionTitle,
