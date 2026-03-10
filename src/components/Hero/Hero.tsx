@@ -1,12 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
-import content from "@/data/content.json";
+import content from "@/lib/content";
 
-const { headline, subtitle } = content.hero;
+const { subtitle, tagline } = content.hero;
 const socials = content.contact.socials;
 
 interface HeroProps {
@@ -19,45 +18,55 @@ export default function Hero({ loaded = true }: HeroProps) {
   useGSAP(
     () => {
       if (prefersReducedMotion()) {
-        gsap.set([".reveal-text", ".hero-meta", ".hero-portrait"], {
-          autoAlpha: 1,
-        });
-        return;
+      gsap.set(
+        [".hero-meta", ".hero-video-wrap", ".hero-badge"],
+        { autoAlpha: 1 }
+      );
+      return;
+    }
+
+    gsap.set(
+      [".hero-meta", ".hero-video-wrap", ".hero-badge"],
+      { visibility: "hidden" }
+    );
+
+    if (!loaded) return;
+
+    const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+
+    tl.fromTo(
+      ".hero-video-wrap",
+      { autoAlpha: 0, scale: 1.05 },
+      {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 2.4,
+        ease: "power2.out",
       }
-
-      gsap.set([".reveal-text", ".hero-meta", ".hero-portrait"], {
-        visibility: "hidden",
-      });
-
-      if (!loaded) return;
-
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
-
-      tl.fromTo(
-        ".reveal-text",
-        { y: "102%", skewY: 4, autoAlpha: 0 },
+    )
+      .fromTo(
+        ".hero-badge",
+        { y: 12, autoAlpha: 0 },
         {
-          y: "0%",
-          skewY: 0,
           autoAlpha: 1,
-          duration: 1.4,
-          stagger: 0.08,
-          transformOrigin: "left top",
-          force3D: true,
-        }
+          y: 0,
+          duration: 1,
+          ease: "power3.out",
+        },
+        "-=1.6"
       )
-        .fromTo(
-          ".hero-meta",
-          { y: 20, autoAlpha: 0 },
-          { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08, force3D: true },
-          "-=0.8"
-        )
-        .fromTo(
-          ".hero-portrait",
-          { autoAlpha: 0 },
-          { autoAlpha: 1, duration: 1.6, ease: "power2.inOut" },
-          "-=1.2"
-        );
+      .fromTo(
+        ".hero-meta",
+        { y: 16, autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.08,
+          force3D: true,
+        },
+        "-=0.8"
+      );
     },
     { scope: container, dependencies: [loaded] }
   );
@@ -65,65 +74,63 @@ export default function Hero({ loaded = true }: HeroProps) {
   return (
     <section
       ref={container}
-      className="relative h-screen flex flex-col justify-end overflow-hidden text-foreground"
+      className="relative h-dvh flex flex-col justify-end overflow-hidden text-foreground"
     >
-      <div className="hero-portrait absolute top-0 right-0 h-full w-[60%] sm:w-[50%] lg:w-[45%] z-0">
-        <Image
-          src="/portrait-placeholder.jpg"
-          alt="Portrait"
-          fill
-          priority
-          className="object-cover object-top"
-          sizes="(max-width: 640px) 60vw, (max-width: 1024px) 50vw, 45vw"
-        />
-        <div className="absolute inset-0 bg-linear-to-r from-background via-background/60 to-transparent" />
-        <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
+      {/* Video Background */}
+      <div className="hero-video-wrap absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover opacity-40"
+        >
+          <source src="/sample-video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-background/30" />
+        <div className="absolute inset-0 bg-linear-to-r from-background/60 via-transparent to-background/40" />
       </div>
 
-      <div className="relative z-10 flex flex-col justify-between h-full px-5 sm:px-8 md:px-10 pb-6 sm:pb-8 pt-24">
-        <div className="mt-auto mb-10 sm:mb-14 md:mb-16 max-w-[85%] sm:max-w-[65%] lg:max-w-[55%]">
-          <h1 className="text-[clamp(3rem,10vw,13rem)] font-bold tracking-[-0.04em] leading-[0.85] mb-6 sm:mb-8">
-            {headline.map((line, i) => (
-              <div key={i} className="overflow-hidden">
-                <div className="reveal-text">
-                  {i === 1 ? (
-                    <>
-                      <span className="font-serif italic text-foreground/90 font-light">
-                        {line}
-                      </span>{" "}
-                    </>
-                  ) : (
-                    line
-                  )}
-                </div>
-              </div>
-            ))}
-          </h1>
-
-          <div className="hero-meta max-w-xs sm:max-w-md lg:max-w-lg">
-            <p className="text-[clamp(0.875rem,1.5vw,1.5rem)] text-foreground/70 leading-relaxed">
-              {subtitle}
-            </p>
+      {/* Content */}
+      <div className="relative z-10 flex flex-col h-full px-(--space-l) pb-(--space-m) pt-(--space-m) lg:pt-(--space-3xl)">
+        {/* Top: status badge */}
+        <div className="flex items-start">
+          <div className="hero-badge inline-flex items-center gap-2 border border-foreground/10 rounded-full px-4 py-2 backdrop-blur-sm bg-foreground/3">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
+            </span>
+            <span className="text-xs font-mono tracking-[0.15em] uppercase text-foreground/50">
+              {tagline}
+            </span>
           </div>
         </div>
 
-        <div className="flex justify-between items-end w-full">
-          <div className="hero-meta text-foreground/50 text-sm">&#8595;</div>
+        {/* Bottom: tagline + socials */}
+        <div className="mt-auto flex flex-wrap justify-between items-end w-full gap-y-(--space-s)">
+          <p className="hero-meta text-foreground/60 text-sm lg:text-base font-light leading-snug max-w-[38ch]">
+            {subtitle}
+          </p>
 
-          <ul className="hero-meta flex flex-col items-end gap-1 text-xs sm:text-sm">
-            {socials.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-foreground/70 hover:text-foreground transition-colors underline underline-offset-4 decoration-foreground/20 hover:decoration-foreground/50"
-                >
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="hero-meta flex flex-col items-end gap-(--space-xs)">
+            <ul className="flex items-center gap-(--space-s)">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground/35 hover:text-primary transition-colors duration-300 font-mono tracking-wider uppercase text-xs"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <p className="text-foreground/20 text-xs font-mono tracking-wider uppercase">
+              &copy; {new Date().getFullYear()} Pasajero Studio
+            </p>
+          </div>
         </div>
       </div>
     </section>
