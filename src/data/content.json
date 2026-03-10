@@ -1,59 +1,67 @@
 {
   "loader": {
-    "words": ["Hello", "Bonjour", "Hola", "Ciao", "Olá", "Hallo", "Hallå", "こんにちは", "Guten tag"]
+    "words": ["COLOR", "GRADE", "RESOLVE", "AUTOMATE", "CREATE", "PASAJERO"]
   },
   "nav": {
     "items": [
-      { "label": "Home", "href": "/" },
-      { "label": "Work", "href": "#work" },
-      { "label": "About", "href": "#about" },
-      { "label": "Experience", "href": "#experience" },
-      { "label": "Contact", "href": "#contact" }
+      { "label": "Work", "href": "/work" },
+      { "label": "About", "href": "/about" },
+      { "label": "Lab", "href": "/lab" }
     ],
     "footer": {
-      "location": "Made by PASAJERO STUDIO",
+      "location": "PASAJERO STUDIO",
       "email": "cobimr@proton.me"
     }
   },
   "hero": {
     "headline": [
-      "Jacobo",
-      "Martínez"
+      "PASAJERO",
+      "STUDIO"
     ],
-    "subtitle": "Building high-performance web experiences for global brands. Specialist in React, Next.js & AI Agent architectures."
+    "subtitle": "Bridging the gap between high-end cinematography and AI. We build intelligent tools for the next generation of colorists and filmmakers.",
+    "comingSoon": "Our first tool — AI-powered PowerGrade generation for DaVinci Resolve — is currently in development, stay tuned.",
+    "tagline": "Next-gen AI tools for the cinematic craft"
   },
   "work": {
-    "sectionTitle": "Selected Work",
+    "sectionTitle": "Work",
     "sectionNumber": "01",
-    "headline": ["Crafting digital", "experiences that", "move people"],
+    "headline": ["Original", "short films", "& visual art."],
     "projects": [
       {
-        "title": "Zoox Autonomous",
-        "category": "Interactive Experience",
+        "title": "REWIND",
+        "category": "Short Film",
         "year": "2024",
-        "description": "Immersive 3D configurator for autonomous vehicle visualization. Built with Three.js and React.",
-        "tags": ["React", "Three.js", "WebGL"]
+        "description": "A cinematic exploration of memory, time, and the moments we wish we could relive.",
+        "tags": ["Narrative", "Color Grading", "DaVinci Resolve"],
+        "href": "https://youtu.be/ARjwoqnlPvc?si=6hzgq1pY2WZm8Kp8",
+        "imageUrl": "https://img.youtube.com/vi/ARjwoqnlPvc/maxresdefault.jpg"
       },
       {
-        "title": "McLaren Digital",
-        "category": "Web Platform",
-        "year": "2023",
-        "description": "High-performance web platform for McLaren's digital racing division. Sub-second load times globally.",
-        "tags": ["Next.js", "Edge Functions", "Vercel"]
+        "title": "RAICES",
+        "category": "Short Film",
+        "year": "2024",
+        "description": "Roots that bind us to the earth and the stories carried through generations.",
+        "tags": ["Documentary", "Analog", "Culture"],
+        "href": "https://youtu.be/2VXsfjRqW1I?si=CuNtJW1DPQ7fWhY2",
+        "imageUrl": "https://img.youtube.com/vi/2VXsfjRqW1I/maxresdefault.jpg"
       },
       {
-        "title": "Coca-Cola Studio",
-        "category": "Brand Experience",
-        "year": "2023",
-        "description": "Interactive brand experience merging real-time data with generative visuals for global campaign.",
-        "tags": ["React", "GSAP", "Canvas API"]
+        "title": "ALMA DO MAR",
+        "category": "Short Film",
+        "year": "2024",
+        "description": "The soul of the sea — a visual poem capturing the raw beauty of the Atlantic coast.",
+        "tags": ["Visual Poetry", "Cinematography", "Nature"],
+        "href": "https://youtu.be/g3f-LC6mlbM?si=Xx_NjD7Q5s_76LaZ",
+        "imageUrl": "https://img.youtube.com/vi/g3f-LC6mlbM/maxresdefault.jpg"
       },
       {
-        "title": "Intuit AI Platform",
-        "category": "Design System",
-        "year": "2022",
-        "description": "Enterprise design system powering AI-driven financial tools across TurboTax and QuickBooks.",
-        "tags": ["React", "TypeScript", "Storybook"]
+        "title": "CONEXIONES",
+        "category": "Short Film",
+        "year": "2024",
+        "description": "Human connections in a world that moves too fast — finding stillness in the chaos.",
+        "tags": ["Experimental", "Urban", "Color Grading"],
+        "href": "https://youtu.be/xmQs5HwChZA?si=bnQccOynrFnSP8xf",
+        "imageUrl": "https://img.youtube.com/vi/xmQs5HwChZA/maxresdefault.jpg"
       }
     ]
   },
@@ -61,104 +69,52 @@
     "sectionTitle": "About",
     "sectionNumber": "02",
     "statement": [
-      "A frontend engineer",
-      "who believes the web",
-      "should feel effortless",
-      "— even when the",
-      "engineering isn't."
-    ],
+      "We are a studio",
+      "and creative lab",
+      "at the intersection of cinema,",
+      "visual art,",
+      "and artificial intelligence."],
     "bio": [
-      "Based globally. Previously shipping at scale with Amazon Web Services, Coca-Cola, Zoox, McLaren, and Intuit. I specialize in building interfaces that marry technical precision with craft — high-performance React applications, design systems, and AI-powered experiences.",
-      "Every project is an opportunity to push the boundaries of what the browser can do. I'm drawn to the intersection of engineering rigor and creative expression."
+      "Pasajero Studio creates original short films, analog photography, and visual art — not for clients, but as pure creative expression. Every piece is crafted with intention, from grading to final delivery.",
+      "At the same time, we're building the next generation of AI-powered tools for filmmakers and colorists. Our first product — intelligent PowerGrade generation for DaVinci Resolve — is currently in development."
     ],
     "principles": [
-      {
-        "number": "01",
-        "title": "Performance First",
-        "description": "Every millisecond matters. I obsess over Core Web Vitals, bundle sizes, and rendering strategies to deliver sub-second experiences."
-      },
-      {
-        "number": "02",
-        "title": "Design Engineering",
-        "description": "Bridging the gap between design and code. Pixel-perfect implementation with motion that feels alive, not bolted on."
-      },
-      {
-        "number": "03",
-        "title": "Scalable Systems",
-        "description": "Component architectures and design systems that grow with your product — from startup MVP to enterprise scale."
-      }
+      { "number": "01", "title": "Original Work", "description": "We produce our own films and visual art. Every project is a personal statement, not a commission." },
+      { "number": "02", "title": "Cinematic AI", "description": "We build AI tools that understand the language of cinema — color science, grading, and post-production workflows." },
+      { "number": "03", "title": "Analog Soul", "description": "Film photography, texture, grain — we believe in the beauty of imperfection and the craft behind every frame." }
     ]
   },
   "experience": {
-    "sectionTitle": "Experience",
-    "sectionNumber": "03",
-    "headline": ["Five years building", "for the world's most", "ambitious companies"],
+    "sectionTitle": "",
+    "sectionNumber": "",
+    "headline": ["", "", ""],
     "roles": [
-      {
-        "period": "2024 — Present",
-        "role": "Senior Frontend Engineer",
-        "company": "Amazon Web Services",
-        "scope": "AI Agent architectures, design systems, React at scale"
-      },
-      {
-        "period": "2023 — 2024",
-        "role": "Frontend Lead",
-        "company": "Zoox (Autonomous Vehicles)",
-        "scope": "3D visualization, real-time dashboards, WebGL pipelines"
-      },
-      {
-        "period": "2022 — 2023",
-        "role": "Creative Developer",
-        "company": "McLaren Digital",
-        "scope": "Immersive web experiences, performance optimization, CMS architecture"
-      },
-      {
-        "period": "2021 — 2022",
-        "role": "UI Engineer",
-        "company": "Intuit",
-        "scope": "Enterprise design system, component libraries, accessibility"
-      },
-      {
-        "period": "2020 — 2021",
-        "role": "Web Developer",
-        "company": "Coca-Cola (Agency)",
-        "scope": "Campaign microsites, brand experiences, motion design"
-      }
+      { "period": "", "role": "", "company": "", "scope": "" }
     ],
-    "capabilitiesLabel": "Core Capabilities",
-    "capabilities": [
-      "React & Next.js",
-      "TypeScript",
-      "Three.js & WebGL",
-      "GSAP & Motion",
-      "Design Systems",
-      "AI/ML Interfaces",
-      "Performance Eng.",
-      "Accessibility"
-    ]
+    "capabilitiesLabel": "",
+    "capabilities": []
   },
   "contact": {
     "sectionTitle": "Contact",
-    "sectionNumber": "04",
-    "headline": ["Let's build", "something remarkable", "together."],
+    "sectionNumber": "01",
+    "headline": ["Coming", "soon."],
     "email": "cobimr@proton.me",
     "socials": [
-      { "label": "GitHub", "href": "https://github.com/pasajero-studio" },
-      { "label": "LinkedIn", "href": "https://linkedin.com/in/pasajero-studio" },
-      { "label": "Twitter / X", "href": "https://x.com/pasajero-studio" }
+      { "label": "Instagram", "href": "https://instagram.com/pasajero.studio" },
+      { "label": "LinkedIn", "href": "https://linkedin.com/company/pasajero-studio" }
     ],
     "form": {
-      "nameLabel": "Name",
-      "namePlaceholder": "Your name",
-      "emailLabel": "Email",
-      "emailPlaceholder": "your@email.com",
-      "messageLabel": "Project Details",
-      "messagePlaceholder": "Tell me about your project, timeline, and budget...",
-      "submitLabel": "Send Message"
+      "nameLabel": "",
+      "namePlaceholder": "",
+      "emailLabel": "",
+      "emailPlaceholder": "",
+      "messageLabel": "",
+      "messagePlaceholder": "",
+      "submitLabel": ""
     },
     "footer": {
-      "copyright": "Jacobo Martínez. All rights reserved.",
-      "tagline": "Designed & Engineered with precision."
+      "copyright": "PASAJERO STUDIO. All rights reserved.",
+      "tagline": "Next-gen AI tools for the cinematic craft."
     }
   }
 }
