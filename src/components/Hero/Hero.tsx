@@ -81,12 +81,12 @@ export default function Hero({ loaded = true }: HeroProps) {
           muted
           loop
           playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/bg-video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-linear-to-t from-background via-background/70 to-background/30" />
-        <div className="absolute inset-0 bg-linear-to-r from-background/60 via-transparent to-background/40" />
+        <div className="absolute inset-0 bg-linear-to-t from-background via-background/50 to-background/10" />
+        <div className="absolute inset-0 bg-linear-to-r from-background/40 via-transparent to-background/20" />
       </div>
 
       {/* Content */}
