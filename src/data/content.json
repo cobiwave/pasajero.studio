@@ -9,18 +9,13 @@
       { "label": "Lab", "href": "/lab" }
     ],
     "footer": {
-      "location": "PASAJERO STUDIO",
-      "email": "cobimr@proton.me"
+      "email": "pasajero.studio@gmail.com"
     }
   },
   "hero": {
-    "headline": [
-      "PASAJERO",
-      "STUDIO"
-    ],
+    "headline": ["PASAJERO", "STUDIO"],
     "subtitle": "Bridging the gap between high-end cinematography and AI. We build intelligent tools for the next generation of colorists and filmmakers.",
-    "comingSoon": "Our first tool — AI-powered PowerGrade generation for DaVinci Resolve — is currently in development, stay tuned.",
-    "tagline": "Next-gen AI tools for the cinematic craft"
+    "comingSoon": "Our first tool — AI-powered PowerGrade generation for DaVinci Resolve — is currently in development, stay tuned."
   },
   "work": {
     "sectionTitle": "Work",
@@ -73,24 +68,35 @@
       "and creative lab",
       "at the intersection of cinema,",
       "visual art,",
-      "and artificial intelligence."],
+      "and artificial intelligence."
+    ],
     "bio": [
       "Pasajero Studio creates original short films, analog photography, and visual art — not for clients, but as pure creative expression. Every piece is crafted with intention, from grading to final delivery.",
       "At the same time, we're building the next generation of AI-powered tools for filmmakers and colorists. Our first product — intelligent PowerGrade generation for DaVinci Resolve — is currently in development."
     ],
     "principles": [
-      { "number": "01", "title": "Original Work", "description": "We produce our own films and visual art. Every project is a personal statement, not a commission." },
-      { "number": "02", "title": "Cinematic AI", "description": "We build AI tools that understand the language of cinema — color science, grading, and post-production workflows." },
-      { "number": "03", "title": "Analog Soul", "description": "Film photography, texture, grain — we believe in the beauty of imperfection and the craft behind every frame." }
+      {
+        "number": "01",
+        "title": "Original Work",
+        "description": "We produce our own films and visual art. Every project is a personal statement, not a commission."
+      },
+      {
+        "number": "02",
+        "title": "Cinematic AI",
+        "description": "We build AI tools that understand the language of cinema — color science, grading, and post-production workflows."
+      },
+      {
+        "number": "03",
+        "title": "Analog Soul",
+        "description": "Film photography, texture, grain — we believe in the beauty of imperfection and the craft behind every frame."
+      }
     ]
   },
   "experience": {
     "sectionTitle": "",
     "sectionNumber": "",
     "headline": ["", "", ""],
-    "roles": [
-      { "period": "", "role": "", "company": "", "scope": "" }
-    ],
+    "roles": [{ "period": "", "role": "", "company": "", "scope": "" }],
     "capabilitiesLabel": "",
     "capabilities": []
   },
@@ -101,7 +107,10 @@
     "email": "cobimr@proton.me",
     "socials": [
       { "label": "Instagram", "href": "https://instagram.com/pasajero.studio" },
-      { "label": "LinkedIn", "href": "https://linkedin.com/company/pasajero-studio" }
+      {
+        "label": "LinkedIn",
+        "href": "https://linkedin.com/company/pasajero-studio"
+      }
     ],
     "form": {
       "nameLabel": "",

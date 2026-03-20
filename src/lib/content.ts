@@ -13,7 +13,7 @@ const NavItemSchema = z.object({
 });
 
 const NavFooterSchema = z.object({
-  location: z.string(),
+  // location: z.string(),
   email: z.string(),
 });
 
@@ -26,7 +26,6 @@ const HeroContentSchema = z.object({
   headline: z.array(z.string()),
   subtitle: z.string(),
   comingSoon: z.string(),
-  tagline: z.string(),
 });
 
 const ProjectSchema = z.object({

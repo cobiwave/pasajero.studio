@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import content from "@/lib/content";
 
-const { subtitle, tagline } = content.hero;
+const { subtitle } = content.hero;
 const socials = content.contact.socials;
 
 interface HeroProps {
@@ -93,19 +93,6 @@ export default function Hero({ loaded = true }: HeroProps) {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full px-(--space-l) pb-(--space-m) pt-(--space-m) lg:pt-(--space-3xl)">
-        {/* Top: status badge */}
-        <div className="flex items-start">
-          <div className="hero-badge inline-flex items-center gap-2 border border-foreground/10 rounded-full px-4 py-2 backdrop-blur-sm bg-foreground/3">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-            </span>
-            <span className="text-xs font-mono tracking-[0.15em] uppercase text-foreground/50">
-              {tagline}
-            </span>
-          </div>
-        </div>
-
         {/* Bottom: tagline + socials */}
         <div className="mt-auto flex flex-wrap justify-between items-end w-full gap-y-(--space-s)">
           <p className="hero-meta text-foreground/60 text-sm lg:text-base font-light leading-snug max-w-[38ch]">

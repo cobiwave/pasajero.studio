@@ -63,11 +63,3 @@
 :global([data-nav-status="active"]) .item:nth-child(4) .link { transition-delay: 0.45s; }
 :global([data-nav-status="active"]) .item:nth-child(5) .link { transition-delay: 0.5s; }
 
-/* Italic morph hover effect */
-.linkText {
-  display: inline-block;
-  will-change: transform, font-style, letter-spacing;
-  transform: translateZ(0);
-  transform-origin: center center;
-  transition: font-family 0.3s cubic-bezier(0.7, 0, 0.3, 1);
-}
