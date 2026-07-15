@@ -14,9 +14,9 @@
     }
   },
   "hero": {
-    "headline": ["PASAJERO", "STUDIO"],
+    "headline": ["PASAJERO"],
     "tagline": "Este es Pasajero Lab, nuestro espacio de experimentación",
-    "subtitle": "Una red curada de artistas de skate, surf, música, cine y fotografía de Buenos Aires — y el estudio audiovisual detrás de sus historias.",
+    "subtitle": "Una red curada de artistas de skate, surf, música, cine y fotografía — y el estudio audiovisual detrás de sus historias.",
     "comingSoon": "El directorio de artistas invitados está en construcción. Mientras tanto, conocé el trabajo audiovisual de Pasajero."
   },
   "work": {
@@ -128,6 +128,45 @@
         "featured": false
       }
     ]
+  },
+  "mediaKit": {
+    "sectionTitle": "Media Kit",
+    "sectionNumber": "04",
+    "headline": ["Contenido,", "audiencia", "y red curada."],
+    "intro": "Pasajero Studio combina producción audiovisual propia con una red invitacional de artistas del nicho skate, surf, música, cine y foto. Este media kit resume alcance, formatos y casos de trabajo para marcas evaluando una colaboración.",
+    "audience": {
+      "label": "Audiencia y alcance",
+      "metrics": [
+        { "label": "Seguidores totales", "value": "[MÉTRICA]" },
+        { "label": "Alcance mensual promedio", "value": "[MÉTRICA]" },
+        { "label": "Vistas promedio por pieza", "value": "[MÉTRICA]" },
+        { "label": "Audiencia principal", "value": "[MÉTRICA]" }
+      ]
+    },
+    "formats": [
+      {
+        "title": "Cortometrajes originales",
+        "description": "Piezas narrativas o documentales producidas de punta a punta, del guion a la corrección de color."
+      },
+      {
+        "title": "Entrevistas documentales",
+        "description": "Formato conversación con artistas de la red — perfil, oficio y contexto de la escena."
+      },
+      {
+        "title": "Podcast",
+        "description": "Conversaciones long-form sobre skate, surf, música, cine y foto en Buenos Aires."
+      },
+      {
+        "title": "Branded content",
+        "description": "Colaboraciones de marca producidas con el mismo estándar editorial que el contenido propio, apalancando la red de artistas curados."
+      }
+    ],
+    "networkLabel": "artistas en",
+    "cta": {
+      "headline": "¿Pensando en una colaboración?",
+      "description": "Contanos qué tenés en mente y coordinamos una conversación.",
+      "label": "Escribinos"
+    }
   },
   "experience": {
     "sectionTitle": "",
