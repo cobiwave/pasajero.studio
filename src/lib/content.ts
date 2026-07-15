@@ -78,6 +78,38 @@ const DirectoryContentSchema = z.object({
   artists: z.array(ArtistSchema),
 });
 
+const AudienceMetricSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+});
+
+const AudienceSchema = z.object({
+  label: z.string(),
+  metrics: z.array(AudienceMetricSchema),
+});
+
+const ContentFormatSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+});
+
+const MediaKitCtaSchema = z.object({
+  headline: z.string(),
+  description: z.string(),
+  label: z.string(),
+});
+
+const MediaKitContentSchema = z.object({
+  sectionTitle: z.string(),
+  sectionNumber: z.string(),
+  headline: z.array(z.string()),
+  intro: z.string(),
+  audience: AudienceSchema,
+  formats: z.array(ContentFormatSchema),
+  networkLabel: z.string(),
+  cta: MediaKitCtaSchema,
+});
+
 const RoleSchema = z.object({
   period: z.string(),
   role: z.string(),
@@ -131,6 +163,7 @@ const SiteContentSchema = z.object({
   work: WorkContentSchema,
   about: AboutContentSchema,
   directory: DirectoryContentSchema,
+  mediaKit: MediaKitContentSchema,
   experience: ExperienceContentSchema,
   contact: ContactContentSchema,
 });
@@ -147,6 +180,9 @@ export type Principle = z.infer<typeof PrincipleSchema>;
 export type AboutContent = z.infer<typeof AboutContentSchema>;
 export type Artist = z.infer<typeof ArtistSchema>;
 export type DirectoryContent = z.infer<typeof DirectoryContentSchema>;
+export type AudienceMetric = z.infer<typeof AudienceMetricSchema>;
+export type ContentFormat = z.infer<typeof ContentFormatSchema>;
+export type MediaKitContent = z.infer<typeof MediaKitContentSchema>;
 export type Role = z.infer<typeof RoleSchema>;
 export type ExperienceContent = z.infer<typeof ExperienceContentSchema>;
 export type Social = z.infer<typeof SocialSchema>;
