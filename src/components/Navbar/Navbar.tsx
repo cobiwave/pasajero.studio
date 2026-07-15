@@ -85,7 +85,7 @@ export default function Navbar() {
                 className="text-lg font-bold tracking-tighter uppercase p-2 text-foreground"
                 style={{ fontFamily: "StretchPro, sans-serif" }}
               >
-                PASAJERO STUDIO<span className="text-primary">.</span>
+                PASAJERO
               </div>
             </Magnetic>
           </Link>
