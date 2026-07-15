@@ -50,14 +50,14 @@ Si te pido una feature, ubicala en esta lista mentalmente antes de proponer alca
 
 - Para verificar contenido/markup: usar curl + grep sobre el HTML server-rendered.
 - Para verificación visual real: el desarrollador revisa manualmente en
-  `npm run dev` + navegador. No instalar Playwright/Puppeteer/chromium-cli
+  `pnpm run dev` + navegador. No instalar Playwright/Puppeteer/chromium-cli
   por default — es una decisión de infraestructura aparte, no una respuesta
   reactiva a una verificación puntual.
 
 ## Comandos útiles
 
 ```bash
-npm run dev      # desarrollo local
-npm run build    # build de producción
-npm run lint     # eslint
+pnpm run dev      # desarrollo local
+pnpm run build    # build de producción
+pnpm run lint     # eslint
 ```
