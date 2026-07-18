@@ -1,5 +1,6 @@
 import FilmGrain from "@/components/FilmGrain";
 import DirectorySection from "@/components/DirectorySection";
+import JoinSection from "@/components/JoinSection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,6 +13,7 @@ export default function DirectoryPage() {
   return (
     <main id="main-content" className="relative pt-24">
       <DirectorySection />
+      <JoinSection />
       <FilmGrain />
     </main>
   );

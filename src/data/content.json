@@ -127,7 +127,25 @@
         "contactHref": "https://instagram.com/usuario_ejemplo",
         "featured": false
       }
-    ]
+    ],
+    "joinForm": {
+      "sectionTitle": "Sumate",
+      "sectionNumber": "04",
+      "headline": ["Quiero", "ser parte", "de la red."],
+      "intro": "Contanos quién sos. Si encajás con la curaduría, te contactamos nosotros — no hay alta automática.",
+      "disciplines": ["Skate", "Surf", "Música", "Cine", "Foto"],
+      "form": {
+        "nameLabel": "Nombre",
+        "namePlaceholder": "Tu nombre o alias",
+        "disciplinesLabel": "Disciplina",
+        "contactLabel": "Instagram o email",
+        "contactPlaceholder": "@usuario o tu@email.com",
+        "submitLabel": "Enviar solicitud",
+        "sendingLabel": "Enviando...",
+        "successMessage": "Listo, la recibimos. Te contactamos si encaja.",
+        "errorMessage": "No se pudo enviar. Probá de nuevo en un rato."
+      }
+    }
   },
   "mediaKit": {
     "sectionTitle": "Media Kit",

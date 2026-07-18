@@ -70,12 +70,34 @@ const ArtistSchema = z.object({
   featured: z.boolean().optional(),
 });
 
+const JoinFormFieldsSchema = z.object({
+  nameLabel: z.string(),
+  namePlaceholder: z.string(),
+  disciplinesLabel: z.string(),
+  contactLabel: z.string(),
+  contactPlaceholder: z.string(),
+  submitLabel: z.string(),
+  sendingLabel: z.string(),
+  successMessage: z.string(),
+  errorMessage: z.string(),
+});
+
+const JoinFormContentSchema = z.object({
+  sectionTitle: z.string(),
+  sectionNumber: z.string(),
+  headline: z.array(z.string()),
+  intro: z.string(),
+  disciplines: z.array(z.string()).min(1),
+  form: JoinFormFieldsSchema,
+});
+
 const DirectoryContentSchema = z.object({
   sectionTitle: z.string(),
   sectionNumber: z.string(),
   headline: z.array(z.string()),
   intro: z.string(),
   artists: z.array(ArtistSchema),
+  joinForm: JoinFormContentSchema,
 });
 
 const AudienceMetricSchema = z.object({
@@ -179,6 +201,7 @@ export type WorkContent = z.infer<typeof WorkContentSchema>;
 export type Principle = z.infer<typeof PrincipleSchema>;
 export type AboutContent = z.infer<typeof AboutContentSchema>;
 export type Artist = z.infer<typeof ArtistSchema>;
+export type JoinFormContent = z.infer<typeof JoinFormContentSchema>;
 export type DirectoryContent = z.infer<typeof DirectoryContentSchema>;
 export type AudienceMetric = z.infer<typeof AudienceMetricSchema>;
 export type ContentFormat = z.infer<typeof ContentFormatSchema>;
