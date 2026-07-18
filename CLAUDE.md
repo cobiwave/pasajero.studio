@@ -45,6 +45,20 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - Antes de un refactor grande (>3 archivos), mostrame el plan primero. No lo ejecutes de una.
 - Rama de trabajo: nunca commitear directo a `main`. Todo pasa por `develop` o feature branches desde `develop`.
 
+## Política de QA visual
+
+- El body de todas las páginas se renderiza client-side (`SmoothScrollProvider`
+  envuelve el contenido con `dynamic(..., { ssr: false })` por requerimiento
+  de Lenis) — **`curl`+`grep` sobre el HTML NO sirve** para verificar
+  contenido, solo va a ver el HTML del Navbar.
+- Verificación real: `pnpm dev` + revisar en navegador (Claude in Chrome
+  si está disponible, o el desarrollador a mano). Prestar atención a
+  warnings de hidratación en consola como señal de regresión real.
+- **Pendiente de decisión de producto:** el `ssr:false` global tiene
+  impacto en SEO/link-previews — el sitio depende de descubribilidad
+  orgánica y de causar buena impresión a marcas que reciben el link del
+  media kit. No resolver de oficio; es una decisión a tomar aparte.
+
 ## Comandos útiles
 
 ```bash
