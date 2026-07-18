@@ -18,13 +18,13 @@ export default function Hero({ loaded = true }: HeroProps) {
   useGSAP(
     () => {
       if (prefersReducedMotion()) {
-        gsap.set([".hero-meta", ".hero-video-wrap", ".hero-badge"], {
+        gsap.set([".hero-meta", ".hero-video-wrap"], {
           autoAlpha: 1,
         });
         return;
       }
 
-      gsap.set([".hero-meta", ".hero-video-wrap", ".hero-badge"], {
+      gsap.set([".hero-meta", ".hero-video-wrap"], {
         visibility: "hidden",
       });
 
@@ -41,30 +41,18 @@ export default function Hero({ loaded = true }: HeroProps) {
           duration: 2.4,
           ease: "power2.out",
         },
-      )
-        .fromTo(
-          ".hero-badge",
-          { y: 12, autoAlpha: 0 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-          },
-          "-=1.6",
-        )
-        .fromTo(
-          ".hero-meta",
-          { y: 16, autoAlpha: 0 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.08,
-            force3D: true,
-          },
-          "-=0.8",
-        );
+      ).fromTo(
+        ".hero-meta",
+        { y: 16, autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.08,
+          force3D: true,
+        },
+        "-=1.4",
+      );
     },
     { scope: container, dependencies: [loaded] },
   );
