@@ -1,5 +1,6 @@
 import FilmGrain from "@/components/FilmGrain";
-import WorkSection from "@/components/WorkSection";
+import WorkSection, { type WorkProject } from "@/components/WorkSection";
+import { getPayloadClient } from "@/lib/payload";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,10 +9,40 @@ export const metadata: Metadata = {
     "Original short films and visual art by Pasajero Studio. Cinematic storytelling through narrative, documentary, and experimental formats.",
 };
 
-export default function WorkPage() {
+export default async function WorkPage() {
+  const payload = await getPayloadClient();
+
+  const [global, { docs: films }] = await Promise.all([
+    payload.findGlobal({ slug: "work-section" }),
+    payload.find({
+      collection: "films",
+      where: { status: { equals: "published" } },
+      sort: "order",
+      depth: 1,
+      limit: 100,
+    }),
+  ]);
+
+  const projects: WorkProject[] = films.map((film) => ({
+    id: film.id,
+    title: film.title,
+    category: film.category,
+    year: film.year,
+    description: film.description,
+    tags: (film.tags ?? []).map((t) => t.tag),
+    href: film.videoUrl ?? undefined,
+    imageUrl:
+      film.thumbnail && typeof film.thumbnail === "object" ? (film.thumbnail.url ?? undefined) : undefined,
+  }));
+
   return (
     <main id="main-content" className="relative pt-24">
-      <WorkSection />
+      <WorkSection
+        sectionTitle={global.sectionTitle}
+        sectionNumber={global.sectionNumber}
+        headline={(global.headline ?? []).map((h) => h.line)}
+        projects={projects}
+      />
       <FilmGrain />
     </main>
   );
