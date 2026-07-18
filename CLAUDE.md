@@ -18,6 +18,7 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - Linting: `eslint.config.mjs` (config mínima basada en `eslint-config-next`). Scripts actuales: `dev`, `build`, `start`, `lint` (gestor de paquetes: **pnpm**, no npm).
 - Hosting: **Vercel** (Hobby plan por ahora — gratis, pero uso no-comercial según sus Fair Use Guidelines; migrar a Pro cuando cierre el primer acuerdo con una marca, no cuando se superen límites técnicos). El `netlify.toml` en la raíz quedó de una decisión anterior y ya no aplica — se puede ignorar o eliminar, no lo uses como referencia de config de deploy.
 - Base de datos (fase 2 en adelante): Postgres vía **Supabase**. Usar la connection string de **Session pooler (puerto 5432)**, nunca la de Transaction pooler (puerto 6543) — el adapter de Postgres de Payload (Drizzle) no es compatible con prepared statements en modo transacción.
+- **Cualquier script standalone que importe `payload` directamente** (seeds, `generate:types`, futuras migraciones) tiene que pasar por `pnpm payload -- <comando>` o los scripts `seed:prod`/`seed:dev`/`generate:types` de `package.json` — **nunca** `tsx scripts/algo.ts` a secas ni `payload <comando>` directo. Ver "Workaround conocido" abajo.
 - Ya existen **Agent Skills** instalados en `.agents/skills/` (gsap-core, gsap-frameworks, gsap-performance, gsap-plugins, gsap-react, gsap-scrolltrigger, gsap-timeline, gsap-utils, frontend-design, vercel-react-best-practices). Claude Code los descubre solo — no dupliques esas reglas acá, referencialas cuando sea relevante (ej. "aplicá las reglas de rendering-hydration-no-flicker.md").
 
 ## Convenciones de componentes
@@ -39,6 +40,14 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 ## Backlog / deuda técnica bloqueante para producción
 
 - **Migrar uploads de Payload a Supabase Storage (S3-compatible) antes del primer deploy a Vercel.** Hoy `Media` usa storage local en disco (`/media`, gitignored) — funciona para desarrollo local pero no sobrevive a un deploy serverless en Vercel (filesystem efímero). Bloqueante para producción, no para seguir desarrollando en local.
+
+## Workaround conocido: scripts standalone de Payload rompen sin `scripts/fix-next-env-interop.cjs`
+
+`payload/dist/bin/loadEnv.js` hace `import nextEnvImport from "@next/env"` y destructura `nextEnvImport.loadEnvConfig`. Desde Next.js 15.5+, `@next/env` dejó de exponer default export (solo named exports) — bajo el interop ESM/CJS estricto de tsx/esbuild eso resuelve a `undefined` y crashea con `TypeError: Cannot destructure property 'loadEnvConfig' of 'import_env.default' as it is undefined` **al importar `payload`**, antes de que corra nuestro código. `pnpm dev`/`pnpm build` NO lo sufren (el bundler de Next es más laxo con ese caso), pero cualquier script standalone sí — seeds, `generate:types`, futuras migraciones.
+
+- **Causa raíz confirmada, no es un problema de versión de tsx**: reproduce igual en tsx 4.19.3 (la más vieja en npm) y 4.23.1 (la más nueva a la fecha) — el rango completo probado. Es un bug de Payload sin fix mergeado todavía: [payloadcms/payload#16674](https://github.com/payloadcms/payload/issues/16674), PR [#16934](https://github.com/payloadcms/payload/pull/16934) abierto, sin mergear.
+- **Workaround oficial**: `scripts/fix-next-env-interop.cjs` (preload que resuelve el `@next/env` real que usa `payload` y le sintetiza el default export). Ya está cableado en `package.json`: usar `pnpm payload -- <comando>`, `pnpm seed:prod`, `pnpm seed:dev`, o `pnpm generate:types` — nunca invocar `tsx` o el CLI de `payload` directo.
+- **Cuándo borrar esto**: cuando el PR #16934 (o equivalente) se mergee y aparezca en un release de `payload` — a partir de ahí, actualizar la dependencia, borrar `scripts/fix-next-env-interop.cjs`, y volver los scripts de `package.json` a invocar `tsx`/`payload` directo.
 
 ## Reglas duras (no negociables)
 
@@ -66,8 +75,12 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 ## Comandos útiles
 
 ```bash
-pnpm dev      # desarrollo local
-pnpm build    # build de producción
-pnpm start    # servidor de producción local
-pnpm lint     # eslint
+pnpm dev             # desarrollo local
+pnpm build           # build de producción
+pnpm start           # servidor de producción local
+pnpm lint            # eslint
+pnpm generate:types  # regenerar src/payload-types.ts tras cambiar un Collection/Global
+pnpm seed:prod       # taxonomía real + Films + Globals (idempotente)
+pnpm seed:dev        # 3 artistas placeholder — NO idempotente, correr una sola vez
+pnpm payload -- <comando>  # cualquier otro comando del CLI de Payload (ej. migraciones)
 ```
