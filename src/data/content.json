@@ -1,10 +1,11 @@
 {
   "loader": {
-    "words": ["COLOR", "GRADE", "RESOLVE", "AUTOMATE", "CREATE", "PASAJERO"]
+    "words": ["SKATE", "SURF", "MÚSICA", "CINE", "FOTO", "PASAJERO"]
   },
   "nav": {
     "items": [
       { "label": "Work", "href": "/work" },
+      { "label": "Directory", "href": "/directory" },
       { "label": "About", "href": "/about" },
       { "label": "Lab", "href": "/lab" }
     ],
@@ -13,9 +14,10 @@
     }
   },
   "hero": {
-    "headline": ["PASAJERO", "STUDIO"],
-    "subtitle": "We bridge the gap between high-end cinematography and AI, building intelligent tools for the next generation of colorists and filmmakers.",
-    "comingSoon": "Our first tool — AI-powered PowerGrade generation for DaVinci Resolve — is currently in development, stay tuned."
+    "headline": ["PASAJERO"],
+    "tagline": "Este es Pasajero Lab, nuestro espacio de experimentación",
+    "subtitle": "Una red curada de artistas de skate, surf, música, cine y fotografía — y el estudio audiovisual detrás de sus historias.",
+    "comingSoon": "El directorio de artistas invitados está en construcción. Mientras tanto, conocé el trabajo audiovisual de Pasajero."
   },
   "work": {
     "sectionTitle": "Work",
@@ -64,33 +66,125 @@
     "sectionTitle": "About",
     "sectionNumber": "02",
     "statement": [
-      "We are a studio",
-      "and creative lab",
-      "at the intersection of cinema,",
-      "visual art,",
-      "and artificial intelligence."
+      "Somos un estudio",
+      "y una red curada",
+      "en el cruce de skate,",
+      "surf, música,",
+      "cine y fotografía."
     ],
     "bio": [
-      "Pasajero Studio creates original short films, analog photography, and visual art — not for clients, but as pure creative expression. Every piece is crafted with intention, from grading to final delivery.",
-      "At the same time, we're building the next generation of AI-powered tools for filmmakers and colorists. Our first product — intelligent PowerGrade generation for DaVinci Resolve — is currently in development."
+      "Pasajero Studio nace de cortometrajes, fotografía analógica y entrevistas documentales — contenido propio, no por encargo. Cada pieza se produce con intención, del guion a la corrección de color final.",
+      "Al mismo tiempo, Pasajero funciona como puerta de entrada a una red invitacional de artistas del nicho skate, surf, música, cine y foto — muchos de ellos cruzando más de una disciplina. La curaduría es nuestra; el contacto, directo con cada artista."
     ],
     "principles": [
       {
         "number": "01",
-        "title": "Original Work",
-        "description": "We produce our own films and visual art. Every project is a personal statement, not a commission."
+        "title": "Curaduría, no algoritmo",
+        "description": "Elegimos a cada artista de la red a mano. No es un feed infinito, es una selección editorial."
       },
       {
         "number": "02",
-        "title": "Cinematic AI",
-        "description": "We build AI tools that understand the language of cinema — color science, grading, and post-production workflows."
+        "title": "Historias con cámara propia",
+        "description": "Producimos nuestros propios documentales y podcasts sobre la escena — el contenido es la puerta de entrada a la red."
       },
       {
         "number": "03",
-        "title": "Analog Soul",
-        "description": "Film photography, texture, grain — we believe in the beauty of imperfection and the craft behind every frame."
+        "title": "Cruce de disciplinas",
+        "description": "Priorizamos artistas que combinan más de un oficio: skater y fotógrafo, surfista y shaper, músico y filmmaker."
       }
     ]
+  },
+  "directory": {
+    "sectionTitle": "Directory",
+    "sectionNumber": "03",
+    "headline": ["Artistas", "de la red", "Pasajero."],
+    "intro": "Un directorio invitacional. Cada artista fue seleccionado a mano por Pasajero — el ingreso es por contacto directo, no por registro abierto.",
+    "artists": [
+      {
+        "name": "EJEMPLO — Nombre Artista",
+        "disciplines": ["Skater", "Fotógrafo"],
+        "location": "Buenos Aires, AR",
+        "bio": "Reemplazar con bio corta (1-2 líneas) del artista real aprobado.",
+        "imageUrl": "",
+        "contactHref": "https://instagram.com/usuario_ejemplo",
+        "featured": true
+      },
+      {
+        "name": "EJEMPLO — Nombre Artista",
+        "disciplines": ["Surfista", "Shaper"],
+        "location": "Mar del Plata, AR",
+        "bio": "Reemplazar con bio corta (1-2 líneas) del artista real aprobado.",
+        "imageUrl": "",
+        "contactHref": "https://instagram.com/usuario_ejemplo",
+        "featured": false
+      },
+      {
+        "name": "EJEMPLO — Nombre Artista",
+        "disciplines": ["Músico", "Filmmaker"],
+        "location": "Buenos Aires, AR",
+        "bio": "Reemplazar con bio corta (1-2 líneas) del artista real aprobado.",
+        "imageUrl": "",
+        "contactHref": "https://instagram.com/usuario_ejemplo",
+        "featured": false
+      }
+    ],
+    "joinForm": {
+      "sectionTitle": "Sumate",
+      "sectionNumber": "04",
+      "headline": ["Quiero", "ser parte", "de la red."],
+      "intro": "Contanos quién sos. Si encajás con la curaduría, te contactamos nosotros — no hay alta automática.",
+      "disciplines": ["Skate", "Surf", "Música", "Cine", "Foto"],
+      "form": {
+        "nameLabel": "Nombre",
+        "namePlaceholder": "Tu nombre o alias",
+        "disciplinesLabel": "Disciplina",
+        "contactLabel": "Instagram o email",
+        "contactPlaceholder": "@usuario o tu@email.com",
+        "submitLabel": "Enviar solicitud",
+        "sendingLabel": "Enviando...",
+        "successMessage": "Listo, la recibimos. Te contactamos si encaja.",
+        "errorMessage": "No se pudo enviar. Probá de nuevo en un rato."
+      }
+    }
+  },
+  "mediaKit": {
+    "sectionTitle": "Media Kit",
+    "sectionNumber": "04",
+    "headline": ["Contenido,", "audiencia", "y red curada."],
+    "intro": "Pasajero Studio combina producción audiovisual propia con una red invitacional de artistas del nicho skate, surf, música, cine y foto. Este media kit resume alcance, formatos y casos de trabajo para marcas evaluando una colaboración.",
+    "audience": {
+      "label": "Audiencia y alcance",
+      "metrics": [
+        { "label": "Seguidores totales", "value": "[MÉTRICA]" },
+        { "label": "Alcance mensual promedio", "value": "[MÉTRICA]" },
+        { "label": "Vistas promedio por pieza", "value": "[MÉTRICA]" },
+        { "label": "Audiencia principal", "value": "[MÉTRICA]" }
+      ]
+    },
+    "formats": [
+      {
+        "title": "Cortometrajes originales",
+        "description": "Piezas narrativas o documentales producidas de punta a punta, del guion a la corrección de color."
+      },
+      {
+        "title": "Entrevistas documentales",
+        "description": "Formato conversación con artistas de la red — perfil, oficio y contexto de la escena."
+      },
+      {
+        "title": "Podcast",
+        "description": "Conversaciones long-form sobre skate, surf, música, cine y foto en Buenos Aires."
+      },
+      {
+        "title": "Branded content",
+        "description": "Colaboraciones de marca producidas con el mismo estándar editorial que el contenido propio, apalancando la red de artistas curados."
+      }
+    ],
+    "networkLabel": "artistas en",
+    "cta": {
+      "headline": "¿Pensando en una colaboración?",
+      "description": "Contanos qué tenés en mente y coordinamos una conversación.",
+      "label": "Escribinos"
+    }
   },
   "experience": {
     "sectionTitle": "",
@@ -123,7 +217,7 @@
     },
     "footer": {
       "copyright": "PASAJERO STUDIO. All rights reserved.",
-      "tagline": "Next-gen AI tools for the cinematic craft."
+      "tagline": "Red curada de artistas de skate, surf, música, cine y foto."
     }
   }
 }
