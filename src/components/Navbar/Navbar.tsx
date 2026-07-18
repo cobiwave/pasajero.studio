@@ -8,7 +8,8 @@ import { Magnetic } from "./Magnetic";
 import content from "@/lib/content";
 import styles from "./Navbar.module.css";
 
-const { items: NAV_ITEMS, footer: NAV_FOOTER } = content.nav;
+const { items: NAV_ITEMS } = content.nav;
+const { contactEmail: CONTACT_EMAIL } = content;
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -155,8 +156,7 @@ export default function Navbar() {
           </ul>
 
           <div className="absolute bottom-0 left-0 w-full flex justify-end items-center px-6 py-6 md:px-10">
-            {/* <p className="text-muted text-lg m-0">{NAV_FOOTER.location}</p> */}
-            <p className="text-muted text-lg m-0">{NAV_FOOTER.email}</p>
+            <p className="text-muted text-lg m-0">{CONTACT_EMAIL}</p>
           </div>
         </div>
       </nav>

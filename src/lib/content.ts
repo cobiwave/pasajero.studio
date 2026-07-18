@@ -12,14 +12,8 @@ const NavItemSchema = z.object({
   href: z.string(),
 });
 
-const NavFooterSchema = z.object({
-  // location: z.string(),
-  email: z.string(),
-});
-
 const NavContentSchema = z.object({
   items: z.array(NavItemSchema),
-  footer: NavFooterSchema,
 });
 
 const HeroContentSchema = z.object({
@@ -132,22 +126,6 @@ const MediaKitContentSchema = z.object({
   cta: MediaKitCtaSchema,
 });
 
-const RoleSchema = z.object({
-  period: z.string(),
-  role: z.string(),
-  company: z.string(),
-  scope: z.string(),
-});
-
-const ExperienceContentSchema = z.object({
-  sectionTitle: z.string(),
-  sectionNumber: z.string(),
-  headline: z.array(z.string()),
-  roles: z.array(RoleSchema),
-  capabilitiesLabel: z.string(),
-  capabilities: z.array(z.string()),
-});
-
 const SocialSchema = z.object({
   label: z.string(),
   href: z.string(),
@@ -172,13 +150,13 @@ const ContactContentSchema = z.object({
   sectionTitle: z.string(),
   sectionNumber: z.string(),
   headline: z.array(z.string()),
-  email: z.string().email(),
   socials: z.array(SocialSchema),
   form: FormContentSchema,
   footer: FooterContentSchema,
 });
 
 const SiteContentSchema = z.object({
+  contactEmail: z.string().email(),
   loader: LoaderContentSchema,
   nav: NavContentSchema,
   hero: HeroContentSchema,
@@ -186,7 +164,6 @@ const SiteContentSchema = z.object({
   about: AboutContentSchema,
   directory: DirectoryContentSchema,
   mediaKit: MediaKitContentSchema,
-  experience: ExperienceContentSchema,
   contact: ContactContentSchema,
 });
 
@@ -206,8 +183,6 @@ export type DirectoryContent = z.infer<typeof DirectoryContentSchema>;
 export type AudienceMetric = z.infer<typeof AudienceMetricSchema>;
 export type ContentFormat = z.infer<typeof ContentFormatSchema>;
 export type MediaKitContent = z.infer<typeof MediaKitContentSchema>;
-export type Role = z.infer<typeof RoleSchema>;
-export type ExperienceContent = z.infer<typeof ExperienceContentSchema>;
 export type Social = z.infer<typeof SocialSchema>;
 export type ContactContent = z.infer<typeof ContactContentSchema>;
 export type SiteContent = z.infer<typeof SiteContentSchema>;

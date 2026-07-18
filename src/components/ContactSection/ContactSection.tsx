@@ -11,11 +11,11 @@ const {
   sectionTitle,
   sectionNumber,
   headline,
-  email,
   socials: SOCIALS,
   form: FORM,
   footer: FOOTER,
 } = content.contact;
+const { contactEmail: email } = content;
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
 

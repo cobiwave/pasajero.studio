@@ -1,6 +1,7 @@
 import { ArrowUpRight, Mail } from "lucide-react";
 import type { Metadata } from "next";
 import content from "@/lib/content";
+import { getPayloadClient } from "@/lib/payload";
 
 export const metadata: Metadata = {
   title: "Media Kit — PASAJERO STUDIO",
@@ -11,12 +12,19 @@ export const metadata: Metadata = {
 const { sectionTitle, sectionNumber, headline, intro, audience, formats, networkLabel, cta } =
   content.mediaKit;
 const { projects } = content.work;
-const { artists } = content.directory;
-const { email } = content.contact;
+const { contactEmail: email } = content;
 
-const disciplineCount = new Set(artists.flatMap((artist) => artist.disciplines)).size;
+export default async function MediaKitPage() {
+  const payload = await getPayloadClient();
+  const { docs: artists } = await payload.find({
+    collection: "artists",
+    where: { status: { equals: "approved" } },
+    limit: 100,
+  });
 
-export default function MediaKitPage() {
+  const artistCount = artists.length;
+  const disciplineCount = new Set(artists.flatMap((artist) => artist.disciplines)).size;
+
   return (
     <main id="main-content" className="relative pt-24">
       <section className="px-6 md:px-12 py-24 md:py-32">
@@ -142,7 +150,7 @@ export default function MediaKitPage() {
                 Red curada
               </h3>
               <p className="text-2xl md:text-3xl font-bold tracking-tight">
-                {artists.length} artistas {networkLabel} {disciplineCount} disciplinas
+                {artistCount} {networkLabel} {disciplineCount} disciplinas
               </p>
             </div>
             <a

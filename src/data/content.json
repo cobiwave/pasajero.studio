@@ -1,17 +1,27 @@
 {
+  "contactEmail": "pasajero.studio@gmail.com",
   "loader": {
     "words": ["SKATE", "SURF", "MÚSICA", "CINE", "FOTO", "PASAJERO"]
   },
   "nav": {
     "items": [
-      { "label": "Work", "href": "/work" },
-      { "label": "Directory", "href": "/directory" },
-      { "label": "About", "href": "/about" },
-      { "label": "Lab", "href": "/lab" }
-    ],
-    "footer": {
-      "email": "pasajero.studio@gmail.com"
-    }
+      {
+        "label": "Work",
+        "href": "/work"
+      },
+      {
+        "label": "Directory",
+        "href": "/directory"
+      },
+      {
+        "label": "About",
+        "href": "/about"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ]
   },
   "hero": {
     "headline": ["PASAJERO"],
@@ -155,10 +165,22 @@
     "audience": {
       "label": "Audiencia y alcance",
       "metrics": [
-        { "label": "Seguidores totales", "value": "[MÉTRICA]" },
-        { "label": "Alcance mensual promedio", "value": "[MÉTRICA]" },
-        { "label": "Vistas promedio por pieza", "value": "[MÉTRICA]" },
-        { "label": "Audiencia principal", "value": "[MÉTRICA]" }
+        {
+          "label": "Seguidores totales",
+          "value": "[MÉTRICA]"
+        },
+        {
+          "label": "Alcance mensual promedio",
+          "value": "[MÉTRICA]"
+        },
+        {
+          "label": "Vistas promedio por pieza",
+          "value": "[MÉTRICA]"
+        },
+        {
+          "label": "Audiencia principal",
+          "value": "[MÉTRICA]"
+        }
       ]
     },
     "formats": [
@@ -186,34 +208,28 @@
       "label": "Escribinos"
     }
   },
-  "experience": {
-    "sectionTitle": "",
-    "sectionNumber": "",
-    "headline": ["", "", ""],
-    "roles": [{ "period": "", "role": "", "company": "", "scope": "" }],
-    "capabilitiesLabel": "",
-    "capabilities": []
-  },
   "contact": {
     "sectionTitle": "Contact",
     "sectionNumber": "01",
     "headline": ["Coming", "soon."],
-    "email": "cobimr@proton.me",
     "socials": [
-      { "label": "Instagram", "href": "https://instagram.com/pasajero.studio" },
+      {
+        "label": "Instagram",
+        "href": "https://instagram.com/pasajero.studio"
+      },
       {
         "label": "LinkedIn",
         "href": "https://linkedin.com/company/pasajero-studio"
       }
     ],
     "form": {
-      "nameLabel": "",
-      "namePlaceholder": "",
-      "emailLabel": "",
-      "emailPlaceholder": "",
-      "messageLabel": "",
-      "messagePlaceholder": "",
-      "submitLabel": ""
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Email",
+      "emailPlaceholder": "tu@email.com",
+      "messageLabel": "Mensaje",
+      "messagePlaceholder": "Contanos en qué podemos ayudarte",
+      "submitLabel": "Enviar mensaje"
     },
     "footer": {
       "copyright": "PASAJERO STUDIO. All rights reserved.",
