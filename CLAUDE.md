@@ -5,8 +5,7 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 1. Produce contenido audiovisual propio (films, entrevistas, podcast) — esto ya existe y funciona.
 2. Cura un directorio invitacional de "fine artists" del nicho (alta manual, no self-serve).
 3. A mediano plazo, actúa de intermediario entre marcas y esa red de talento (branded content, booking) — ese es el techo de ingresos más alto, no el merch.
-
-**Implicancia para el código:** prioriza siempre legibilidad editorial y velocidad de carga/percepción (esto vende autoridad a marcas) por sobre features de e-commerce. El directorio de artistas y el "media kit" pesan más que el checkout en esta etapa.
+   **Implicancia para el código:** prioriza siempre legibilidad editorial y velocidad de carga/percepción (esto vende autoridad a marcas) por sobre features de e-commerce. El directorio de artistas y el "media kit" pesan más que el checkout en esta etapa.
 
 ## Stack técnico (verificado en el repo, rama `develop`)
 
@@ -16,8 +15,9 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - **Motion** (Framer Motion) también está en dependencias pero el patrón dominante hoy es GSAP directo en componentes de sección.
 - **Lenis** (smooth scroll) vía `src/components/SmoothScroll/*`.
 - **Zod** para validar el contenido: `src/lib/content.ts` define schemas y lee `src/data/content.json`. Este JSON es un **stand-in temporal** del futuro CMS — cualquier cambio de forma en el JSON debe reflejarse en el schema Zod correspondiente, o el build falla en runtime, no en compile time.
-- Linting: `eslint.config.mjs` (config mínima basada en `eslint-config-next`). Scripts actuales: `dev`, `build`, `start`, `lint`.
-- Hosting: Netlify (`netlify.toml`).
+- Linting: `eslint.config.mjs` (config mínima basada en `eslint-config-next`). Scripts actuales: `dev`, `build`, `start`, `lint` (gestor de paquetes: **pnpm**, no npm).
+- Hosting: **Vercel** (Hobby plan por ahora — gratis, pero uso no-comercial según sus Fair Use Guidelines; migrar a Pro cuando cierre el primer acuerdo con una marca, no cuando se superen límites técnicos). El `netlify.toml` en la raíz quedó de una decisión anterior y ya no aplica — se puede ignorar o eliminar, no lo uses como referencia de config de deploy.
+- Base de datos (fase 2 en adelante): Postgres vía **Supabase**. Usar la connection string de **Session pooler (puerto 5432)**, nunca la de Transaction pooler (puerto 6543) — el adapter de Postgres de Payload (Drizzle) no es compatible con prepared statements en modo transacción.
 - Ya existen **Agent Skills** instalados en `.agents/skills/` (gsap-core, gsap-frameworks, gsap-performance, gsap-plugins, gsap-react, gsap-scrolltrigger, gsap-timeline, gsap-utils, frontend-design, vercel-react-best-practices). Claude Code los descubre solo — no dupliques esas reglas acá, referencialas cuando sea relevante (ej. "aplicá las reglas de rendering-hydration-no-flicker.md").
 
 ## Convenciones de componentes
@@ -34,8 +34,7 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 3. Auth de artistas (alta por solicitud, aprobación manual vía admin de Payload) + buscador/filtro
 4. E-commerce merch propio
 5. Marketplace de prints con comisión (Prodigi/Gelato)
-
-Si te pido una feature, ubicala en esta lista mentalmente antes de proponer alcance — no adelantes complejidad de fases futuras (ej. no metas lógica de pagos en la fase 1).
+   Si te pido una feature, ubicala en esta lista mentalmente antes de proponer alcance — no adelantes complejidad de fases futuras (ej. no metas lógica de pagos en la fase 1).
 
 ## Reglas duras (no negociables)
 
@@ -46,18 +45,11 @@ Si te pido una feature, ubicala en esta lista mentalmente antes de proponer alca
 - Antes de un refactor grande (>3 archivos), mostrame el plan primero. No lo ejecutes de una.
 - Rama de trabajo: nunca commitear directo a `main`. Todo pasa por `develop` o feature branches desde `develop`.
 
-## Política de QA visual
-
-- Para verificar contenido/markup: usar curl + grep sobre el HTML server-rendered.
-- Para verificación visual real: el desarrollador revisa manualmente en
-  `pnpm run dev` + navegador. No instalar Playwright/Puppeteer/chromium-cli
-  por default — es una decisión de infraestructura aparte, no una respuesta
-  reactiva a una verificación puntual.
-
 ## Comandos útiles
 
 ```bash
-pnpm run dev      # desarrollo local
-pnpm run build    # build de producción
-pnpm run lint     # eslint
+pnpm dev      # desarrollo local
+pnpm build    # build de producción
+pnpm start    # servidor de producción local
+pnpm lint     # eslint
 ```
