@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
 import content from "@/lib/content";
-import { submitJoinRequest, type JoinRequestState } from "@/app/directory/joinAction";
+import { submitJoinRequest, type JoinRequestState } from "@/app/(frontend)/directory/joinAction";
 
 const {
   sectionTitle,
