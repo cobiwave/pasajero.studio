@@ -36,6 +36,10 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 5. Marketplace de prints con comisión (Prodigi/Gelato)
    Si te pido una feature, ubicala en esta lista mentalmente antes de proponer alcance — no adelantes complejidad de fases futuras (ej. no metas lógica de pagos en la fase 1).
 
+## Backlog / deuda técnica bloqueante para producción
+
+- **Migrar uploads de Payload a Supabase Storage (S3-compatible) antes del primer deploy a Vercel.** Hoy `Media` usa storage local en disco (`/media`, gitignored) — funciona para desarrollo local pero no sobrevive a un deploy serverless en Vercel (filesystem efímero). Bloqueante para producción, no para seguir desarrollando en local.
+
 ## Reglas duras (no negociables)
 
 - **No reintroducir DatoCMS** ni GraphQL — se eliminó deliberadamente en `develop`.
