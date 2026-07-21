@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import SmoothScrollProvider from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
+import { getPayloadClient } from "@/lib/payload";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -69,11 +70,18 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const payload = await getPayloadClient();
+
+  const [nav, siteSettings] = await Promise.all([
+    payload.findGlobal({ slug: "nav" }),
+    payload.findGlobal({ slug: "site-settings" }),
+  ]);
+
   return (
     <html lang="en">
       <head>
@@ -85,7 +93,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} antialiased`}
       >
-        <Navbar />
+        <Navbar items={nav.items ?? []} contactEmail={siteSettings.contactEmail} />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>

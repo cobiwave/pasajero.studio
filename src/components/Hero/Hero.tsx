@@ -3,16 +3,14 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
-import content from "@/lib/content";
-
-const { subtitle } = content.hero;
-const socials = content.contact.socials;
 
 interface HeroProps {
   loaded?: boolean;
+  subtitle: string;
+  socials: { label: string; href: string }[];
 }
 
-export default function Hero({ loaded = true }: HeroProps) {
+export default function Hero({ loaded = true, subtitle, socials }: HeroProps) {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(

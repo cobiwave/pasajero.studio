@@ -1,10 +1,21 @@
 import FilmGrain from "@/components/FilmGrain";
 import LoadingGate from "@/components/LoadingGate";
+import { getPayloadClient } from "@/lib/payload";
 
-export default function Home() {
+export default async function Home() {
+  const payload = await getPayloadClient();
+
+  const [hero, contactSection] = await Promise.all([
+    payload.findGlobal({ slug: "hero" }),
+    payload.findGlobal({ slug: "contact-section" }),
+  ]);
+
   return (
     <main id="main-content" className="relative">
-      <LoadingGate />
+      <LoadingGate
+        subtitle={hero.subtitle}
+        socials={(contactSection.socials ?? []).map((s) => ({ label: s.label, href: s.href }))}
+      />
       <FilmGrain />
     </main>
   );

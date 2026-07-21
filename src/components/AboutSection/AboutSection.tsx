@@ -4,11 +4,22 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
-import content from "@/lib/content";
 
-const { sectionTitle, sectionNumber, statement, bio, principles: PRINCIPLES } = content.about;
+interface AboutSectionProps {
+  sectionTitle: string;
+  sectionNumber: string;
+  statement: string[];
+  bio: string[];
+  principles: { number: string; title: string; description: string }[];
+}
 
-export default function AboutSection() {
+export default function AboutSection({
+  sectionTitle,
+  sectionNumber,
+  statement,
+  bio,
+  principles: PRINCIPLES,
+}: AboutSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(

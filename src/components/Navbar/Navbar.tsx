@@ -5,16 +5,17 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useLenis } from "@/components/SmoothScroll";
 import { Magnetic } from "./Magnetic";
-import content from "@/lib/content";
 import styles from "./Navbar.module.css";
-
-const { items: NAV_ITEMS } = content.nav;
-const { contactEmail: CONTACT_EMAIL } = content;
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-export default function Navbar() {
+interface NavbarProps {
+  items: { label: string; href: string }[];
+  contactEmail: string;
+}
+
+export default function Navbar({ items: NAV_ITEMS, contactEmail: CONTACT_EMAIL }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
