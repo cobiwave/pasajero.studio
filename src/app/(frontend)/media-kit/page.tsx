@@ -1,6 +1,5 @@
 import { ArrowUpRight, Mail } from "lucide-react";
 import type { Metadata } from "next";
-import content from "@/lib/content";
 import { getPayloadClient } from "@/lib/payload";
 
 export const metadata: Metadata = {
@@ -9,21 +8,54 @@ export const metadata: Metadata = {
     "Audiencia, formatos de contenido y casos de trabajo de Pasajero Studio para marcas evaluando una colaboración.",
 };
 
-const { sectionTitle, sectionNumber, headline, intro, audience, formats, networkLabel, cta } =
-  content.mediaKit;
-const { projects } = content.work;
-const { contactEmail: email } = content;
+type PreviousWork = {
+  id: string | number;
+  title: string;
+  category: string;
+  year: string;
+  description: string;
+  href?: string;
+};
 
 export default async function MediaKitPage() {
   const payload = await getPayloadClient();
-  const { docs: artists } = await payload.find({
-    collection: "artists",
-    where: { status: { equals: "approved" } },
-    limit: 100,
-  });
+
+  const [global, siteSettings, { docs: artists }, { docs: films }] = await Promise.all([
+    payload.findGlobal({ slug: "media-kit-section" }),
+    payload.findGlobal({ slug: "site-settings" }),
+    payload.find({
+      collection: "artists",
+      where: { status: { equals: "approved" } },
+      limit: 100,
+    }),
+    payload.find({
+      collection: "films",
+      where: { status: { equals: "published" } },
+      sort: "order",
+      limit: 100,
+    }),
+  ]);
+
+  const { sectionTitle, sectionNumber, intro, networkLabel, cta } = global;
+  const headline = (global.headline ?? []).map((h) => h.line);
+  const audience = {
+    label: global.audience.label,
+    metrics: global.audience.metrics ?? [],
+  };
+  const formats = global.formats ?? [];
+  const email = siteSettings.contactEmail;
 
   const artistCount = artists.length;
   const disciplineCount = new Set(artists.flatMap((artist) => artist.disciplines)).size;
+
+  const projects: PreviousWork[] = films.map((film) => ({
+    id: film.id,
+    title: film.title,
+    category: film.category,
+    year: film.year,
+    description: film.description,
+    href: film.videoUrl ?? undefined,
+  }));
 
   return (
     <main id="main-content" className="relative pt-24">
@@ -114,7 +146,7 @@ export default async function MediaKitPage() {
 
                 return (
                   <Wrapper
-                    key={project.title}
+                    key={project.id}
                     {...wrapperProps}
                     className="group bg-background p-8 flex flex-col gap-3"
                   >
