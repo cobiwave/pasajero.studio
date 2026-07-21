@@ -117,12 +117,7 @@ async function run() {
 
   await payload.updateGlobal({
     slug: "hero",
-    data: {
-      headline: toLines(content.hero.headline),
-      tagline: content.hero.tagline,
-      subtitle: content.hero.subtitle,
-      comingSoon: content.hero.comingSoon,
-    },
+    data: { subtitle: content.hero.subtitle },
   });
 
   await payload.updateGlobal({

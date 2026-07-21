@@ -626,15 +626,7 @@ export interface Nav {
  */
 export interface Hero {
   id: number;
-  headline?:
-    | {
-        line: string;
-        id?: string | null;
-      }[]
-    | null;
-  tagline: string;
   subtitle: string;
-  comingSoon: string;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -850,15 +842,7 @@ export interface NavSelect<T extends boolean = true> {
  * via the `definition` "hero_select".
  */
 export interface HeroSelect<T extends boolean = true> {
-  headline?:
-    | T
-    | {
-        line?: T;
-        id?: T;
-      };
-  tagline?: T;
   subtitle?: T;
-  comingSoon?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
