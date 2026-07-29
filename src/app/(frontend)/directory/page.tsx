@@ -13,13 +13,19 @@ export const metadata: Metadata = {
 export default async function DirectoryPage() {
   const payload = await getPayloadClient();
 
-  const [global, { docs: artists }] = await Promise.all([
+  const [global, { docs: artists }, { docs: disciplines }] = await Promise.all([
     payload.findGlobal({ slug: "directory-section" }),
     payload.find({
       collection: "artists",
       where: { status: { equals: "approved" } },
       sort: "order",
       depth: 1,
+      limit: 100,
+    }),
+    payload.find({
+      collection: "disciplines",
+      where: { active: { equals: true } },
+      sort: "name",
       limit: 100,
     }),
   ]);
@@ -47,7 +53,14 @@ export default async function DirectoryPage() {
         intro={global.intro}
         artists={directoryArtists}
       />
-      <JoinSection />
+      <JoinSection
+        sectionTitle={global.joinForm.sectionTitle}
+        sectionNumber={global.joinForm.sectionNumber}
+        headline={(global.joinForm.headline ?? []).map((h) => h.line)}
+        intro={global.joinForm.intro}
+        disciplines={disciplines.map((d) => d.name)}
+        form={global.joinForm.form}
+      />
       <FilmGrain />
     </main>
   );

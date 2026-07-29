@@ -14,7 +14,7 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - **GSAP** + `@gsap/react` (`useGSAP` hook) para animaciones — ver `src/lib/gsap.ts` (incluye `prefersReducedMotion()`, que **siempre** debe respetarse en timelines nuevas).
 - **Motion** (Framer Motion) también está en dependencias pero el patrón dominante hoy es GSAP directo en componentes de sección.
 - **Lenis** (smooth scroll) vía `src/components/SmoothScroll/*`.
-- **Zod** para validar el contenido: `src/lib/content.ts` define schemas y lee `src/data/content.json`. Este JSON es un **stand-in temporal** del futuro CMS — cualquier cambio de forma en el JSON debe reflejarse en el schema Zod correspondiente, o el build falla en runtime, no en compile time.
+- Todo el contenido editorial vive en **Payload CMS** (Collections + Globals) — `content.json`/`src/lib/content.ts` (el stand-in Zod pre-CMS) ya se borraron, no los reintroduzcas. Cualquier texto nuevo va como field de un Collection o Global existente, o de uno nuevo si no encaja en ninguno.
 - Linting: `eslint.config.mjs` (config mínima basada en `eslint-config-next`). Scripts actuales: `dev`, `build`, `start`, `lint` (gestor de paquetes: **pnpm**, no npm).
 - Hosting: **Vercel** (Hobby plan por ahora — gratis, pero uso no-comercial según sus Fair Use Guidelines; migrar a Pro cuando cierre el primer acuerdo con una marca, no cuando se superen límites técnicos). El `netlify.toml` en la raíz quedó de una decisión anterior y ya no aplica — se puede ignorar o eliminar, no lo uses como referencia de config de deploy.
 - Base de datos (fase 2 en adelante): Postgres vía **Supabase**. Usar la connection string de **Session pooler (puerto 5432)**, nunca la de Transaction pooler (puerto 6543) — el adapter de Postgres de Payload (Drizzle) no es compatible con prepared statements en modo transacción. **No hay Postgres local separado**: `pnpm dev` en local pega contra la misma Supabase real que producción. Ver "Migraciones de Payload" abajo — `push` está en `false` a propósito.
@@ -26,12 +26,12 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - Componente único por carpeta, sin el patrón antiguo Controller/View (ese patrón fue **eliminado a propósito** al migrar de `main` a `develop` — no lo reintroduzcas).
 - Estructura: `src/components/NombreComponente/NombreComponente.tsx` + `index.ts` que re-exporta.
 - `"use client"` solo en componentes que realmente necesitan interactividad/hooks del navegador (GSAP, Lenis, estado). Todo lo demás, Server Component por default — es intencional en Next.js 16/React 19.
-- El contenido textual sale de `content.json` vía `@/lib/content`, nunca hardcodeado dentro del JSX de la sección (excepto microcopy puramente técnico, ej. `aria-label`).
+- El contenido textual sale de un Global/Collection de Payload, fetcheado en el Server Component de página (`getPayloadClient()`) y pasado por props al componente de sección — nunca hardcodeado dentro del JSX de la sección (excepto microcopy puramente técnico, ej. `aria-label`).
 
 ## Roadmap activo (para priorizar sugerencias)
 
 1. Directorio de artistas + media kit (contenido estático, sin auth)
-2. Migración de `content.json` → **Payload CMS** (Postgres, self-hosted o Vercel+Neon) — colecciones: `Artists`, `Disciplines`, `Works`, `Films`, `PodcastEpisodes`
+2. ~~Migración de `content.json` → Payload CMS~~ — completa: todo el sitio lee de Collections/Globals (`Artists`, `Disciplines`, `Works`, `Films`, `PodcastEpisodes` + los Globals de cada sección); `content.json`/`content.ts` ya no existen.
 3. Auth de artistas (alta por solicitud, aprobación manual vía admin de Payload) + buscador/filtro
 4. E-commerce merch propio
 5. Marketplace de prints con comisión (Prodigi/Gelato)
@@ -66,7 +66,7 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - **No reintroducir DatoCMS** ni GraphQL — se eliminó deliberadamente en `develop`.
 - **No romper `prefersReducedMotion()`** en animaciones nuevas.
 - **No agregar dependencias pesadas** (nuevas libs de animación, UI kits, CSS-in-JS) sin preguntar primero — el bundle size importa para percepción de marca premium.
-- **No cambiar la forma de `content.json`** sin actualizar el Zod schema en el mismo commit.
+- **No cambiar la forma de un field de un Collection/Global de Payload** sin generar y aplicar la migración correspondiente en el mismo commit (ver "Migraciones de Payload" arriba) y sin correr `pnpm generate:types`.
 - **No volver a poner `push: true` (ni sacar el `push: false`)** en el `postgresAdapter` — ver "Migraciones de Payload" arriba, causó un incidente real de seguridad (RLS deshabilitado en producción).
 - Antes de un refactor grande (>3 archivos), mostrame el plan primero. No lo ejecutes de una.
 - Rama de trabajo: nunca commitear directo a `main`. Todo pasa por `develop` o feature branches desde `develop`.

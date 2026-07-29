@@ -5,21 +5,39 @@ import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
-import content from "@/lib/content";
 
-const {
-  sectionTitle,
-  sectionNumber,
-  headline,
-  socials: SOCIALS,
-  form: FORM,
-  footer: FOOTER,
-} = content.contact;
-const { contactEmail: email } = content;
+interface ContactSectionProps {
+  sectionTitle: string;
+  sectionNumber: string;
+  headline: string[];
+  email: string;
+  socials: { label: string; href: string }[];
+  form: {
+    nameLabel: string;
+    namePlaceholder: string;
+    emailLabel: string;
+    emailPlaceholder: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    submitLabel: string;
+  };
+  footer: {
+    copyright: string;
+    tagline: string;
+  };
+}
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
 
-export default function ContactSection() {
+export default function ContactSection({
+  sectionTitle,
+  sectionNumber,
+  headline,
+  email,
+  socials: SOCIALS,
+  form: FORM,
+  footer: FOOTER,
+}: ContactSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [formStatus, setFormStatus] = useState<FormStatus>("idle");
 
