@@ -56,5 +56,12 @@ export default buildConfig({
     // Supabase: usar la connection string del Session pooler (puerto 5432).
     // La de Transaction pooler (6543) no soporta prepared statements y rompe Drizzle.
     pool: { connectionString: process.env.DATABASE_URI },
+    // Incondicional (no solo en producción): dev y prod pegan contra la MISMA
+    // Supabase, no hay Postgres local separado. pushDevSchema() corre en
+    // cualquier getPayload() con NODE_ENV !== "production" salvo que push
+    // sea explícitamente false, y cada corrida deshabilita RLS en todas las
+    // tablas de public al resincronizar el schema. Usar migraciones
+    // explícitas: pnpm payload -- migrate:create <nombre> / pnpm payload -- migrate.
+    push: false,
   }),
 });
