@@ -17,7 +17,7 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - **Zod** para validar el contenido: `src/lib/content.ts` define schemas y lee `src/data/content.json`. Este JSON es un **stand-in temporal** del futuro CMS — cualquier cambio de forma en el JSON debe reflejarse en el schema Zod correspondiente, o el build falla en runtime, no en compile time.
 - Linting: `eslint.config.mjs` (config mínima basada en `eslint-config-next`). Scripts actuales: `dev`, `build`, `start`, `lint` (gestor de paquetes: **pnpm**, no npm).
 - Hosting: **Vercel** (Hobby plan por ahora — gratis, pero uso no-comercial según sus Fair Use Guidelines; migrar a Pro cuando cierre el primer acuerdo con una marca, no cuando se superen límites técnicos). El `netlify.toml` en la raíz quedó de una decisión anterior y ya no aplica — se puede ignorar o eliminar, no lo uses como referencia de config de deploy.
-- Base de datos (fase 2 en adelante): Postgres vía **Supabase**. Usar la connection string de **Session pooler (puerto 5432)**, nunca la de Transaction pooler (puerto 6543) — el adapter de Postgres de Payload (Drizzle) no es compatible con prepared statements en modo transacción.
+- Base de datos (fase 2 en adelante): Postgres vía **Supabase**. Usar la connection string de **Session pooler (puerto 5432)**, nunca la de Transaction pooler (puerto 6543) — el adapter de Postgres de Payload (Drizzle) no es compatible con prepared statements en modo transacción. **No hay Postgres local separado**: `pnpm dev` en local pega contra la misma Supabase real que producción. Ver "Migraciones de Payload" abajo — `push` está en `false` a propósito.
 - **Cualquier script standalone que importe `payload` directamente** (seeds, `generate:types`, futuras migraciones) tiene que pasar por `pnpm payload -- <comando>` o los scripts `seed:prod`/`seed:dev`/`generate:types` de `package.json` — **nunca** `tsx scripts/algo.ts` a secas ni `payload <comando>` directo. Ver "Workaround conocido" abajo.
 - Ya existen **Agent Skills** instalados en `.agents/skills/` (gsap-core, gsap-frameworks, gsap-performance, gsap-plugins, gsap-react, gsap-scrolltrigger, gsap-timeline, gsap-utils, frontend-design, vercel-react-best-practices). Claude Code los descubre solo — no dupliques esas reglas acá, referencialas cuando sea relevante (ej. "aplicá las reglas de rendering-hydration-no-flicker.md").
 
@@ -49,12 +49,25 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - **Workaround oficial**: `scripts/fix-next-env-interop.cjs` (preload que resuelve el `@next/env` real que usa `payload` y le sintetiza el default export). Ya está cableado en `package.json`: usar `pnpm payload -- <comando>`, `pnpm seed:prod`, `pnpm seed:dev`, o `pnpm generate:types` — nunca invocar `tsx` o el CLI de `payload` directo.
 - **Cuándo borrar esto**: cuando el PR #16934 (o equivalente) se mergee y aparezca en un release de `payload` — a partir de ahí, actualizar la dependencia, borrar `scripts/fix-next-env-interop.cjs`, y volver los scripts de `package.json` a invocar `tsx`/`payload` directo.
 
+## Migraciones de Payload: `push: false` (no negociable)
+
+`src/payload.config.ts` tiene `push: false` en `postgresAdapter(...)`, incondicional — no solo para producción. Motivo: `pushDevSchema()` (el auto-sync de schema de Drizzle) corre en cualquier `getPayload()` con `NODE_ENV !== "production"` salvo que `push` sea explícitamente `false`, y como dev pega contra la misma Supabase real (no hay Postgres local separado), cada `pnpm dev` local resincronizaba el schema en la DB de verdad. Efecto colateral confirmado en producción: **eso deshabilitaba RLS en las 43 tablas de `public`** en cada resync, dejándolas expuestas vía PostgREST con permisos default de `anon`/`authenticated` (alerta crítica de Supabase, incidente real — ver `src/migrations/20260729_172537_enable_rls_public_tables.ts`).
+
+- **Cualquier cambio de schema** (agregar/sacar un field de un Collection o Global) ya **no se sincroniza solo** al guardar el archivo — hay que generar y aplicar una migración a mano:
+  ```bash
+  pnpm payload -- migrate:create <nombre-descriptivo>
+  pnpm payload -- migrate
+  ```
+- **Gotcha de `migrate:create` en este repo**: como el proyecto usó `push` hasta ahora, no hay historial real de migraciones — la primera vez que corras `migrate:create` sobre una tabla nueva, Payload puede generar un diff que asume que la tabla no existe (si el diff se calcula contra un snapshot vacío). Revisá el SQL generado en el `.ts` antes de correr `migrate`; si genera un `CREATE TABLE` para algo que ya existe en Supabase, hay que editarlo a mano antes de aplicarlo. El `.json` que se genera al lado sí hay que dejarlo intacto — es el snapshot que usa el próximo `migrate:create` para diffear, y representa el schema real correctamente.
+- RLS se habilitó **sin policies** (`ALTER TABLE ... ENABLE ROW LEVEL SECURITY`, nada de `CREATE POLICY`) — Payload se conecta como dueño (`postgres`) de las tablas y los owners bypassean RLS por default, así que esto no afecta al admin ni al Local API. Si en el futuro se expone algo vía PostgREST/Supabase client directamente (no vía Payload), ahí sí hacen falta policies explícitas.
+
 ## Reglas duras (no negociables)
 
 - **No reintroducir DatoCMS** ni GraphQL — se eliminó deliberadamente en `develop`.
 - **No romper `prefersReducedMotion()`** en animaciones nuevas.
 - **No agregar dependencias pesadas** (nuevas libs de animación, UI kits, CSS-in-JS) sin preguntar primero — el bundle size importa para percepción de marca premium.
 - **No cambiar la forma de `content.json`** sin actualizar el Zod schema en el mismo commit.
+- **No volver a poner `push: true` (ni sacar el `push: false`)** en el `postgresAdapter` — ver "Migraciones de Payload" arriba, causó un incidente real de seguridad (RLS deshabilitado en producción).
 - Antes de un refactor grande (>3 archivos), mostrame el plan primero. No lo ejecutes de una.
 - Rama de trabajo: nunca commitear directo a `main`. Todo pasa por `develop` o feature branches desde `develop`.
 
@@ -82,5 +95,7 @@ pnpm lint            # eslint
 pnpm generate:types  # regenerar src/payload-types.ts tras cambiar un Collection/Global
 pnpm seed:prod       # taxonomía real + Films + Globals (idempotente)
 pnpm seed:dev        # 3 artistas placeholder — NO idempotente, correr una sola vez
-pnpm payload -- <comando>  # cualquier otro comando del CLI de Payload (ej. migraciones)
+pnpm payload -- <comando>  # cualquier otro comando del CLI de Payload
+pnpm payload -- migrate:create <nombre>  # generar migración tras cambiar un Collection/Global
+pnpm payload -- migrate                  # aplicarla (push:false — ya no es automático)
 ```
