@@ -7,10 +7,9 @@ import Hero from "@/components/Hero";
 interface LoadingGateProps {
   words: string[];
   subtitle: string;
-  socials: { label: string; href: string }[];
 }
 
-export default function LoadingGate({ words, subtitle, socials }: LoadingGateProps) {
+export default function LoadingGate({ words, subtitle }: LoadingGateProps) {
   const [loaded, setLoaded] = useState(false);
 
   const handleLoadingComplete = useCallback(() => {
@@ -20,7 +19,7 @@ export default function LoadingGate({ words, subtitle, socials }: LoadingGatePro
   return (
     <>
       <LoadingScreen words={words} onComplete={handleLoadingComplete} />
-      <Hero loaded={loaded} subtitle={subtitle} socials={socials} />
+      <Hero loaded={loaded} subtitle={subtitle} />
     </>
   );
 }

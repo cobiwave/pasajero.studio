@@ -7,10 +7,9 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 interface HeroProps {
   loaded?: boolean;
   subtitle: string;
-  socials: { label: string; href: string }[];
 }
 
-export default function Hero({ loaded = true, subtitle, socials }: HeroProps) {
+export default function Hero({ loaded = true, subtitle }: HeroProps) {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -84,20 +83,6 @@ export default function Hero({ loaded = true, subtitle, socials }: HeroProps) {
           </p>
 
           <div className="hero-meta flex flex-col items-end gap-(--space-xs)">
-            <ul className="flex items-center gap-(--space-s)">
-              {socials.map((s) => (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-foreground/35 hover:text-primary transition-colors duration-300 font-mono tracking-wider uppercase text-xs"
-                  >
-                    {s.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
             <p className="text-foreground/20 text-xs font-mono tracking-wider uppercase">
               &copy; {new Date().getFullYear()} Pasajero Studio
             </p>
