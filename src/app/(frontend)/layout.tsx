@@ -77,9 +77,10 @@ export default async function RootLayout({
 }>) {
   const payload = await getPayloadClient();
 
-  const [nav, siteSettings] = await Promise.all([
+  const [nav, siteSettings, contactSection] = await Promise.all([
     payload.findGlobal({ slug: "nav" }),
     payload.findGlobal({ slug: "site-settings" }),
+    payload.findGlobal({ slug: "contact-section" }),
   ]);
 
   return (
@@ -93,7 +94,14 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${playfairDisplay.variable} antialiased`}
       >
-        <Navbar items={nav.items ?? []} contactEmail={siteSettings.contactEmail} />
+        <Navbar
+          items={nav.items ?? []}
+          contactEmail={siteSettings.contactEmail}
+          socials={(contactSection.socials ?? []).map((s) => ({
+            label: s.label,
+            href: s.href,
+          }))}
+        />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>

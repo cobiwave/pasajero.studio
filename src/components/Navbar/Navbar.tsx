@@ -13,11 +13,13 @@ const FOCUSABLE_SELECTOR =
 interface NavbarProps {
   items: { label: string; href: string }[];
   contactEmail: string;
+  socials: { label: string; href: string }[];
 }
 
 export default function Navbar({
   items: NAV_ITEMS,
   contactEmail: CONTACT_EMAIL,
+  socials: SOCIALS,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -113,12 +115,25 @@ export default function Navbar({
           </ul>
         </nav>
 
-        <a
-          href={`mailto:${CONTACT_EMAIL}`}
-          className="text-sm tracking-tight text-foreground transition-colors duration-300 hover:text-foreground/40"
-        >
-          Email
-        </a>
+        <div className="flex items-center gap-(--space-s)">
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="text-sm tracking-tight text-foreground transition-colors duration-300 hover:text-foreground/40"
+          >
+            Email
+          </a>
+          {SOCIALS.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm tracking-tight text-foreground transition-colors duration-300 hover:text-foreground/40"
+            >
+              {s.label}
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* Mobile: top bar + hamburger + fullscreen overlay — below md */}
