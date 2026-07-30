@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
 
@@ -14,7 +13,7 @@ export type WorkProject = {
   description: string;
   tags: string[];
   href?: string;
-  imageUrl?: string;
+  media?: { url: string; mimeType?: string };
 };
 
 type WorkSectionProps = {
@@ -26,7 +25,6 @@ type WorkSectionProps = {
 
 export default function WorkSection({
   sectionTitle,
-  sectionNumber,
   headline,
   projects,
 }: WorkSectionProps) {
@@ -88,7 +86,7 @@ export default function WorkSection({
       className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
-        <SectionHeader title={sectionTitle} number={sectionNumber} />
+        <SectionHeader title={sectionTitle} />
 
         <div ref={bigTextRef} className="mb-20 md:mb-32">
           <h3 className="text-4xl md:text-6xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.95] overflow-hidden">
@@ -99,20 +97,12 @@ export default function WorkSection({
             </div>
             <div className="overflow-hidden">
               <span className="big-work-text inline-block">
-                <span className="inline-block">
-                  <span className="font-serif italic font-light text-foreground/80">
-                    {headline[1].split(" ")[0]}
-                  </span>{" "}
-                  {headline[1].split(" ").slice(1).join(" ")}
-                </span>
+                <span className="inline-block">{headline[1]}</span>
               </span>
             </div>
             <div className="overflow-hidden">
               <span className="big-work-text inline-block">
-                <span className="inline-block">
-                  {headline[2].split(" ").slice(0, -1).join(" ")}{" "}
-                  <span className="text-primary">{headline[2].split(" ").at(-1)}</span>
-                </span>
+                <span className="inline-block">{headline[2]}</span>
               </span>
             </div>
           </h3>
@@ -129,41 +119,46 @@ export default function WorkSection({
               <Wrapper
                 key={project.id}
                 {...wrapperProps}
-                className="project-card group relative bg-background flex flex-col justify-between min-h-[360px] md:min-h-[420px] opacity-0 transition-colors duration-500 hover:bg-surface overflow-hidden"
+                className="project-card group flex flex-col opacity-0 transition-colors duration-500 hover:bg-surface overflow-hidden"
               >
-                {project.imageUrl && (
-                  <div className="absolute inset-0 z-0">
-                    <img
-                      src={project.imageUrl}
-                      alt={project.title}
-                      className="w-full h-full object-cover opacity-0 group-hover:opacity-20 transition-opacity duration-700"
-                    />
+                {project.media && (
+                  <div className="relative aspect-video w-full overflow-hidden bg-foreground/3">
+                    {project.media.mimeType?.startsWith("video/") ? (
+                      <video
+                        src={project.media.url}
+                        autoPlay={!prefersReducedMotion()}
+                        loop
+                        muted
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <img
+                        src={project.media.url}
+                        alt={project.title}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    )}
                   </div>
                 )}
 
-                <div className="relative z-10 flex justify-between items-start p-8 md:p-12 pb-0">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-xs uppercase tracking-[0.15em] text-muted font-semibold">
-                      {project.category}
-                    </span>
-                    <span className="text-xs text-muted/60 font-mono">
-                      {project.year}
-                    </span>
-                  </div>
-                  {project.href && (
-                    <div className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all duration-500">
-                      <ArrowUpRight className="w-4 h-4 text-foreground/40 group-hover:text-background group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-500" />
+                <div className="flex flex-col gap-4 p-8 md:p-12">
+                  <span className="text-xs text-muted/60 font-mono">
+                    {project.year}
+                  </span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="flex min-w-0 flex-col gap-1">
+                      <h4 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+                        {project.title}
+                      </h4>
+                      <span className="text-xs uppercase tracking-wide text-muted font-semibold">
+                        {project.category}
+                      </span>
                     </div>
-                  )}
-                </div>
-
-                <div className="relative z-10 flex flex-col gap-4 p-8 md:p-12 pt-0">
-                  <h4 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
-                    {project.title}
-                  </h4>
-                  <p className="text-sm text-muted leading-relaxed max-w-sm">
-                    {project.description}
-                  </p>
+                    <p className="min-w-0 text-sm text-muted leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
                   <div className="flex flex-wrap gap-2 pt-2">
                     {project.tags.map((tag) => (
                       <span

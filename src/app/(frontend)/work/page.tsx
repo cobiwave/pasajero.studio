@@ -31,8 +31,10 @@ export default async function WorkPage() {
     description: film.description,
     tags: (film.tags ?? []).map((t) => t.tag),
     href: film.videoUrl ?? undefined,
-    imageUrl:
-      film.thumbnail && typeof film.thumbnail === "object" ? (film.thumbnail.url ?? undefined) : undefined,
+    media:
+      film.thumbnail && typeof film.thumbnail === "object" && film.thumbnail.url
+        ? { url: film.thumbnail.url, mimeType: film.thumbnail.mimeType ?? undefined }
+        : undefined,
   }));
 
   return (
