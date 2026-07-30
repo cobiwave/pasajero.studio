@@ -2,9 +2,9 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useLenis } from "@/components/SmoothScroll";
-import { Magnetic } from "./Magnetic";
 import styles from "./Navbar.module.css";
 
 const FOCUSABLE_SELECTOR =
@@ -15,10 +15,14 @@ interface NavbarProps {
   contactEmail: string;
 }
 
-export default function Navbar({ items: NAV_ITEMS, contactEmail: CONTACT_EMAIL }: NavbarProps) {
+export default function Navbar({
+  items: NAV_ITEMS,
+  contactEmail: CONTACT_EMAIL,
+}: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const lenis = useLenis();
+  const pathname = usePathname();
 
   const toggle = useCallback(() => {
     setIsOpen((prev) => !prev);
@@ -63,6 +67,9 @@ export default function Navbar({ items: NAV_ITEMS, contactEmail: CONTACT_EMAIL }
     };
   }, [isOpen, lenis]);
 
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
   return (
     <>
       <a
@@ -72,48 +79,83 @@ export default function Navbar({ items: NAV_ITEMS, contactEmail: CONTACT_EMAIL }
         Skip to content
       </a>
 
+      {/* Persistent editorial bar — md and up */}
+      <div
+        className="fixed top-0 left-0 z-100 hidden w-full items-center justify-between px-6 py-6 md:flex md:px-10"
+        style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
+      >
+        <Link
+          href="/"
+          className="text-lg font-bold tracking-tighter uppercase text-foreground"
+          style={{ fontFamily: "StretchPro, sans-serif" }}
+        >
+          PASAJERO
+        </Link>
+
+        <nav aria-label="Primary">
+          <ul className="flex items-center gap-(--space-m)">
+            {NAV_ITEMS.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cn(
+                    "text-sm tracking-tight transition-colors duration-300 hover:text-foreground",
+                    isActive(item.href)
+                      ? "text-foreground/40"
+                      : "text-foreground",
+                  )}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <a
+          href={`mailto:${CONTACT_EMAIL}`}
+          className="text-sm tracking-tight text-foreground transition-colors duration-300 hover:text-foreground/40"
+        >
+          Email
+        </a>
+      </div>
+
+      {/* Mobile: top bar + hamburger + fullscreen overlay — below md */}
       <nav
         data-nav-status={isOpen ? "active" : "not-active"}
-        className="fixed inset-0 z-100 pointer-events-none"
+        className="fixed inset-0 z-100 pointer-events-none md:hidden"
       >
-        <div className="absolute z-10 w-full flex justify-between items-center px-6 py-6 md:px-10">
+        <div className="absolute z-10 w-full flex justify-between items-center px-6 py-6">
           <Link
             href="/"
             onClick={close}
-            className="pointer-events-auto relative z-10"
+            className="pointer-events-auto relative z-10 text-lg font-bold tracking-tighter uppercase p-2 text-foreground"
+            style={{ fontFamily: "StretchPro, sans-serif" }}
           >
-            <Magnetic xDistance={0.1} yDistance={0.1}>
-              <div
-                className="text-lg font-bold tracking-tighter uppercase p-2 text-foreground"
-                style={{ fontFamily: "StretchPro, sans-serif" }}
-              >
-                PASAJERO
-              </div>
-            </Magnetic>
+            PASAJERO
           </Link>
 
-          <Magnetic>
-            <button
-              onClick={toggle}
-              aria-label={isOpen ? "Close navigation" : "Open navigation"}
-              aria-expanded={isOpen}
-              aria-controls="nav-overlay"
-              className={cn(
-                styles.hamburger,
-                "pointer-events-auto relative z-10 flex items-center justify-center w-12 h-12 cursor-pointer bg-transparent overflow-hidden",
-              )}
-            >
-              <span
-                className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
-              />
-              <span
-                className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
-              />
-              <span
-                className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
-              />
-            </button>
-          </Magnetic>
+          <button
+            onClick={toggle}
+            aria-label={isOpen ? "Close navigation" : "Open navigation"}
+            aria-expanded={isOpen}
+            aria-controls="nav-overlay"
+            className={cn(
+              styles.hamburger,
+              "pointer-events-auto relative z-10 flex items-center justify-center w-12 h-12 cursor-pointer bg-transparent overflow-hidden",
+            )}
+          >
+            <span
+              className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
+            />
+            <span
+              className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
+            />
+            <span
+              className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
+            />
+          </button>
         </div>
 
         <div
@@ -147,7 +189,7 @@ export default function Navbar({ items: NAV_ITEMS, contactEmail: CONTACT_EMAIL }
                     onClick={close}
                     tabIndex={isOpen ? 0 : -1}
                     className="block font-light leading-[1.1] tracking-[-0.04em] text-4xl no-underline px-[0.075em] text-foreground"
-                    style={{ fontFamily: "StretchPro, sans-serif" }}
+                    style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
                   >
                     {item.label}
                   </Link>
@@ -156,7 +198,7 @@ export default function Navbar({ items: NAV_ITEMS, contactEmail: CONTACT_EMAIL }
             ))}
           </ul>
 
-          <div className="absolute bottom-0 left-0 w-full flex justify-end items-center px-6 py-6 md:px-10">
+          <div className="absolute bottom-0 left-0 w-full flex justify-end items-center px-6 py-6">
             <p className="text-muted text-lg m-0">{CONTACT_EMAIL}</p>
           </div>
         </div>

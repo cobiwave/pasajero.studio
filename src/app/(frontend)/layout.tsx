@@ -22,24 +22,24 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "PASAJERO STUDIO — AI Tools for Filmmakers",
+  title: "PASAJERO STUDIO — Estudio de producción audiovisual y directorio de artistas",
   description:
-    "Multidisciplinary digital production agency building AI-powered tools for filmmakers, colorists, and video editors. AI LUT & PowerGrade generation for DaVinci Resolve.",
+    "Estudio de contenido audiovisual y directorio invitacional de artistas multidisciplinarios —skate, surf, música, cine, fotografía— con base en Buenos Aires.",
   metadataBase: new URL("https://pasajero.studio"),
   openGraph: {
-    title: "PASAJERO STUDIO — AI Tools for Filmmakers",
+    title: "PASAJERO STUDIO",
     description:
-      "AI-powered tools for the audiovisual industry. LUT & PowerGrade generation for DaVinci Resolve. Coming soon.",
+      "Estudio de contenido audiovisual y directorio invitacional de artistas multidisciplinarios con base en Buenos Aires.",
     url: "https://pasajero.studio",
     siteName: "PASAJERO STUDIO",
-    locale: "en_US",
+    locale: "es_AR",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PASAJERO STUDIO — AI Tools for Filmmakers",
+    title: "PASAJERO STUDIO",
     description:
-      "AI-powered tools for the audiovisual industry. LUT & PowerGrade generation for DaVinci Resolve. Coming soon.",
+      "Estudio de contenido audiovisual y directorio invitacional de artistas multidisciplinarios con base en Buenos Aires.",
     creator: "@pasajero_studio",
   },
   robots: {
@@ -54,19 +54,19 @@ const jsonLd = {
   name: "PASAJERO STUDIO",
   url: "https://pasajero.studio",
   description:
-    "Multidisciplinary digital production agency building AI-powered SaaS tools for filmmakers, colorists, and video editors.",
+    "Estudio de contenido audiovisual (films, entrevistas, podcast) y directorio invitacional de artistas multidisciplinarios del nicho skate, surf, música, cine y fotografía, con base en Buenos Aires.",
   sameAs: [
     "https://github.com/pasajero-studio",
     "https://linkedin.com/in/pasajero-studio",
     "https://x.com/pasajero-studio",
   ],
   knowsAbout: [
-    "AI Color Grading",
-    "LUT Generation",
-    "PowerGrade Generation",
-    "DaVinci Resolve",
-    "Film Post-Production",
-    "SaaS for Filmmakers",
+    "Producción audiovisual",
+    "Contenido editorial",
+    "Directorio de artistas",
+    "Fotografía",
+    "Cine",
+    "Cultura skate y surf",
   ],
 };
 
