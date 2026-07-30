@@ -3,15 +3,13 @@
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
-import content from "@/lib/content";
-
-const { words } = content.loader;
 
 interface LoadingScreenProps {
+  words: string[];
   onComplete?: () => void;
 }
 
-export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
+export default function LoadingScreen({ words, onComplete }: LoadingScreenProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<HTMLDivElement>(null);
   const wordRef = useRef<HTMLParagraphElement>(null);

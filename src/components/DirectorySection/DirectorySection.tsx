@@ -5,19 +5,25 @@ import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
-import content from "@/lib/content";
 
-const {
-  sectionTitle,
-  sectionNumber,
-  headline,
-  intro,
-  artists: ARTISTS,
-} = content.directory;
+export type DirectoryArtist = {
+  id: string | number;
+  name: string;
+  disciplines: string[];
+  location: string;
+  bio: string;
+  imageUrl?: string;
+  contactHref: string;
+  featured?: boolean;
+};
 
-const ALL_DISCIPLINES = Array.from(
-  new Set(ARTISTS.flatMap((artist) => artist.disciplines)),
-).sort();
+type DirectorySectionProps = {
+  sectionTitle: string;
+  sectionNumber: string;
+  headline: string[];
+  intro: string;
+  artists: DirectoryArtist[];
+};
 
 function initials(name: string) {
   return name
@@ -29,9 +35,18 @@ function initials(name: string) {
     .toUpperCase();
 }
 
-export default function DirectorySection() {
+export default function DirectorySection({
+  sectionTitle,
+  sectionNumber,
+  headline,
+  intro,
+  artists,
+}: DirectorySectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeDiscipline, setActiveDiscipline] = useState<string | null>(null);
+  const allDisciplines = Array.from(
+    new Set(artists.flatMap((artist) => artist.disciplines)),
+  ).sort();
 
   useGSAP(
     () => {
@@ -130,7 +145,7 @@ export default function DirectorySection() {
           >
             Todos
           </button>
-          {ALL_DISCIPLINES.map((discipline) => (
+          {allDisciplines.map((discipline) => (
             <button
               key={discipline}
               type="button"
@@ -148,14 +163,14 @@ export default function DirectorySection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground/5">
-          {ARTISTS.map((artist) => {
+          {artists.map((artist) => {
             const isVisible =
               !activeDiscipline ||
               artist.disciplines.includes(activeDiscipline);
 
             return (
               <a
-                key={artist.name}
+                key={artist.id}
                 href={artist.contactHref}
                 target="_blank"
                 rel="noopener noreferrer"

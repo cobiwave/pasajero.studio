@@ -5,11 +5,31 @@ import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
-import content from "@/lib/content";
 
-const { sectionTitle, sectionNumber, headline, projects: PROJECTS } = content.work;
+export type WorkProject = {
+  id: string | number;
+  title: string;
+  category: string;
+  year: string;
+  description: string;
+  tags: string[];
+  href?: string;
+  imageUrl?: string;
+};
 
-export default function WorkSection() {
+type WorkSectionProps = {
+  sectionTitle: string;
+  sectionNumber: string;
+  headline: string[];
+  projects: WorkProject[];
+};
+
+export default function WorkSection({
+  sectionTitle,
+  sectionNumber,
+  headline,
+  projects,
+}: WorkSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const bigTextRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
@@ -99,7 +119,7 @@ export default function WorkSection() {
         </div>
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground/5">
-          {PROJECTS.map((project) => {
+          {projects.map((project) => {
             const Wrapper = project.href ? "a" : "div";
             const wrapperProps = project.href
               ? { href: project.href, target: "_blank" as const, rel: "noopener noreferrer" }
@@ -107,7 +127,7 @@ export default function WorkSection() {
 
             return (
               <Wrapper
-                key={project.title}
+                key={project.id}
                 {...wrapperProps}
                 className="project-card group relative bg-background flex flex-col justify-between min-h-[360px] md:min-h-[420px] opacity-0 transition-colors duration-500 hover:bg-surface overflow-hidden"
               >

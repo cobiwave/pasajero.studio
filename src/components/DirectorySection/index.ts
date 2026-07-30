@@ -1,1 +1,1 @@
-export { default } from "./DirectorySection";
+export { default, type DirectoryArtist } from "./DirectorySection";

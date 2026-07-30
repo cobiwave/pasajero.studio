@@ -3,28 +3,26 @@
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
-import content from "@/lib/content";
-
-const { subtitle } = content.hero;
-const socials = content.contact.socials;
 
 interface HeroProps {
   loaded?: boolean;
+  subtitle: string;
+  socials: { label: string; href: string }[];
 }
 
-export default function Hero({ loaded = true }: HeroProps) {
+export default function Hero({ loaded = true, subtitle, socials }: HeroProps) {
   const container = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
       if (prefersReducedMotion()) {
-        gsap.set([".hero-meta", ".hero-video-wrap", ".hero-badge"], {
+        gsap.set([".hero-meta", ".hero-video-wrap"], {
           autoAlpha: 1,
         });
         return;
       }
 
-      gsap.set([".hero-meta", ".hero-video-wrap", ".hero-badge"], {
+      gsap.set([".hero-meta", ".hero-video-wrap"], {
         visibility: "hidden",
       });
 
@@ -41,30 +39,18 @@ export default function Hero({ loaded = true }: HeroProps) {
           duration: 2.4,
           ease: "power2.out",
         },
-      )
-        .fromTo(
-          ".hero-badge",
-          { y: 12, autoAlpha: 0 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            ease: "power3.out",
-          },
-          "-=1.6",
-        )
-        .fromTo(
-          ".hero-meta",
-          { y: 16, autoAlpha: 0 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            stagger: 0.08,
-            force3D: true,
-          },
-          "-=0.8",
-        );
+      ).fromTo(
+        ".hero-meta",
+        { y: 16, autoAlpha: 0 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.08,
+          force3D: true,
+        },
+        "-=1.4",
+      );
     },
     { scope: container, dependencies: [loaded] },
   );

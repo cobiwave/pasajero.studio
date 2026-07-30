@@ -5,21 +5,37 @@ import { useGSAP } from "@gsap/react";
 import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
-import content from "@/lib/content";
-import { submitJoinRequest, type JoinRequestState } from "@/app/directory/joinAction";
+import { submitJoinRequest, type JoinRequestState } from "@/app/(frontend)/directory/joinAction";
 
-const {
+interface JoinSectionProps {
+  sectionTitle: string;
+  sectionNumber: string;
+  headline: string[];
+  intro: string;
+  disciplines: string[];
+  form: {
+    nameLabel: string;
+    namePlaceholder: string;
+    disciplinesLabel: string;
+    contactLabel: string;
+    contactPlaceholder: string;
+    submitLabel: string;
+    sendingLabel: string;
+    successMessage: string;
+    errorMessage: string;
+  };
+}
+
+const initialState: JoinRequestState = { status: "idle" };
+
+export default function JoinSection({
   sectionTitle,
   sectionNumber,
   headline,
   intro,
   disciplines: DISCIPLINES,
   form: FORM,
-} = content.directory.joinForm;
-
-const initialState: JoinRequestState = { status: "idle" };
-
-export default function JoinSection() {
+}: JoinSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [state, formAction, isPending] = useActionState(
