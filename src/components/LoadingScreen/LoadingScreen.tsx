@@ -9,7 +9,10 @@ interface LoadingScreenProps {
   onComplete?: () => void;
 }
 
-export default function LoadingScreen({ words, onComplete }: LoadingScreenProps) {
+export default function LoadingScreen({
+  words,
+  onComplete,
+}: LoadingScreenProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const wordsRef = useRef<HTMLDivElement>(null);
   const wordRef = useRef<HTMLParagraphElement>(null);
@@ -17,7 +20,8 @@ export default function LoadingScreen({ words, onComplete }: LoadingScreenProps)
 
   useGSAP(
     () => {
-      if (!wordsRef.current || !wordRef.current || !containerRef.current) return;
+      if (!wordsRef.current || !wordRef.current || !containerRef.current)
+        return;
 
       if (prefersReducedMotion()) {
         onComplete?.();
@@ -47,7 +51,7 @@ export default function LoadingScreen({ words, onComplete }: LoadingScreenProps)
             if (wordRef.current) wordRef.current.textContent = word;
           },
           undefined,
-          "+=0.15"
+          "+=0.15",
         );
       });
 
@@ -65,10 +69,10 @@ export default function LoadingScreen({ words, onComplete }: LoadingScreenProps)
           duration: 0.6,
           ease: "power1.inOut",
         },
-        "-=0.2"
+        "-=0.2",
       );
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   if (done) return null;
@@ -79,11 +83,7 @@ export default function LoadingScreen({ words, onComplete }: LoadingScreenProps)
       className="fixed inset-0 z-500 pointer-events-none overflow-hidden"
     >
       <div className="pointer-events-auto bg-background w-full h-full absolute inset-0 flex items-center justify-center">
-        <div
-          ref={wordsRef}
-          className="flex items-center gap-[2em] opacity-0"
-        >
-          <div className="bg-primary rounded-full w-[0.75em] h-[0.75em]" />
+        <div ref={wordsRef} className="flex items-center gap-[2em] opacity-0">
           <p
             ref={wordRef}
             className="text-xl font-medium leading-none m-0 text-foreground"
