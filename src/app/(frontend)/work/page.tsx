@@ -1,4 +1,3 @@
-import FilmGrain from "@/components/FilmGrain";
 import WorkSection, { type WorkProject } from "@/components/WorkSection";
 import { getPayloadClient } from "@/lib/payload";
 import type { Metadata } from "next";
@@ -45,7 +44,6 @@ export default async function WorkPage() {
         headline={(global.headline ?? []).map((h) => h.line)}
         projects={projects}
       />
-      <FilmGrain />
     </main>
   );
 }

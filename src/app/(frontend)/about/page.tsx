@@ -1,4 +1,3 @@
-import FilmGrain from "@/components/FilmGrain";
 import AboutSection from "@/components/AboutSection";
 import { getPayloadClient } from "@/lib/payload";
 import type { Metadata } from "next";
@@ -26,7 +25,6 @@ export default async function AboutPage() {
           description: p.description,
         }))}
       />
-      <FilmGrain />
     </main>
   );
 }

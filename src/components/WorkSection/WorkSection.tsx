@@ -148,7 +148,7 @@ export default function WorkSection({
                   </span>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="flex min-w-0 flex-col gap-1">
-                      <h4 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
+                      <h4 className="text-lg md:text-xl font-bold tracking-tight leading-snug break-words">
                         {project.title}
                       </h4>
                       <span className="text-xs uppercase tracking-wide text-muted font-semibold">

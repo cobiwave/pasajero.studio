@@ -1,4 +1,3 @@
-import FilmGrain from "@/components/FilmGrain";
 import DirectorySection, { type DirectoryArtist } from "@/components/DirectorySection";
 import JoinSection from "@/components/JoinSection";
 import { getPayloadClient } from "@/lib/payload";
@@ -63,7 +62,6 @@ export default async function DirectoryPage() {
         disciplines={disciplines.map((d) => d.name)}
         form={global.joinForm.form}
       />
-      <FilmGrain />
     </main>
   );
 }
