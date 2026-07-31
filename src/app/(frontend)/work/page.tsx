@@ -32,12 +32,15 @@ export default async function WorkPage() {
     href: film.videoUrl ?? undefined,
     media:
       film.thumbnail && typeof film.thumbnail === "object" && film.thumbnail.url
-        ? { url: film.thumbnail.url, mimeType: film.thumbnail.mimeType ?? undefined }
+        ? {
+            url: film.thumbnail.url,
+            mimeType: film.thumbnail.mimeType ?? undefined,
+          }
         : undefined,
   }));
 
   return (
-    <main id="main-content" className="relative pt-24">
+    <main id="main-content" className="relative">
       <WorkSection
         sectionTitle={global.sectionTitle}
         sectionNumber={global.sectionNumber}
