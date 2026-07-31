@@ -95,7 +95,7 @@ export default function Navbar({
       {/* Persistent editorial bar — md and up */}
       <div
         className={cn(
-          "fixed top-0 left-0 z-100 hidden w-full items-center justify-between px-6 py-6 transition-colors duration-500 md:flex md:px-10",
+          "fixed top-0 left-0 z-100 hidden w-full items-center justify-between px-2 py-2 transition-colors duration-500 md:flex md:px-2",
           isScrolled ? "bg-background" : "bg-transparent",
         )}
         style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
@@ -178,15 +178,9 @@ export default function Navbar({
               "pointer-events-auto relative z-10 flex items-center justify-center w-12 h-12 cursor-pointer bg-transparent overflow-hidden",
             )}
           >
-            <span
-              className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")}
-            />
-            <span
-              className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")}
-            />
-            <span
-              className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")}
-            />
+            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
+            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
+            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
           </button>
         </div>
 
