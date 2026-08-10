@@ -95,7 +95,7 @@ export default function Navbar({
       {/* Persistent editorial bar — md and up */}
       <div
         className={cn(
-          "fixed top-0 left-0 z-100 hidden w-full items-center justify-between px-2 py-2 transition-colors duration-500 md:flex md:px-2",
+          "fixed top-0 left-0 z-100 hidden w-full items-center justify-between px-2 py-2 transition-colors duration-500 md:flex md:px-4",
           isScrolled ? "bg-background" : "bg-transparent",
         )}
         style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
@@ -116,7 +116,7 @@ export default function Navbar({
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "text-sm tracking-tight transition-colors duration-300 hover:text-white",
+                    "text-base tracking-tight transition-colors duration-300 hover:text-white",
                     isActive(item.href) ? "text-white/40" : "text-white",
                   )}
                 >
@@ -130,7 +130,7 @@ export default function Navbar({
         <div className="flex items-center gap-(--space-s)">
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="text-sm tracking-tight text-white transition-colors duration-300 hover:text-white/40"
+            className="text-base tracking-tight text-white transition-colors duration-300 hover:text-white/40"
           >
             Email
           </a>
@@ -140,7 +140,7 @@ export default function Navbar({
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm tracking-tight text-white transition-colors duration-300 hover:text-white/40"
+              className="text-base tracking-tight text-white transition-colors duration-300 hover:text-white/40"
             >
               {s.label}
             </a>
