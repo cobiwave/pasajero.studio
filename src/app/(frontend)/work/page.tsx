@@ -1,4 +1,3 @@
-import FilmGrain from "@/components/FilmGrain";
 import WorkSection, { type WorkProject } from "@/components/WorkSection";
 import { getPayloadClient } from "@/lib/payload";
 import type { Metadata } from "next";
@@ -31,19 +30,23 @@ export default async function WorkPage() {
     description: film.description,
     tags: (film.tags ?? []).map((t) => t.tag),
     href: film.videoUrl ?? undefined,
-    imageUrl:
-      film.thumbnail && typeof film.thumbnail === "object" ? (film.thumbnail.url ?? undefined) : undefined,
+    media:
+      film.thumbnail && typeof film.thumbnail === "object" && film.thumbnail.url
+        ? {
+            url: film.thumbnail.url,
+            mimeType: film.thumbnail.mimeType ?? undefined,
+          }
+        : undefined,
   }));
 
   return (
-    <main id="main-content" className="relative pt-24">
+    <main id="main-content" className="relative">
       <WorkSection
         sectionTitle={global.sectionTitle}
         sectionNumber={global.sectionNumber}
         headline={(global.headline ?? []).map((h) => h.line)}
         projects={projects}
       />
-      <FilmGrain />
     </main>
   );
 }

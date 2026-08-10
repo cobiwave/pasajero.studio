@@ -4,7 +4,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { useLenis } from "@/components/SmoothScroll";
+import { getLenis } from "@/components/SmoothScroll";
 import styles from "./Navbar.module.css";
 
 const FOCUSABLE_SELECTOR =
@@ -22,8 +22,8 @@ export default function Navbar({
   socials: SOCIALS,
 }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const lenis = useLenis();
   const pathname = usePathname();
 
   const toggle = useCallback(() => {
@@ -60,14 +60,25 @@ export default function Navbar({
   }, [close, isOpen]);
 
   useEffect(() => {
-    if (!lenis) return;
+    const lenis = getLenis();
     if (isOpen) {
-      lenis.stop();
+      lenis?.stop();
+      document.documentElement.style.overflow = "hidden";
     }
     return () => {
-      lenis.start();
+      lenis?.start();
+      document.documentElement.style.overflow = "";
     };
-  }, [isOpen, lenis]);
+  }, [isOpen]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -83,12 +94,15 @@ export default function Navbar({
 
       {/* Persistent editorial bar — md and up */}
       <div
-        className="fixed top-0 left-0 z-100 hidden w-full items-center justify-between px-6 py-6 md:flex md:px-10"
+        className={cn(
+          "fixed top-0 left-0 z-100 hidden w-full items-center justify-between px-2 py-2 transition-colors duration-500 md:flex md:px-4",
+          isScrolled ? "bg-background" : "bg-transparent",
+        )}
         style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
       >
         <Link
           href="/"
-          className="text-lg font-bold tracking-tighter uppercase text-foreground"
+          className="text-lg font-bold tracking-tighter uppercase text-white"
           style={{ fontFamily: "StretchPro, sans-serif" }}
         >
           PASAJERO
@@ -102,10 +116,8 @@ export default function Navbar({
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "text-sm tracking-tight transition-colors duration-300 hover:text-foreground",
-                    isActive(item.href)
-                      ? "text-foreground/40"
-                      : "text-foreground",
+                    "text-base tracking-tight transition-colors duration-300 hover:text-white",
+                    isActive(item.href) ? "text-white/40" : "text-white",
                   )}
                 >
                   {item.label}
@@ -118,7 +130,7 @@ export default function Navbar({
         <div className="flex items-center gap-(--space-s)">
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className="text-sm tracking-tight text-foreground transition-colors duration-300 hover:text-foreground/40"
+            className="text-base tracking-tight text-white transition-colors duration-300 hover:text-white/40"
           >
             Email
           </a>
@@ -128,7 +140,7 @@ export default function Navbar({
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm tracking-tight text-foreground transition-colors duration-300 hover:text-foreground/40"
+              className="text-base tracking-tight text-white transition-colors duration-300 hover:text-white/40"
             >
               {s.label}
             </a>
@@ -141,11 +153,16 @@ export default function Navbar({
         data-nav-status={isOpen ? "active" : "not-active"}
         className="fixed inset-0 z-100 pointer-events-none md:hidden"
       >
-        <div className="absolute z-10 w-full flex justify-between items-center px-6 py-6">
+        <div
+          className={cn(
+            "absolute z-10 w-full flex justify-between items-center px-6 py-6 transition-colors duration-500",
+            isScrolled ? "bg-background" : "bg-transparent",
+          )}
+        >
           <Link
             href="/"
             onClick={close}
-            className="pointer-events-auto relative z-10 text-lg font-bold tracking-tighter uppercase p-2 text-foreground"
+            className="pointer-events-auto relative z-10 text-lg font-bold tracking-tighter uppercase p-2 text-white"
             style={{ fontFamily: "StretchPro, sans-serif" }}
           >
             PASAJERO
@@ -161,15 +178,9 @@ export default function Navbar({
               "pointer-events-auto relative z-10 flex items-center justify-center w-12 h-12 cursor-pointer bg-transparent overflow-hidden",
             )}
           >
-            <span
-              className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
-            />
-            <span
-              className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
-            />
-            <span
-              className={cn(styles.bar, "absolute w-8 h-[2px] bg-foreground")}
-            />
+            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
+            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
+            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
           </button>
         </div>
 

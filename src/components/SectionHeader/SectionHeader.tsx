@@ -6,13 +6,12 @@ import { gsap, prefersReducedMotion } from "@/lib/gsap";
 
 interface SectionHeaderProps {
   title: string;
-  number: string;
+  number?: string;
   align?: "left" | "right";
 }
 
 export default function SectionHeader({
   title,
-  number,
   align = "left",
 }: SectionHeaderProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,9 +52,6 @@ export default function SectionHeader({
       <h2 className="text-sm md:text-base uppercase tracking-[0.2em] font-semibold text-foreground/60">
         {title}
       </h2>
-      <span className="text-sm md:text-base text-primary font-mono">
-        ({number})
-      </span>
     </div>
   );
 }

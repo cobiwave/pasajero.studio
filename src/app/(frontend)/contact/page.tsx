@@ -1,4 +1,3 @@
-import FilmGrain from "@/components/FilmGrain";
 import ContactSection from "@/components/ContactSection";
 import { getPayloadClient } from "@/lib/payload";
 import type { Metadata } from "next";
@@ -28,7 +27,6 @@ export default async function ContactPage() {
         form={contactSection.form}
         footer={contactSection.footer}
       />
-      <FilmGrain />
     </main>
   );
 }

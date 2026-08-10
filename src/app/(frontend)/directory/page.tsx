@@ -1,4 +1,3 @@
-import FilmGrain from "@/components/FilmGrain";
 import DirectorySection, { type DirectoryArtist } from "@/components/DirectorySection";
 import JoinSection from "@/components/JoinSection";
 import { getPayloadClient } from "@/lib/payload";
@@ -38,8 +37,10 @@ export default async function DirectoryPage() {
       .filter((name): name is string => Boolean(name)),
     location: artist.location,
     bio: artist.bio,
-    imageUrl:
-      artist.avatar && typeof artist.avatar === "object" ? (artist.avatar.url ?? undefined) : undefined,
+    media:
+      artist.avatar && typeof artist.avatar === "object" && artist.avatar.url
+        ? { url: artist.avatar.url, mimeType: artist.avatar.mimeType ?? undefined }
+        : undefined,
     contactHref: artist.contactHref,
     featured: artist.featured ?? false,
   }));
@@ -61,7 +62,6 @@ export default async function DirectoryPage() {
         disciplines={disciplines.map((d) => d.name)}
         form={global.joinForm.form}
       />
-      <FilmGrain />
     </main>
   );
 }

@@ -1,10 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight } from "lucide-react";
+import Snap from "lenis/snap";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
-import SectionHeader from "@/components/SectionHeader";
+import { useLenis } from "@/components/SmoothScroll/LenisContext";
 
 export type WorkProject = {
   id: string | number;
@@ -14,7 +14,7 @@ export type WorkProject = {
   description: string;
   tags: string[];
   href?: string;
-  imageUrl?: string;
+  media?: { url: string; mimeType?: string };
 };
 
 type WorkSectionProps = {
@@ -24,162 +24,202 @@ type WorkSectionProps = {
   projects: WorkProject[];
 };
 
-export default function WorkSection({
-  sectionTitle,
-  sectionNumber,
-  headline,
-  projects,
-}: WorkSectionProps) {
+export default function WorkSection({ projects }: WorkSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  const bigTextRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const mediaRefs = useRef<(HTMLElement | null)[]>([]);
+  const counterRef = useRef<HTMLDivElement>(null);
+  const infoRef = useRef<HTMLDivElement>(null);
+  const snapRef = useRef<Snap | null>(null);
+  const hasMountedInfoFade = useRef(false);
+  const lenis = useLenis();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const activeProject = projects[activeIndex];
+  const total = projects.length;
+
+  // Native CSS scroll-snap fights Lenis's animated scroll (causes the
+  // instant "flicker" jump instead of a normal scroll). Lenis's own Snap
+  // addon lets scrolling stay free while it's happening and only eases
+  // into the nearest section once the user stops.
+  useEffect(() => {
+    if (!lenis) return;
+
+    const snap = new Snap(lenis, {
+      type: "mandatory",
+      duration: 1,
+      onSnapStart: (item) => {
+        if (typeof item.index === "number") setActiveIndex(item.index);
+      },
+    });
+    snapRef.current = snap;
+
+    const elements = sectionRefs.current.filter(
+      (el): el is HTMLElement => el !== null,
+    );
+    const removeElements = snap.addElements(elements, { align: "start" });
+
+    return () => {
+      removeElements();
+      snap.destroy();
+      snapRef.current = null;
+    };
+  }, [lenis, projects]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = sectionRefs.current.indexOf(
+              entry.target as HTMLElement,
+            );
+            if (index !== -1) setActiveIndex(index);
+          }
+        });
+      },
+      { threshold: 0.6 },
+    );
+
+    sectionRefs.current.forEach((el) => {
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [projects]);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+
+      event.preventDefault();
+      if (event.key === "ArrowDown") {
+        snapRef.current?.next();
+      } else {
+        snapRef.current?.previous();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useGSAP(
     () => {
+      const introTargets = [
+        counterRef.current,
+        mediaRefs.current[0],
+        infoRef.current,
+      ].filter(Boolean);
+
+      hasMountedInfoFade.current = true;
+
       if (prefersReducedMotion()) {
-        gsap.set(".big-work-text span", { y: "0%", rotateZ: 0 });
-        gsap.set(".project-card", { opacity: 1 });
+        gsap.set(introTargets, { opacity: 1, y: 0 });
         return;
       }
 
       gsap.fromTo(
-        ".big-work-text span",
-        { y: "110%", rotateZ: 3 },
-        {
-          y: "0%",
-          rotateZ: 0,
-          duration: 1.2,
-          ease: "power4.out",
-          stagger: 0.08,
-          scrollTrigger: {
-            trigger: bigTextRef.current,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
+        introTargets,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.1 },
       );
-
-      gsap.utils.toArray<HTMLElement>(".project-card").forEach((card, i) => {
-        gsap.fromTo(
-          card,
-          { y: 80, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 85%",
-              toggleActions: "play none none none",
-            },
-            delay: i * 0.05,
-          }
-        );
-      });
     },
-    { scope: sectionRef }
+    { scope: sectionRef },
+  );
+
+  useGSAP(
+    () => {
+      if (!hasMountedInfoFade.current) return;
+
+      if (prefersReducedMotion()) {
+        gsap.set(infoRef.current, { opacity: 1 });
+        return;
+      }
+
+      gsap.fromTo(
+        infoRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, ease: "power2.out" },
+      );
+    },
+    { dependencies: [activeIndex], scope: sectionRef },
   );
 
   return (
-    <section
-      id="work"
-      ref={sectionRef}
-      className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden"
-    >
-      <div className="max-w-7xl mx-auto">
-        <SectionHeader title={sectionTitle} number={sectionNumber} />
+    <section ref={sectionRef} id="work" className="relative">
+      <div
+        ref={counterRef}
+        aria-hidden
+        className="fixed left-6 md:left-10 top-1/2 -translate-y-1/2 z-40 font-mono text-sm flex items-baseline gap-1"
+      >
+        <span className="font-bold text-foreground">
+          {String(activeIndex + 1).padStart(3, "0")}
+        </span>
+        <span className="text-muted/60">/{String(total).padStart(3, "0")}</span>
+      </div>
 
-        <div ref={bigTextRef} className="mb-20 md:mb-32">
-          <h3 className="text-4xl md:text-6xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.95] overflow-hidden">
-            <div className="overflow-hidden">
-              <span className="big-work-text inline-block">
-                <span className="inline-block">{headline[0]}</span>
-              </span>
-            </div>
-            <div className="overflow-hidden">
-              <span className="big-work-text inline-block">
-                <span className="inline-block">
-                  <span className="font-serif italic font-light text-foreground/80">
-                    {headline[1].split(" ")[0]}
-                  </span>{" "}
-                  {headline[1].split(" ").slice(1).join(" ")}
-                </span>
-              </span>
-            </div>
-            <div className="overflow-hidden">
-              <span className="big-work-text inline-block">
-                <span className="inline-block">
-                  {headline[2].split(" ").slice(0, -1).join(" ")}{" "}
-                  <span className="text-primary">{headline[2].split(" ").at(-1)}</span>
-                </span>
-              </span>
-            </div>
-          </h3>
-        </div>
-
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-px bg-foreground/5">
-          {projects.map((project) => {
-            const Wrapper = project.href ? "a" : "div";
-            const wrapperProps = project.href
-              ? { href: project.href, target: "_blank" as const, rel: "noopener noreferrer" }
-              : {};
-
-            return (
-              <Wrapper
-                key={project.id}
-                {...wrapperProps}
-                className="project-card group relative bg-background flex flex-col justify-between min-h-[360px] md:min-h-[420px] opacity-0 transition-colors duration-500 hover:bg-surface overflow-hidden"
-              >
-                {project.imageUrl && (
-                  <div className="absolute inset-0 z-0">
-                    <img
-                      src={project.imageUrl}
-                      alt={project.title}
-                      className="w-full h-full object-cover opacity-0 group-hover:opacity-20 transition-opacity duration-700"
-                    />
-                  </div>
-                )}
-
-                <div className="relative z-10 flex justify-between items-start p-8 md:p-12 pb-0">
-                  <div className="flex flex-col gap-1">
-                    <span className="text-xs uppercase tracking-[0.15em] text-muted font-semibold">
-                      {project.category}
-                    </span>
-                    <span className="text-xs text-muted/60 font-mono">
-                      {project.year}
-                    </span>
-                  </div>
-                  {project.href && (
-                    <div className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all duration-500">
-                      <ArrowUpRight className="w-4 h-4 text-foreground/40 group-hover:text-background group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-500" />
-                    </div>
-                  )}
-                </div>
-
-                <div className="relative z-10 flex flex-col gap-4 p-8 md:p-12 pt-0">
-                  <h4 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
-                    {project.title}
-                  </h4>
-                  <p className="text-sm text-muted leading-relaxed max-w-sm">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="text-[10px] uppercase tracking-[0.15em] text-foreground/40 border border-foreground/8 rounded-full px-3 py-1"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Wrapper>
-            );
-          })}
+      <div className="fixed bottom-0 inset-x-0 z-40 flex items-center justify-between px-6 md:px-2 py-2">
+        <div
+          ref={infoRef}
+          className="flex items-center justify-between w-full gap-6"
+        >
+          <span className="text-xs uppercase tracking-wide text-muted font-semibold">
+            {activeProject?.category}
+          </span>
+          <h4 className="text-lg md:text-xl font-bold tracking-tight text-right">
+            {activeProject?.title}
+          </h4>
         </div>
       </div>
+
+      {projects.map((project, index) => {
+        const Wrapper = project.href ? "a" : "div";
+        const wrapperProps = project.href
+          ? {
+              href: project.href,
+              target: "_blank" as const,
+              rel: "noopener noreferrer",
+            }
+          : {};
+
+        return (
+          <section
+            key={project.id}
+            ref={(el) => {
+              sectionRefs.current[index] = el;
+            }}
+            className="h-screen w-full flex flex-col items-center justify-center relative"
+          >
+            {project.media && (
+              <Wrapper
+                {...wrapperProps}
+                ref={(el: HTMLElement | null) => {
+                  mediaRefs.current[index] = el;
+                }}
+                className="w-[min(70vw,1100px)] aspect-video relative overflow-hidden"
+              >
+                {project.media.mimeType?.startsWith("video/") ? (
+                  <video
+                    src={project.media.url}
+                    autoPlay={!prefersReducedMotion()}
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={project.media.url}
+                    alt={project.title}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                )}
+              </Wrapper>
+            )}
+          </section>
+        );
+      })}
     </section>
   );
 }

@@ -21,6 +21,10 @@ function getServerSnapshot() {
   return null;
 }
 
+export function getLenis(): Lenis | null {
+  return globalLenis;
+}
+
 export default function SmoothScroll({
   children,
 }: {

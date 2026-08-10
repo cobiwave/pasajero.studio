@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
 
@@ -12,7 +11,7 @@ export type DirectoryArtist = {
   disciplines: string[];
   location: string;
   bio: string;
-  imageUrl?: string;
+  media?: { url: string; mimeType?: string };
   contactHref: string;
   featured?: boolean;
 };
@@ -37,7 +36,6 @@ function initials(name: string) {
 
 export default function DirectorySection({
   sectionTitle,
-  sectionNumber,
   headline,
   intro,
   artists,
@@ -102,7 +100,7 @@ export default function DirectorySection({
       className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
-        <SectionHeader title={sectionTitle} number={sectionNumber} />
+        <SectionHeader title={sectionTitle} />
 
         <div className="big-directory-text mb-16 md:mb-20 max-w-3xl">
           <h3 className="text-4xl md:text-6xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.95] overflow-hidden">
@@ -131,34 +129,38 @@ export default function DirectorySection({
         <div
           role="group"
           aria-label="Filtrar por disciplina"
-          className="flex flex-wrap gap-2 mb-10 md:mb-12"
+          className="flex flex-wrap items-center gap-2 mb-10 md:mb-12 text-xs uppercase tracking-[0.15em]"
         >
           <button
             type="button"
             onClick={() => setActiveDiscipline(null)}
             aria-pressed={activeDiscipline === null}
-            className={`text-xs uppercase tracking-[0.15em] rounded-full px-4 py-2 border transition-colors duration-300 ${
+            className={`transition-colors duration-300 ${
               activeDiscipline === null
-                ? "border-primary bg-primary text-background font-semibold"
-                : "border-foreground/10 text-foreground/50 hover:border-foreground/30 hover:text-foreground"
+                ? "text-foreground"
+                : "text-foreground/40 hover:text-foreground/70"
             }`}
           >
             Todos
           </button>
           {allDisciplines.map((discipline) => (
-            <button
-              key={discipline}
-              type="button"
-              onClick={() => setActiveDiscipline(discipline)}
-              aria-pressed={activeDiscipline === discipline}
-              className={`text-xs uppercase tracking-[0.15em] rounded-full px-4 py-2 border transition-colors duration-300 ${
-                activeDiscipline === discipline
-                  ? "border-primary bg-primary text-background font-semibold"
-                  : "border-foreground/10 text-foreground/50 hover:border-foreground/30 hover:text-foreground"
-              }`}
-            >
-              {discipline}
-            </button>
+            <span key={discipline} className="flex items-center gap-2">
+              <span className="text-foreground/20" aria-hidden="true">
+                /
+              </span>
+              <button
+                type="button"
+                onClick={() => setActiveDiscipline(discipline)}
+                aria-pressed={activeDiscipline === discipline}
+                className={`transition-colors duration-300 ${
+                  activeDiscipline === discipline
+                    ? "text-foreground"
+                    : "text-foreground/40 hover:text-foreground/70"
+                }`}
+              >
+                {discipline}
+              </button>
+            </span>
           ))}
         </div>
 
@@ -174,19 +176,30 @@ export default function DirectorySection({
                 href={artist.contactHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`artist-card group relative bg-background flex flex-col justify-between min-h-[420px] opacity-0 transition-colors duration-500 hover:bg-surface overflow-hidden ${
+                className={`artist-card group flex flex-col opacity-0 transition-colors duration-500 hover:bg-surface overflow-hidden ${
                   artist.featured ? "md:col-span-2" : ""
                 } ${isVisible ? "" : "hidden"}`}
               >
-                <div className="absolute inset-0 z-0">
-                  {artist.imageUrl ? (
-                    <img
-                      src={artist.imageUrl}
-                      alt={artist.name}
-                      className="w-full h-full object-cover opacity-0 group-hover:opacity-20 transition-opacity duration-700"
-                    />
+                <div className="relative aspect-[4/3] w-full overflow-hidden bg-foreground/3">
+                  {artist.media ? (
+                    artist.media.mimeType?.startsWith("video/") ? (
+                      <video
+                        src={artist.media.url}
+                        autoPlay={!prefersReducedMotion()}
+                        loop
+                        muted
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <img
+                        src={artist.media.url}
+                        alt={artist.name}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    )
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-foreground/3">
+                    <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-5xl md:text-6xl font-bold tracking-tighter text-foreground/8">
                         {initials(artist.name)}
                       </span>
@@ -194,27 +207,23 @@ export default function DirectorySection({
                   )}
                 </div>
 
-                <div className="relative z-10 flex justify-between items-start p-8 md:p-12 pb-0">
+                <div className="flex flex-col gap-4 p-8 md:p-12">
                   <span className="text-xs text-muted/60 font-mono">
                     {artist.location}
                   </span>
-                  <div className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center group-hover:border-primary group-hover:bg-primary transition-all duration-500">
-                    <ArrowUpRight className="w-4 h-4 text-foreground/40 group-hover:text-background group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-500" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="flex min-w-0 flex-col gap-1">
+                      <h4 className="text-lg md:text-xl font-bold tracking-tight leading-snug break-words">
+                        {artist.name}
+                      </h4>
+                      <span className="text-xs uppercase tracking-wide text-muted font-semibold">
+                        {artist.disciplines.slice(0, 2).join(" / ")}
+                      </span>
+                    </div>
+                    <p className="min-w-0 text-sm text-muted leading-relaxed">
+                      {artist.bio}
+                    </p>
                   </div>
-                </div>
-
-                <div className="relative z-10 flex flex-col gap-3 p-8 md:p-12 pt-0">
-                  <div className="flex flex-col gap-1">
-                    <h4 className="text-2xl md:text-3xl font-bold tracking-tight leading-tight">
-                      {artist.name}
-                    </h4>
-                    <span className="text-xs uppercase tracking-[0.15em] text-primary/80 font-semibold">
-                      {artist.disciplines.slice(0, 2).join(" / ")}
-                    </span>
-                  </div>
-                  <p className="text-sm text-muted leading-relaxed max-w-sm">
-                    {artist.bio}
-                  </p>
                 </div>
               </a>
             );

@@ -1,4 +1,3 @@
-import FilmGrain from "@/components/FilmGrain";
 import LoadingGate from "@/components/LoadingGate";
 import { getPayloadClient } from "@/lib/payload";
 
@@ -16,7 +15,6 @@ export default async function Home() {
         words={(loader.words ?? []).map((w) => w.word)}
         subtitle={hero.subtitle}
       />
-      <FilmGrain />
     </main>
   );
 }
