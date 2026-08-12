@@ -78,17 +78,10 @@ export default function LoadingScreen({
   if (done) return null;
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 z-500 pointer-events-none overflow-hidden"
-    >
-      <div className="pointer-events-auto bg-background w-full h-full absolute inset-0 flex items-center justify-center">
-        <div ref={wordsRef} className="flex items-center gap-[2em] opacity-0">
-          <p
-            ref={wordRef}
-            className="text-xl font-medium leading-none m-0 text-foreground"
-            style={{ fontFamily: "StretchPro, sans-serif" }}
-          >
+    <div ref={containerRef}>
+      <div>
+        <div ref={wordsRef}>
+          <p ref={wordRef} style={{ fontFamily: "StretchPro, sans-serif" }}>
             {words[0]}
           </p>
         </div>

@@ -86,46 +86,42 @@ export default function AboutSection({
   );
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden"
-    >
-      <div className="ambient-glow glow-ambient top-0 right-0 opacity-30" />
+    <section id="about" ref={sectionRef}>
+      <div className="ambient-glow glow-ambient" />
 
-      <div className="max-w-7xl mx-auto">
+      <div>
         <SectionHeader title={sectionTitle} number={sectionNumber} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 mb-32 md:mb-48">
-          <div className="lg:col-span-7">
-            <div className="about-statement text-3xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tighter leading-[1.05]">
-              <div className="overflow-hidden">
-                <span className="inline-block">{statement[0]}</span>
+        <div>
+          <div>
+            <div className="about-statement">
+              <div>
+                <span>{statement[0]}</span>
               </div>
-              <div className="overflow-hidden">
-                <span className="inline-block">{statement[1]}</span>
+              <div>
+                <span>{statement[1]}</span>
               </div>
-              <div className="overflow-hidden">
-                <span className="inline-block">
+              <div>
+                <span>
                   {statement[2].split(" ").slice(0, -1).join(" ")}{" "}
-                  <span className="font-serif italic font-light text-primary">
+                  <span>
                     {statement[2].split(" ").at(-1)}
                   </span>
                 </span>
               </div>
-              <div className="overflow-hidden">
-                <span className="inline-block">{statement[3]}</span>
+              <div>
+                <span>{statement[3]}</span>
               </div>
-              <div className="overflow-hidden">
-                <span className="inline-block">{statement[4]}</span>
+              <div>
+                <span>{statement[4]}</span>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col justify-end">
-            <div className="about-bio opacity-0 flex flex-col gap-6 border-l border-foreground/10 pl-8">
+          <div>
+            <div className="about-bio">
               {bio.map((paragraph, i) => (
-                <p key={i} className="text-sm md:text-base text-foreground/70 leading-relaxed">
+                <p key={i}>
                   {paragraph}
                 </p>
               ))}
@@ -133,19 +129,16 @@ export default function AboutSection({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-foreground/5">
+        <div>
           {PRINCIPLES.map((principle) => (
-            <div
-              key={principle.number}
-              className="principle-card bg-background p-8 md:p-10 opacity-0 group"
-            >
-              <span className="text-xs text-primary font-mono block mb-6">
+            <div key={principle.number} className="principle-card">
+              <span>
                 {principle.number}
               </span>
-              <h4 className="text-lg md:text-xl font-bold tracking-tight mb-4">
+              <h4>
                 {principle.title}
               </h4>
-              <p className="text-sm text-muted leading-relaxed">
+              <p>
                 {principle.description}
               </p>
             </div>

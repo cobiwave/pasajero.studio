@@ -94,23 +94,19 @@ export default function DirectorySection({
   );
 
   return (
-    <section
-      id="directory"
-      ref={sectionRef}
-      className="relative py-32 md:py-48 px-6 md:px-12 overflow-hidden"
-    >
-      <div className="max-w-7xl mx-auto">
+    <section id="directory" ref={sectionRef}>
+      <div>
         <SectionHeader title={sectionTitle} />
 
-        <div className="big-directory-text mb-16 md:mb-20 max-w-3xl">
-          <h3 className="text-4xl md:text-6xl lg:text-[5.5rem] font-bold tracking-tighter leading-[0.95] overflow-hidden">
+        <div className="big-directory-text">
+          <h3>
             {headline.map((line, i) => (
-              <div key={i} className="overflow-hidden">
-                <span className="inline-block">
+              <div key={i}>
+                <span>
                   {i === headline.length - 1 ? (
                     <>
                       {line.split(" ").slice(0, -1).join(" ")}{" "}
-                      <span className="text-primary">
+                      <span>
                         {line.split(" ").at(-1)}
                       </span>
                     </>
@@ -121,42 +117,28 @@ export default function DirectorySection({
               </div>
             ))}
           </h3>
-          <p className="mt-8 text-sm md:text-base text-muted leading-relaxed max-w-xl">
+          <p>
             {intro}
           </p>
         </div>
 
-        <div
-          role="group"
-          aria-label="Filtrar por disciplina"
-          className="flex flex-wrap items-center gap-2 mb-10 md:mb-12 text-xs uppercase tracking-[0.15em]"
-        >
+        <div role="group" aria-label="Filtrar por disciplina">
           <button
             type="button"
             onClick={() => setActiveDiscipline(null)}
             aria-pressed={activeDiscipline === null}
-            className={`transition-colors duration-300 ${
-              activeDiscipline === null
-                ? "text-foreground"
-                : "text-foreground/40 hover:text-foreground/70"
-            }`}
           >
             Todos
           </button>
           {allDisciplines.map((discipline) => (
-            <span key={discipline} className="flex items-center gap-2">
-              <span className="text-foreground/20" aria-hidden="true">
+            <span key={discipline}>
+              <span aria-hidden="true">
                 /
               </span>
               <button
                 type="button"
                 onClick={() => setActiveDiscipline(discipline)}
                 aria-pressed={activeDiscipline === discipline}
-                className={`transition-colors duration-300 ${
-                  activeDiscipline === discipline
-                    ? "text-foreground"
-                    : "text-foreground/40 hover:text-foreground/70"
-                }`}
               >
                 {discipline}
               </button>
@@ -164,7 +146,7 @@ export default function DirectorySection({
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-foreground/5">
+        <div>
           {artists.map((artist) => {
             const isVisible =
               !activeDiscipline ||
@@ -176,11 +158,9 @@ export default function DirectorySection({
                 href={artist.contactHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`artist-card group flex flex-col opacity-0 transition-colors duration-500 hover:bg-surface overflow-hidden ${
-                  artist.featured ? "md:col-span-2" : ""
-                } ${isVisible ? "" : "hidden"}`}
+                className="artist-card"
               >
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-foreground/3">
+                <div>
                   {artist.media ? (
                     artist.media.mimeType?.startsWith("video/") ? (
                       <video
@@ -189,38 +169,33 @@ export default function DirectorySection({
                         loop
                         muted
                         playsInline
-                        className="absolute inset-0 w-full h-full object-cover"
                       />
                     ) : (
-                      <img
-                        src={artist.media.url}
-                        alt={artist.name}
-                        className="absolute inset-0 w-full h-full object-cover"
-                      />
+                      <img src={artist.media.url} alt={artist.name} />
                     )
                   ) : (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-5xl md:text-6xl font-bold tracking-tighter text-foreground/8">
+                    <div>
+                      <span>
                         {initials(artist.name)}
                       </span>
                     </div>
                   )}
                 </div>
 
-                <div className="flex flex-col gap-4 p-8 md:p-12">
-                  <span className="text-xs text-muted/60 font-mono">
+                <div>
+                  <span>
                     {artist.location}
                   </span>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div className="flex min-w-0 flex-col gap-1">
-                      <h4 className="text-lg md:text-xl font-bold tracking-tight leading-snug break-words">
+                  <div>
+                    <div>
+                      <h4>
                         {artist.name}
                       </h4>
-                      <span className="text-xs uppercase tracking-wide text-muted font-semibold">
+                      <span>
                         {artist.disciplines.slice(0, 2).join(" / ")}
                       </span>
                     </div>
-                    <p className="min-w-0 text-sm text-muted leading-relaxed">
+                    <p>
                       {artist.bio}
                     </p>
                   </div>

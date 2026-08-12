@@ -3,7 +3,6 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import { getLenis } from "@/components/SmoothScroll";
 import styles from "./Navbar.module.css";
 
@@ -85,40 +84,28 @@ export default function Navbar({
 
   return (
     <>
-      <a
-        href="#work"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-200 focus:bg-primary focus:text-background focus:px-4 focus:py-2 focus:rounded-md focus:text-sm focus:font-semibold"
-      >
+      <a href="#work">
         Skip to content
       </a>
 
       {/* Persistent editorial bar — md and up */}
       <div
-        className={cn(
-          "fixed top-0 left-0 z-100 hidden w-full items-center justify-between px-2 py-2 transition-colors duration-500 md:flex md:px-4",
-          isScrolled ? "bg-background" : "bg-transparent",
-        )}
         style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
       >
         <Link
           href="/"
-          className="text-lg font-bold tracking-tighter uppercase text-white"
           style={{ fontFamily: "StretchPro, sans-serif" }}
         >
           PASAJERO
         </Link>
 
         <nav aria-label="Primary">
-          <ul className="flex items-center gap-(--space-m)">
+          <ul>
             {NAV_ITEMS.map((item) => (
               <li key={item.label}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
-                  className={cn(
-                    "text-base tracking-tight transition-colors duration-300 hover:text-white",
-                    isActive(item.href) ? "text-white/40" : "text-white",
-                  )}
                 >
                   {item.label}
                 </Link>
@@ -127,11 +114,8 @@ export default function Navbar({
           </ul>
         </nav>
 
-        <div className="flex items-center gap-(--space-s)">
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="text-base tracking-tight text-white transition-colors duration-300 hover:text-white/40"
-          >
+        <div>
+          <a href={`mailto:${CONTACT_EMAIL}`}>
             Email
           </a>
           {SOCIALS.map((s) => (
@@ -140,7 +124,6 @@ export default function Navbar({
               href={s.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-base tracking-tight text-white transition-colors duration-300 hover:text-white/40"
             >
               {s.label}
             </a>
@@ -149,20 +132,11 @@ export default function Navbar({
       </div>
 
       {/* Mobile: top bar + hamburger + fullscreen overlay — below md */}
-      <nav
-        data-nav-status={isOpen ? "active" : "not-active"}
-        className="fixed inset-0 z-100 pointer-events-none md:hidden"
-      >
-        <div
-          className={cn(
-            "absolute z-10 w-full flex justify-between items-center px-6 py-6 transition-colors duration-500",
-            isScrolled ? "bg-background" : "bg-transparent",
-          )}
-        >
+      <nav data-nav-status={isOpen ? "active" : "not-active"}>
+        <div>
           <Link
             href="/"
             onClick={close}
-            className="pointer-events-auto relative z-10 text-lg font-bold tracking-tighter uppercase p-2 text-white"
             style={{ fontFamily: "StretchPro, sans-serif" }}
           >
             PASAJERO
@@ -173,14 +147,11 @@ export default function Navbar({
             aria-label={isOpen ? "Close navigation" : "Open navigation"}
             aria-expanded={isOpen}
             aria-controls="nav-overlay"
-            className={cn(
-              styles.hamburger,
-              "pointer-events-auto relative z-10 flex items-center justify-center w-12 h-12 cursor-pointer bg-transparent overflow-hidden",
-            )}
+            className={styles.hamburger}
           >
-            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
-            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
-            <span className={cn(styles.bar, "absolute w-8 h-[2px] bg-white")} />
+            <span className={styles.bar} />
+            <span className={styles.bar} />
+            <span className={styles.bar} />
           </button>
         </div>
 
@@ -190,31 +161,16 @@ export default function Navbar({
           role="dialog"
           aria-modal={isOpen}
           aria-label="Navigation menu"
-          className={cn(
-            styles.tile,
-            "absolute inset-0 flex flex-col items-center justify-center bg-surface",
-          )}
+          className={styles.tile}
         >
-          <ul
-            className={cn(
-              styles.list,
-              "flex flex-col items-center w-full m-0 p-0 list-none",
-            )}
-          >
+          <ul className={styles.list}>
             {NAV_ITEMS.map((item) => (
-              <li
-                key={item.label}
-                className={cn(
-                  styles.item,
-                  "relative flex items-center justify-center w-full m-0 p-0 overflow-hidden h-[calc(clamp(2.5rem,4vw+4vh,10rem)*1.15)]",
-                )}
-              >
+              <li key={item.label} className={styles.item}>
                 <div className={styles.link}>
                   <Link
                     href={item.href}
                     onClick={close}
                     tabIndex={isOpen ? 0 : -1}
-                    className="block font-light leading-[1.1] tracking-[-0.04em] text-4xl no-underline px-[0.075em] text-foreground"
                     style={{ fontFamily: "var(--font-geist-sans), sans-serif" }}
                   >
                     {item.label}
@@ -224,8 +180,8 @@ export default function Navbar({
             ))}
           </ul>
 
-          <div className="absolute bottom-0 left-0 w-full flex justify-end items-center px-6 py-6">
-            <p className="text-muted text-lg m-0">{CONTACT_EMAIL}</p>
+          <div>
+            <p>{CONTACT_EMAIL}</p>
           </div>
         </div>
       </nav>

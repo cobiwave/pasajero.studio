@@ -40,7 +40,7 @@ export default async function WorkPage() {
   }));
 
   return (
-    <main id="main-content" className="relative">
+    <main id="main-content">
       <WorkSection
         sectionTitle={global.sectionTitle}
         sectionNumber={global.sectionNumber}

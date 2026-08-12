@@ -6,6 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 import { gsap, prefersReducedMotion } from "@/lib/gsap";
 import SectionHeader from "@/components/SectionHeader";
 import { submitJoinRequest, type JoinRequestState } from "@/app/(frontend)/directory/joinAction";
+import styles from "./JoinSection.module.scss";
 
 interface JoinSectionProps {
   sectionTitle: string;
@@ -94,26 +95,22 @@ export default function JoinSection({
   );
 
   return (
-    <section
-      id="join"
-      ref={sectionRef}
-      className="relative pt-32 md:pt-48 pb-32 md:pb-48 overflow-hidden"
-    >
-      <div className="ambient-glow glow-ambient top-0 right-1/4 opacity-20" />
+    <section id="join" ref={sectionRef}>
+      <div className="ambient-glow glow-ambient" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div>
         <SectionHeader title={sectionTitle} number={sectionNumber} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
-          <div className="lg:col-span-6 join-headline">
-            <h3 className="text-4xl md:text-6xl lg:text-[5rem] font-bold tracking-tighter leading-[0.95] overflow-hidden">
+        <div>
+          <div className="join-headline">
+            <h3>
               {headline.map((line, i) => (
-                <div key={i} className="overflow-hidden">
-                  <span className="inline-block">
+                <div key={i}>
+                  <span>
                     {i === headline.length - 1 ? (
                       <>
                         {line.split(" ").slice(0, -1).join(" ")}{" "}
-                        <span className="font-serif italic font-light text-primary">
+                        <span>
                           {line.split(" ").at(-1)}
                         </span>
                       </>
@@ -125,21 +122,14 @@ export default function JoinSection({
               ))}
             </h3>
 
-            <p className="mt-8 text-sm md:text-base text-muted leading-relaxed max-w-sm">
+            <p>
               {intro}
             </p>
           </div>
 
-          <div className="lg:col-span-6">
-            <form
-              ref={formRef}
-              action={formAction}
-              className="join-form opacity-0 flex flex-col gap-0 border-t border-foreground/8"
-            >
-              <div
-                className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden"
-                aria-hidden="true"
-              >
+          <div>
+            <form ref={formRef} action={formAction} className="join-form">
+              <div className={styles.honeypot} aria-hidden="true">
                 <label htmlFor="join-website">Dejar en blanco</label>
                 <input
                   id="join-website"
@@ -150,11 +140,8 @@ export default function JoinSection({
                 />
               </div>
 
-              <div className="relative border-b border-foreground/8 group">
-                <label
-                  htmlFor="join-name"
-                  className="absolute top-4 left-0 text-[10px] uppercase tracking-[0.2em] text-muted font-semibold pointer-events-none"
-                >
+              <div>
+                <label htmlFor="join-name">
                   {FORM.nameLabel}
                 </label>
                 <input
@@ -162,30 +149,24 @@ export default function JoinSection({
                   type="text"
                   name="name"
                   required
-                  className="w-full bg-transparent pt-10 pb-4 text-base text-foreground outline-none border-none placeholder:text-foreground/15 focus:placeholder:text-foreground/25 transition-colors"
                   placeholder={FORM.namePlaceholder}
                 />
-                <div className="absolute bottom-0 left-0 w-0 h-px bg-primary group-focus-within:w-full transition-all duration-500" />
+                <div />
               </div>
 
-              <div className="py-8 border-b border-foreground/8">
-                <span className="block text-[10px] uppercase tracking-[0.2em] text-muted font-semibold mb-4">
+              <div>
+                <span>
                   {FORM.disciplinesLabel}
                 </span>
-                <div
-                  role="group"
-                  aria-label={FORM.disciplinesLabel}
-                  className="flex flex-wrap gap-2"
-                >
+                <div role="group" aria-label={FORM.disciplinesLabel}>
                   {DISCIPLINES.map((discipline) => (
-                    <label key={discipline} className="cursor-pointer">
+                    <label key={discipline}>
                       <input
                         type="checkbox"
                         name="disciplines"
                         value={discipline}
-                        className="peer sr-only"
                       />
-                      <span className="inline-block text-xs uppercase tracking-[0.15em] rounded-full px-4 py-2 border border-foreground/10 text-foreground/50 transition-colors duration-300 hover:border-foreground/30 hover:text-foreground peer-checked:border-primary peer-checked:bg-primary peer-checked:text-background peer-checked:font-semibold">
+                      <span>
                         {discipline}
                       </span>
                     </label>
@@ -193,11 +174,8 @@ export default function JoinSection({
                 </div>
               </div>
 
-              <div className="relative border-b border-foreground/8 group">
-                <label
-                  htmlFor="join-contact"
-                  className="absolute top-4 left-0 text-[10px] uppercase tracking-[0.2em] text-muted font-semibold pointer-events-none"
-                >
+              <div>
+                <label htmlFor="join-contact">
                   {FORM.contactLabel}
                 </label>
                 <input
@@ -205,31 +183,26 @@ export default function JoinSection({
                   type="text"
                   name="contact"
                   required
-                  className="w-full bg-transparent pt-10 pb-4 text-base text-foreground outline-none border-none placeholder:text-foreground/15 focus:placeholder:text-foreground/25 transition-colors"
                   placeholder={FORM.contactPlaceholder}
                 />
-                <div className="absolute bottom-0 left-0 w-0 h-px bg-primary group-focus-within:w-full transition-all duration-500" />
+                <div />
               </div>
 
-              <div className="pt-8 flex flex-col gap-4">
-                <button
-                  type="submit"
-                  disabled={isPending}
-                  className="group flex items-center gap-3 w-fit text-sm font-semibold tracking-wider uppercase border border-foreground/10 hover:border-primary hover:bg-primary hover:text-background rounded-full px-8 py-4 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
+              <div>
+                <button type="submit" disabled={isPending}>
                   <span>
                     {isPending ? FORM.sendingLabel : FORM.submitLabel}
                   </span>
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                  <ArrowUpRight />
                 </button>
 
                 {state.status === "success" && (
-                  <p role="status" className="text-sm text-primary">
+                  <p role="status">
                     {FORM.successMessage}
                   </p>
                 )}
                 {state.status === "error" && (
-                  <p role="alert" className="text-sm text-red-400">
+                  <p role="alert">
                     {FORM.errorMessage}
                   </p>
                 )}

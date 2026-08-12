@@ -13,7 +13,7 @@ export default async function AboutPage() {
   const global = await payload.findGlobal({ slug: "about-section" });
 
   return (
-    <main id="main-content" className="relative pt-24">
+    <main id="main-content">
       <AboutSection
         sectionTitle={global.sectionTitle}
         sectionNumber={global.sectionNumber}

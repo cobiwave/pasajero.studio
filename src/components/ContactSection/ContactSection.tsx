@@ -122,70 +122,56 @@ export default function ContactSection({
   };
 
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      className="relative pt-32 md:pt-48 overflow-hidden"
-    >
-      <div className="ambient-glow glow-ambient bottom-0 left-1/4 opacity-20" />
+    <section id="contact" ref={sectionRef}>
+      <div className="ambient-glow glow-ambient" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div>
         <SectionHeader title={sectionTitle} number={sectionNumber} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 mb-32 md:mb-48">
-          <div className="lg:col-span-6 contact-headline">
-            <h3 className="text-4xl md:text-6xl lg:text-[5rem] font-bold tracking-tighter leading-[0.95]">
-              <div className="overflow-hidden">
-                <span className="inline-block">{headline[0]}</span>
+        <div>
+          <div className="contact-headline">
+            <h3>
+              <div>
+                <span>{headline[0]}</span>
               </div>
-              <div className="overflow-hidden">
-                <span className="inline-block">
+              <div>
+                <span>
                   {headline[1].split(" ").slice(0, -1).join(" ")}{" "}
-                  <span className="font-serif italic font-light text-primary">
+                  <span>
                     {headline[1].split(" ").at(-1)}
                   </span>
                 </span>
               </div>
-              <div className="overflow-hidden">
-                <span className="inline-block">{headline[2]}</span>
+              <div>
+                <span>{headline[2]}</span>
               </div>
             </h3>
 
-            <div className="mt-12 flex flex-col gap-4">
-              <a
-                href={`mailto:${email}`}
-                className="text-lg md:text-xl text-foreground/70 hover:text-primary transition-colors duration-300 w-fit"
-              >
+            <div>
+              <a href={`mailto:${email}`}>
                 {email}
               </a>
-              <div className="flex gap-6 mt-4">
+              <div>
                 {SOCIALS.map((social) => (
                   <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-1.5 text-sm text-muted hover:text-foreground transition-colors duration-300"
                   >
                     {social.label}
-                    <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-y-0.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300" />
+                    <ArrowUpRight />
                   </a>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-6">
-            <form
-              className="contact-form opacity-0 flex flex-col gap-0 border-t border-foreground/8"
-              onSubmit={handleSubmit}
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-px">
-                <div className="relative border-b border-foreground/8 group">
-                  <label
-                    htmlFor="contact-name"
-                    className="absolute top-4 left-0 text-[10px] uppercase tracking-[0.2em] text-muted font-semibold pointer-events-none"
-                  >
+          <div>
+            <form className="contact-form" onSubmit={handleSubmit}>
+              <div>
+                <div>
+                  <label htmlFor="contact-name">
                     {FORM.nameLabel}
                   </label>
                   <input
@@ -193,16 +179,12 @@ export default function ContactSection({
                     type="text"
                     name="name"
                     required
-                    className="w-full bg-transparent pt-10 pb-4 text-base text-foreground outline-none border-none placeholder:text-foreground/15 focus:placeholder:text-foreground/25 transition-colors"
                     placeholder={FORM.namePlaceholder}
                   />
-                  <div className="absolute bottom-0 left-0 w-0 h-px bg-primary group-focus-within:w-full transition-all duration-500" />
+                  <div />
                 </div>
-                <div className="relative border-b border-foreground/8 group">
-                  <label
-                    htmlFor="contact-email"
-                    className="absolute top-4 left-0 text-[10px] uppercase tracking-[0.2em] text-muted font-semibold pointer-events-none"
-                  >
+                <div>
+                  <label htmlFor="contact-email">
                     {FORM.emailLabel}
                   </label>
                   <input
@@ -210,18 +192,14 @@ export default function ContactSection({
                     type="email"
                     name="email"
                     required
-                    className="w-full bg-transparent pt-10 pb-4 text-base text-foreground outline-none border-none placeholder:text-foreground/15 focus:placeholder:text-foreground/25 transition-colors"
                     placeholder={FORM.emailPlaceholder}
                   />
-                  <div className="absolute bottom-0 left-0 w-0 h-px bg-primary group-focus-within:w-full transition-all duration-500" />
+                  <div />
                 </div>
               </div>
 
-              <div className="relative border-b border-foreground/8 group">
-                <label
-                  htmlFor="contact-message"
-                  className="absolute top-4 left-0 text-[10px] uppercase tracking-[0.2em] text-muted font-semibold pointer-events-none"
-                >
+              <div>
+                <label htmlFor="contact-message">
                   {FORM.messageLabel}
                 </label>
                 <textarea
@@ -229,18 +207,13 @@ export default function ContactSection({
                   name="message"
                   rows={4}
                   required
-                  className="w-full bg-transparent pt-10 pb-4 text-base text-foreground outline-none border-none resize-none placeholder:text-foreground/15 focus:placeholder:text-foreground/25 transition-colors"
                   placeholder={FORM.messagePlaceholder}
                 />
-                <div className="absolute bottom-0 left-0 w-0 h-px bg-primary group-focus-within:w-full transition-all duration-500" />
+                <div />
               </div>
 
-              <div className="pt-8">
-                <button
-                  type="submit"
-                  disabled={formStatus === "sending"}
-                  className="group flex items-center gap-3 text-sm font-semibold tracking-wider uppercase border border-foreground/10 hover:border-primary hover:bg-primary hover:text-background rounded-full px-8 py-4 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
+              <div>
+                <button type="submit" disabled={formStatus === "sending"}>
                   <span>
                     {formStatus === "sending"
                       ? "Opening mail..."
@@ -248,7 +221,7 @@ export default function ContactSection({
                         ? "Mail client opened!"
                         : FORM.submitLabel}
                   </span>
-                  <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                  <ArrowUpRight />
                 </button>
               </div>
             </form>
@@ -256,12 +229,12 @@ export default function ContactSection({
         </div>
       </div>
 
-      <footer className="border-t border-foreground/5">
-        <div className="footer-content opacity-0 max-w-7xl mx-auto px-6 md:px-12 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-muted" suppressHydrationWarning>
+      <footer>
+        <div className="footer-content">
+          <p suppressHydrationWarning>
             &copy; {new Date().getFullYear()} {FOOTER.copyright}
           </p>
-          <p className="text-xs text-muted/50">
+          <p>
             {FOOTER.tagline}
           </p>
         </div>

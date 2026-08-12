@@ -43,13 +43,8 @@ export default function SectionHeader({
   );
 
   return (
-    <div
-      ref={ref}
-      className={`flex items-baseline gap-4 mb-16 md:mb-24 opacity-0 ${
-        align === "right" ? "justify-end" : "justify-start"
-      }`}
-    >
-      <h2 className="text-sm md:text-base uppercase tracking-[0.2em] font-semibold text-foreground/60">
+    <div ref={ref}>
+      <h2>
         {title}
       </h2>
     </div>

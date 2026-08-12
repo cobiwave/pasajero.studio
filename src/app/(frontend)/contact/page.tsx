@@ -17,7 +17,7 @@ export default async function ContactPage() {
   ]);
 
   return (
-    <main id="main-content" className="relative pt-24">
+    <main id="main-content">
       <ContactSection
         sectionTitle={contactSection.sectionTitle}
         sectionNumber={contactSection.sectionNumber}

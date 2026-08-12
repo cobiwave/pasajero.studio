@@ -10,7 +10,7 @@ export default async function Home() {
   ]);
 
   return (
-    <main id="main-content" className="relative">
+    <main id="main-content">
       <LoadingGate
         words={(loader.words ?? []).map((w) => w.word)}
         subtitle={hero.subtitle}

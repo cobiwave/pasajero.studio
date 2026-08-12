@@ -46,7 +46,7 @@ export default async function DirectoryPage() {
   }));
 
   return (
-    <main id="main-content" className="relative pt-24">
+    <main id="main-content">
       <DirectorySection
         sectionTitle={global.sectionTitle}
         sectionNumber={global.sectionNumber}

@@ -55,35 +55,26 @@ export default function Hero({ loaded = true, subtitle }: HeroProps) {
   );
 
   return (
-    <section
-      ref={container}
-      className="relative h-dvh flex flex-col justify-end overflow-hidden text-foreground"
-    >
+    <section ref={container}>
       {/* Video Background */}
-      <div className="hero-video-wrap absolute inset-0 z-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
+      <div className="hero-video-wrap">
+        <video autoPlay muted loop playsInline>
           <source src="/bg-video.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-linear-to-t from-background via-background/50 to-background/10" />
-        <div className="absolute inset-0 bg-linear-to-r from-background/40 via-transparent to-background/20" />
+        <div />
+        <div />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col h-full px-(--space-l) pb-(--space-m) pt-(--space-m) lg:pt-(--space-3xl)">
+      <div>
         {/* Bottom: tagline + socials */}
-        <div className="mt-auto flex flex-wrap justify-between items-end w-full gap-y-(--space-s)">
-          <p className="hero-meta text-foreground/60 text-sm lg:text-base font-light leading-snug max-w-[38ch]">
+        <div>
+          <p className="hero-meta">
             {subtitle}
           </p>
 
-          <div className="hero-meta flex flex-col items-end gap-(--space-xs)">
-            <p className="text-foreground/20 text-xs font-mono tracking-wider uppercase">
+          <div className="hero-meta">
+            <p>
               &copy; {new Date().getFullYear()} Pasajero Studio
             </p>
           </div>

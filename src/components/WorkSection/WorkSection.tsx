@@ -147,27 +147,20 @@ export default function WorkSection({ projects }: WorkSectionProps) {
   );
 
   return (
-    <section ref={sectionRef} id="work" className="relative">
-      <div
-        ref={counterRef}
-        aria-hidden
-        className="fixed left-6 md:left-10 top-1/2 -translate-y-1/2 z-40 font-mono text-sm flex items-baseline gap-1"
-      >
-        <span className="font-bold text-foreground">
+    <section ref={sectionRef} id="work">
+      <div ref={counterRef} aria-hidden>
+        <span>
           {String(activeIndex + 1).padStart(3, "0")}
         </span>
-        <span className="text-muted/60">/{String(total).padStart(3, "0")}</span>
+        <span>/{String(total).padStart(3, "0")}</span>
       </div>
 
-      <div className="fixed bottom-0 inset-x-0 z-40 flex items-center justify-between px-6 md:px-2 py-2">
-        <div
-          ref={infoRef}
-          className="flex items-center justify-between w-full gap-6"
-        >
-          <span className="text-xs uppercase tracking-wide text-muted font-semibold">
+      <div>
+        <div ref={infoRef}>
+          <span>
             {activeProject?.category}
           </span>
-          <h4 className="text-lg md:text-xl font-bold tracking-tight text-right">
+          <h4>
             {activeProject?.title}
           </h4>
         </div>
@@ -189,7 +182,6 @@ export default function WorkSection({ projects }: WorkSectionProps) {
             ref={(el) => {
               sectionRefs.current[index] = el;
             }}
-            className="h-screen w-full flex flex-col items-center justify-center relative"
           >
             {project.media && (
               <Wrapper
@@ -197,7 +189,6 @@ export default function WorkSection({ projects }: WorkSectionProps) {
                 ref={(el: HTMLElement | null) => {
                   mediaRefs.current[index] = el;
                 }}
-                className="w-[min(70vw,1100px)] aspect-video relative overflow-hidden"
               >
                 {project.media.mimeType?.startsWith("video/") ? (
                   <video
@@ -206,14 +197,9 @@ export default function WorkSection({ projects }: WorkSectionProps) {
                     loop
                     muted
                     playsInline
-                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 ) : (
-                  <img
-                    src={project.media.url}
-                    alt={project.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
+                  <img src={project.media.url} alt={project.title} />
                 )}
               </Wrapper>
             )}
