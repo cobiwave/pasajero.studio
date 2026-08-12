@@ -10,7 +10,7 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 ## Stack técnico (verificado en el repo, rama `develop`)
 
 - **Next.js 16** (App Router), **React 19.2**, **TypeScript**
-- **Tailwind CSS v4** vía `@tailwindcss/postcss` — tokens definidos en `src/app/globals.css` con `@theme inline`, incluyendo escala tipográfica fluida (Utopia `--step-*`). Evita reintroducir SCSS/CSS Modules salvo casos puntuales de animación (ver `Navbar.module.css` como única excepción actual).
+- **SCSS propio, sin Tailwind** (removido a propósito — decisión del dueño del proyecto, no reintroducir `tailwindcss`/`@tailwindcss/postcss`/`tailwind-merge` ni el patrón `className="flex items-center gap-4..."`). Ver "Sistema de estilos (SCSS)" abajo para la estructura y las reglas de esta sección.
 - **GSAP** + `@gsap/react` (`useGSAP` hook) para animaciones — ver `src/lib/gsap.ts` (incluye `prefersReducedMotion()`, que **siempre** debe respetarse en timelines nuevas).
 - **Motion** (Framer Motion) también está en dependencias pero el patrón dominante hoy es GSAP directo en componentes de sección.
 - **Lenis** (smooth scroll) vía `src/components/SmoothScroll/*`.
@@ -27,6 +27,46 @@ Pasajero Studio está migrando de un sitio-portfolio personal a una **plataforma
 - Estructura: `src/components/NombreComponente/NombreComponente.tsx` + `index.ts` que re-exporta.
 - `"use client"` solo en componentes que realmente necesitan interactividad/hooks del navegador (GSAP, Lenis, estado). Todo lo demás, Server Component por default — es intencional en Next.js 16/React 19.
 - El contenido textual sale de un Global/Collection de Payload, fetcheado en el Server Component de página (`getPayloadClient()`) y pasado por props al componente de sección — nunca hardcodeado dentro del JSX de la sección (excepto microcopy puramente técnico, ej. `aria-label`).
+
+## Sistema de estilos (SCSS)
+
+Migración deliberada de Tailwind a SCSS propio (`src/styles/`), portado desde
+un setup histórico del propio dueño del proyecto (commit `9fccf89`). Dos
+motivos, ambos reales: (1) control total de layout para un futuro rediseño
+con un UI designer contratado, (2) práctica personal de CSS/SCSS a mano de
+cara a un proceso de entrevistas — **este segundo motivo importa para cómo
+te comportás vos, ver regla abajo.**
+
+- Raíz en `10px` (`html { font-size: 10px }` en `normalize.scss`) — todos los
+  mixins usan `px($n)` (`$n * 0.1rem`) asumiendo esa base. **No "arreglar"
+  esto a 16px** — es intencional, no un bug, aunque rompa la convención
+  típica de la industria.
+- Archivos: `vars.scss` (breakpoints, spacing, easings, pesos), `grid.scss`
+  (sistema de columnas + mixins de contenedor/spacing), `mixins/layout.scss`
+  (centrado, z-index, scrollbar, a11y), `mixins/typography.scss` (mixins de
+  tipografía, no wireados a ningún selector todavía), `normalize.scss`
+  (reset), `fonts.scss` (StretchPro), `shared.scss` (barrel de imports).
+- Colores (`$black`, `$white`, `$gray-light` en `vars.scss`) son alias de
+  las custom properties de `globals.scss` (`var(--background)`, etc.) — no
+  dupliques valores hardcodeados si agregás un color nuevo, agregalo como
+  custom property primero.
+- **Bugs latentes conocidos, no arreglados a propósito** (nadie los usa
+  todavía, así que no rompen el build — pero van a explotar el día que se
+  usen si no se corrigen antes):
+  - `mixins/typography.scss`, función `line-height()`: llama a
+    `is-compatible(...)`, que no existe. Case: casi seguro debía ser
+    `math.compatible(...)`.
+  - `mixins/layout.scss`, mixin `outline()`: default `$color: $squid-ink`,
+    variable nunca definida.
+  - `normalize.scss`: `html { text-align: center; }` — probablemente un
+    leftover, centra todo el texto del sitio por default.
+- **Regla dura para vos (Claude Code) en esta sección:** el maquetado de
+  componentes con este sistema lo hace el dueño del proyecto a mano, como
+  ejercicio personal — **no le escribas el layout ni le generes
+  `.module.scss` con estilos por iniciativa propia.** Si te pide ayuda
+  puntual (un mixin que falta, un bug de compilación de Sass, revisar algo
+  que ya escribió), ayudalo con eso específicamente, sin reescribir
+  secciones enteras de estilo que no pidió.
 
 ## Roadmap activo (para priorizar sugerencias)
 
