@@ -4,6 +4,7 @@ import SmoothScrollProvider from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import { getPayloadClient } from "@/lib/payload";
 import "./globals.scss";
+import DebugGrid from "@/components/DebugGrid/DebugGrid";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +23,8 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "PASAJERO STUDIO — Estudio de producción audiovisual y directorio de artistas",
+  title:
+    "PASAJERO STUDIO — Estudio de producción audiovisual y directorio de artistas",
   description:
     "Estudio de contenido audiovisual y directorio invitacional de artistas multidisciplinarios —skate, surf, música, cine, fotografía— con base en Buenos Aires.",
   metadataBase: new URL("https://pasajero.studio"),
@@ -103,6 +105,7 @@ export default async function RootLayout({
           }))}
         />
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <DebugGrid />
       </body>
     </html>
   );
